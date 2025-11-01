@@ -74,17 +74,14 @@ http://localhost/Hosteller/
 
 The homepage of your hostel management website will appear.
 
-📸 <h3>Screenshots</h3>
+📸 **Screenshots**
+(Add screenshots here...)
 
-👩‍💻 <h3>Contributors</h3>
+🙋‍♀️ **Contributors**
+- Mansi Karki  
+- Sanika Hande  
 
-Mansi Karki<br>
-Sanika Hande
-
-#🚧 <h3>Future Enhancements</h3>
-
-Online payment integration<br>
-Hostel attendance tracking<br>
-Mobile app version
-
-
+🛠️ **Future Enhancements**
+- Online payment integration  
+- Hostel attendance tracking  
+- Mobile app version
