@@ -81,7 +81,7 @@ The homepage of your hostel management website will appear.
 Mansi Karki<br>
 Sanika Hande
 
-🚧 <h3>Future Enhancements</h3>
+#🚧 <h3>Future Enhancements</h3>
 
 Online payment integration<br>
 Hostel attendance tracking<br>
