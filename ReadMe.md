@@ -1,33 +1,33 @@
 <h1> Hosteller</h1>
 
 
-🏡 <h6>Project Description</h6>
+ <h3>Project Description</h3>
 
 This project is a Hostel Management System designed to simplify and digitalize various hostel-related tasks. It provides an easy-to-use interface for students and administrators to manage day-to-day hostel operations efficiently.
 
 The system includes sections such as room allocation, mess and food management, complaint registration, and notice updates, making it a one-stop solution for hostel administration.
 
-🎯 <h6>Purpose</h6>
+ <h3>Purpose</h3>
 
 The main purpose of this project is to reduce manual work, improve communication, and maintain transparency between students and hostel management. It ensures that all hostel activities—such as assigning rooms, updating food menus, and handling complaints—can be done online in a structured and organized way.
 
-💡 <h6>Why I Made It</h6>
+ <h3>Why I Made It</h3>
 
 I created this project to apply my web development and software engineering knowledge to a real-life scenario. Managing a hostel involves multiple repetitive and time-consuming tasks, so building this project was an opportunity to design a smart, digital system that can make hostel management faster, easier, and more reliable for both students and administrators.
 
 
-✨ <h6>Features</h6>
+<h3>Features</h3>
 
-🏠 Home Page – Gives an overview of the hostel with navigation to other sections.<br>
-🛏️ Room Allocation – Allows students to view or request available rooms and check room details.<br>
-🍽️ Mess & Food Section – Displays the weekly food menu, mess timings, and meal details.<br>
-🧾 Notice Board – Shows important announcements and updates from the hostel administration.<br>
-💬 Complaint & Feedback Portal – Lets students raise complaints or give feedback online.<break>
-👩‍💻 Admin Panel – For administrators to manage student records, update menus, and handle complaints.<br>
-📋 Registration & Login – Provides secure access for students and admin users.<br>
-📱 Responsive Design – The website is mobile-friendly and works smoothly on all devices.<br>
+ Home Page – Gives an overview of the hostel with navigation to other sections.<br>
+ Room Allocation – Allows students to view or request available rooms and check room details.<br>
+ Mess & Food Section – Displays the weekly food menu, mess timings, and meal details.<br>
+ Notice Board – Shows important announcements and updates from the hostel administration.<br>
+ Complaint & Feedback Portal – Lets students raise complaints or give feedback online.<br>
+ Admin Panel – For administrators to manage student records, update menus, and handle complaints.<br>
+ Registration & Login – Provides secure access for students and admin users.<br>
+ Responsive Design – The website is mobile-friendly and works smoothly on all devices.<br>
 
-🛠️ <h6>Tech Stack</h6>
+ <h3>Tech Stack</h3>
 
 Frontend: HTML, CSS, JavaScript
 Backend: PHP (or Node.js / Java — you can specify what you used)
@@ -38,7 +38,7 @@ Git & GitHub (for version control and hosting)
 XAMPP / WAMP (for local server setup)
 Canva / Figma (if you used them for UI design — optional)
 
-🚀 <h6>Installation & Setup Instructions</h6>
+ <h3>Installation & Setup Instructions</h3>
 
 Follow these steps to run the project on your local system:
 
@@ -74,14 +74,14 @@ http://localhost/Hosteller/
 
 The homepage of your hostel management website will appear.
 
-📸 <h6>Screenshots</h6>
+ <h3>Screenshots</h3>
 
-👩‍💻 <h6>Contributors</h6>
+ <h3>Contributors</h3>
 
 Mansi Karki
 Sanika Hande
 
-🚧 <h6>Future Enhancements</h6>
+ <h3>Future Enhancements</h3>
 
 Online payment integration
 Hostel attendance tracking
