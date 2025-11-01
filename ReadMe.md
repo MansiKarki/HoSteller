@@ -75,7 +75,7 @@ http://localhost/Hosteller/
 The homepage of your hostel management website will appear.
 
 📸 **Screenshots**
-(Add screenshots here...)
+
 
 🙋‍♀️ **Contributors**
 - Mansi Karki  
