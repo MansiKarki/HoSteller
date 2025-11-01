@@ -29,14 +29,14 @@ I created this project to apply my web development and software engineering know
 
  <h3>Tech Stack</h3>
 
-Frontend: HTML, CSS, JavaScript
-Backend: PHP (or Node.js / Java — you can specify what you used)
-Database: MySQL (for storing student, room, and mess data)
-Tools & Technologies:
-Visual Studio Code (for development)
-Git & GitHub (for version control and hosting)
-XAMPP / WAMP (for local server setup)
-Canva / Figma (if you used them for UI design — optional)
+Frontend: HTML, CSS, JavaScript<br>
+Backend: PHP (or Node.js / Java — you can specify what you used)<br>
+Database: MySQL (for storing student, room, and mess data)<br>
+Tools & Technologies:<br>
+    Visual Studio Code (for development)<br>
+    Git & GitHub (for version control and hosting)<br>
+    XAMPP / WAMP (for local server setup)<br>
+    Canva / Figma (if you used them for UI design — optional)<br>
 
  <h3>Installation & Setup Instructions</h3>
 
@@ -78,13 +78,13 @@ The homepage of your hostel management website will appear.
 
  <h3>Contributors</h3>
 
-Mansi Karki
+Mansi Karki<br>
 Sanika Hande
 
  <h3>Future Enhancements</h3>
 
-Online payment integration
-Hostel attendance tracking
+Online payment integration<br>
+Hostel attendance tracking<br>
 Mobile app version
 
 
