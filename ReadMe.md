@@ -1,22 +1,22 @@
 <h1> Hosteller</h1>
 
 
-🏡<h3>Project Description</h3>
+🏡 **Project Description**
 
 This project is a Hostel Management System designed to simplify and digitalize various hostel-related tasks. It provides an easy-to-use interface for students and administrators to manage day-to-day hostel operations efficiently.
 
 The system includes sections such as room allocation, mess and food management, complaint registration, and notice updates, making it a one-stop solution for hostel administration.
 
-🎯<h3>Purpose</h3>
+🎯 **Purpose**
 
 The main purpose of this project is to reduce manual work, improve communication, and maintain transparency between students and hostel management. It ensures that all hostel activities—such as assigning rooms, updating food menus, and handling complaints—can be done online in a structured and organized way.
 
-💡<h3>Why I Made It</h3>
+💡**Why I Made It**
 
 I created this project to apply my web development and software engineering knowledge to a real-life scenario. Managing a hostel involves multiple repetitive and time-consuming tasks, so building this project was an opportunity to design a smart, digital system that can make hostel management faster, easier, and more reliable for both students and administrators.
 
 
-✨<h3>Features</h3>
+✨ **Features**
 
  🏠Home Page – Gives an overview of the hostel with navigation to other sections.<br>
  🛏️Room Allocation – Allows students to view or request available rooms and check room details.<br>
@@ -27,7 +27,7 @@ I created this project to apply my web development and software engineering know
  📋Registration & Login – Provides secure access for students and admin users.<br>
  📱Responsive Design – The website is mobile-friendly and works smoothly on all devices.<br>
 
-🛠️<h3>Tech Stack</h3>
+🛠️ **Tech Stack**
 
 Frontend: HTML, CSS, JavaScript<br>
 Backend: PHP (or Node.js / Java — you can specify what you used)<br>
@@ -38,7 +38,7 @@ Tools & Technologies:<br>
     XAMPP / WAMP (for local server setup)<br>
     Canva / Figma (if you used them for UI design — optional)<br>
 
-🚀<h3>Installation & Setup Instructions</h3>
+🚀 **Installation & Setup Instructions**
 
 Follow these steps to run the project on your local system:
 
@@ -74,14 +74,14 @@ http://localhost/Hosteller/
 
 The homepage of your hostel management website will appear.
 
-📸 <h3>**Screenshots**</h3>
+📸 **Screenshots**
 (Add screenshots here...)
 
-🙋‍♀️ <h3>**Contributors**</h3>
+🙋‍♀️ **Contributors**
 - Mansi Karki  
 - Sanika Hande  
 
-🛠️ <h3>**Future Enhancements**</h3>
+🛠️ **Future Enhancements**
 - Online payment integration  
 - Hostel attendance tracking  
 - Mobile app version
