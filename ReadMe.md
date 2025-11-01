@@ -18,14 +18,14 @@ I created this project to apply my web development and software engineering know
 
 ✨ <h6>Features</h6>
 
-🏠 Home Page – Gives an overview of the hostel with navigation to other sections.
-🛏️ Room Allocation – Allows students to view or request available rooms and check room details.
-🍽️ Mess & Food Section – Displays the weekly food menu, mess timings, and meal details.
-🧾 Notice Board – Shows important announcements and updates from the hostel administration.
-💬 Complaint & Feedback Portal – Lets students raise complaints or give feedback online.
-👩‍💻 Admin Panel – For administrators to manage student records, update menus, and handle complaints.
-📋 Registration & Login – Provides secure access for students and admin users.
-📱 Responsive Design – The website is mobile-friendly and works smoothly on all devices.
+🏠 Home Page – Gives an overview of the hostel with navigation to other sections.<break>
+🛏️ Room Allocation – Allows students to view or request available rooms and check room details.<break>
+🍽️ Mess & Food Section – Displays the weekly food menu, mess timings, and meal details.<break>
+🧾 Notice Board – Shows important announcements and updates from the hostel administration.<break>
+💬 Complaint & Feedback Portal – Lets students raise complaints or give feedback online.<break>
+👩‍💻 Admin Panel – For administrators to manage student records, update menus, and handle complaints.<break>
+📋 Registration & Login – Provides secure access for students and admin users.<break>
+📱 Responsive Design – The website is mobile-friendly and works smoothly on all devices.<break>
 
 🛠️ <h6>Tech Stack</h6>
 
