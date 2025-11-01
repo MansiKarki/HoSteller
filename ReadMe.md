@@ -1,1 +1,90 @@
-<h1>Hosteller<h1>
+<h1> Hosteller</h1>
+
+
+🏡 <h6>Project Description</h6>
+
+This project is a Hostel Management System designed to simplify and digitalize various hostel-related tasks. It provides an easy-to-use interface for students and administrators to manage day-to-day hostel operations efficiently.
+
+The system includes sections such as room allocation, mess and food management, complaint registration, and notice updates, making it a one-stop solution for hostel administration.
+
+🎯 <h6>Purpose</h6>
+
+The main purpose of this project is to reduce manual work, improve communication, and maintain transparency between students and hostel management. It ensures that all hostel activities—such as assigning rooms, updating food menus, and handling complaints—can be done online in a structured and organized way.
+
+💡 <h6>Why I Made It</h6>
+
+I created this project to apply my web development and software engineering knowledge to a real-life scenario. Managing a hostel involves multiple repetitive and time-consuming tasks, so building this project was an opportunity to design a smart, digital system that can make hostel management faster, easier, and more reliable for both students and administrators.
+
+
+✨ <h6>Features</h6>
+
+🏠 Home Page – Gives an overview of the hostel with navigation to other sections.
+🛏️ Room Allocation – Allows students to view or request available rooms and check room details.
+🍽️ Mess & Food Section – Displays the weekly food menu, mess timings, and meal details.
+🧾 Notice Board – Shows important announcements and updates from the hostel administration.
+💬 Complaint & Feedback Portal – Lets students raise complaints or give feedback online.
+👩‍💻 Admin Panel – For administrators to manage student records, update menus, and handle complaints.
+📋 Registration & Login – Provides secure access for students and admin users.
+📱 Responsive Design – The website is mobile-friendly and works smoothly on all devices.
+
+🛠️ <h6>Tech Stack</h6>
+
+Frontend: HTML, CSS, JavaScript
+Backend: PHP (or Node.js / Java — you can specify what you used)
+Database: MySQL (for storing student, room, and mess data)
+Tools & Technologies:
+Visual Studio Code (for development)
+Git & GitHub (for version control and hosting)
+XAMPP / WAMP (for local server setup)
+Canva / Figma (if you used them for UI design — optional)
+
+🚀 <h6>Installation & Setup Instructions</h6>
+
+Follow these steps to run the project on your local system:
+
+1. Clone the Repository
+
+Download or clone the project from GitHub using the following command:
+git clone https://github.com/Mansikarki/Hosteller.git
+
+2. Open the Project
+
+Open the folder in Visual Studio Code (or any code editor of your choice).
+
+3. Set Up the Server
+
+If you’re using XAMPP or WAMP:
+
+Place the project folder inside the htdocs directory (for XAMPP) or www directory (for WAMP).
+
+Start Apache and MySQL from the control panel.
+
+4. Import the Database
+
+Open phpMyAdmin in your browser (usually at http://localhost/phpmyadmin).
+
+Create a new database (e.g., hostel_db).
+
+Import the provided .sql file from the project folder to set up all the necessary tables.
+
+5. Run the Project
+
+Open your browser and type:
+http://localhost/Hosteller/
+
+The homepage of your hostel management website will appear.
+
+📸 <h6>Screenshots</h6>
+
+👩‍💻 <h6>Contributors</h6>
+
+Mansi Karki
+Sanika Hande
+
+🚧 <h6>Future Enhancements</h6>
+
+Online payment integration
+Hostel attendance tracking
+Mobile app version
+
+
