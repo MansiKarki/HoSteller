@@ -1,410 +1,310 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hostel Information Center</title>
-    <style>
-        /* BASE STYLING & FONT */
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f4f6f9;
-            margin: 0;
-            padding: 0;
-            /* Removed centering: */
-            display: block; 
-            min-height: 100vh;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hostel Information Center</title>
 
-        /* MAIN CONTAINER (Layout for Desktop) */
-        .container {
-            display: flex;
-            width: 100%;
-            max-width: 100%; /* Use full width */
-            margin: 0; /* Align to corner */
-            background-color: transparent; /* Removed white card background */
-            border-radius: 0;
-            box-shadow: none; /* Removed card shadow */
-            overflow: hidden;
-            min-height: 100vh;
-        }
+  <!-- Bootstrap & Fonts -->
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+  <link rel="shortcut icon" href="assets/img/logo-removebg-preview.png" type="image/x-icon">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
+  <link rel="stylesheet" href="assets/css/fontawesome.min.css">
+  <script src="assets/js/bootstrap.bundle.min.js"></script>
 
-        /* SIDEBAR / NAVIGATION */
-        .sidebar {
-            width: 300px;
-            flex-shrink: 0;
-            background-color: #f9fafb;
-            border-right: 1px solid #e5e7eb;
-            padding: 20px 0;
-            position: sticky;
-            top: 0; /* Stick to the very top */
-            height: 100vh; /* Make it full height */
-            max-height: 100vh;
-            overflow-y: auto;
-        }
+  <style>
+    /* ===== NAVBAR ===== */
+    .navbar {
+      background-color: #fff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      padding: 10px 20px;
+    }
+    .navbar-brand {
+      font-weight: 700;
+      color: #059669 !important;
+    }
+    .navbar-nav .nav-link {
+      color: #374151 !important;
+      font-weight: 500;
+      transition: color 0.3s ease;
+      padding: 10px 18px !important;
+    }
+    .navbar-nav .nav-link:hover {
+      color: #059669 !important;
+    }
+    .navbar-nav .btn-success {
+      background-color: #059669;
+      border: none;
+      color: white !important;
+    }
+    .navbar-nav .btn-success:hover {
+      background-color: #047857;
+    }
 
-        .logo-header {
-            padding: 0 20px 20px 20px;
-            text-align: center;
-            border-bottom: 1px solid #e5e7eb;
-            margin-bottom: 10px;
-        }
+    /* ===== LAYOUT ===== */
+    .container-layout {
+      display: flex;
+      width: 100%;
+      margin: 0;
+      min-height: 100vh;
+    }
 
-        .logo-header h2 {
-            font-size: 1.2rem;
-            color: #1f2937;
-            margin: 0;
-        }
+    /* ===== SIDEBAR ===== */
+    .sidebar {
+      width: 300px;
+      background-color: #f9fafb;
+      border-right: 1px solid #e5e7eb;
+      padding: 20px 0;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+    }
+    .logo-header {
+      text-align: center;
+      border-bottom: 1px solid #e5e7eb;
+      padding-bottom: 15px;
+      margin-bottom: 10px;
+    }
+    .logo-header h2 {
+      font-size: 1.2rem;
+      color: #1f2937;
+      margin: 0;
+    }
+    .nav-link-sidebar {
+      display: flex;
+      align-items: center;
+      padding: 12px 20px;
+      color: #4b5563;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+    .nav-link-sidebar:hover {
+      background-color: #e0f2f7;
+      color: #06b6d4;
+    }
+    .nav-link-sidebar.active {
+      color: #059669;
+      background-color: #ecfdf5;
+      border-left: 5px solid #059669;
+      font-weight: 600;
+      padding-left: 15px;
+    }
 
-        .nav-link {
-            display: flex;
-            align-items: center;
-            padding: 12px 20px;
-            margin: 4px 0;
-            color: #4b5563;
-            text-decoration: none;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            position: relative;
-        }
+    /* ===== CONTENT AREA ===== */
+    .content-area {
+      flex-grow: 1;
+      padding: 30px;
+      overflow-y: auto;
+      background-color: #ffffff;
+    }
+    .content-section {
+      display: none;
+      animation: fadeIn 0.4s ease-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .content-section h3 {
+      font-size: 1.75rem;
+      color: #10b981;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #e5e7eb;
+      padding-bottom: 10px;
+    }
+    .content-section ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    .content-section li {
+      padding: 8px 0;
+      border-bottom: 1px solid #f3f4f6;
+      padding-left: 25px;
+      position: relative;
+    }
+    .content-section li::before {
+      content: "•";
+      color: #10b981;
+      font-weight: bold;
+      position: absolute;
+      left: 5px;
+    }
 
-        .nav-link:hover {
-            background-color: #e0f2f7; /* Very light blue on hover */
-            color: #06b6d4; /* Tailwind cyan-500 */
-        }
-
-        .nav-link.active {
-            color: #059669; /* Tailwind emerald-600 */
-            background-color: #ecfdf5; /* Tailwind emerald-50 */
-            border-left: 5px solid #059669; /* Active indicator bar */
-            font-weight: 600;
-            padding-left: 15px; /* Adjust for border */
-        }
-
-        .nav-icon {
-            margin-right: 10px;
-            font-size: 1.2rem;
-        }
-
-        /* CONTENT AREA */
-        .content-area {
-            flex-grow: 1;
-            padding: 30px;
-            overflow-y: auto;
-            max-height: 100vh;
-            background-color: #ffffff; /* Make content area white for readability */
-        }
-
-        .content-section {
-            display: none; /* Hide all content by default, JS handles visibility */
-            animation: fadeIn 0.4s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .content-section h3 {
-            font-size: 1.75rem;
-            color: #10b981; /* Emerald Green */
-            margin-top: 0;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #e5e7eb;
-            padding-bottom: 10px;
-        }
-
-        .content-section p {
-            line-height: 1.7;
-            color: #4b5563;
-        }
-
-        .content-section ul {
-            list-style: none;
-            padding-left: 0;
-            margin-top: 15px;
-        }
-
-        .content-section li {
-            padding: 8px 0;
-            border-bottom: 1px solid #f3f4f6;
-            position: relative;
-            padding-left: 25px;
-        }
-
-        .content-section li::before {
-            content: "•";
-            color: #10b981;
-            font-weight: bold;
-            display: inline-block;
-            width: 1em;
-            margin-left: -1em;
-            position: absolute;
-            left: 5px;
-        }
-
-        .highlight-box {
-            background-color: #ecfdf5; /* Light emerald background */
-            padding: 15px;
-            border-left: 4px solid #059669;
-            border-radius: 8px;
-            margin: 20px 0;
-            color: #065f46;
-        }
-
-        .link-group a {
-            display: block;
-            margin-top: 10px;
-            color: #2563eb;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.2s;
-        }
-
-        .link-group a:hover {
-            color: #1d4ed8;
-            text-decoration: underline;
-        }
-
-        /* MOBILE STYLING */
-        @media (max-width: 850px) {
-            .container {
-                flex-direction: column;
-                margin: 0; /* Use full screen on mobile */
-            }
-            .sidebar {
-                width: 100%;
-                max-height: 60px; /* Reduced max height for mobile header */
-                overflow-x: auto;
-                overflow-y: hidden;
-                white-space: nowrap;
-                border-right: none;
-                border-bottom: 1px solid #e5e7eb;
-                position: sticky; 
-                top: 0; /* Keep it sticky at the top */
-                z-index: 10; /* Ensure it is above content */
-                height: auto;
-            }
-            .logo-header {
-                display: none; /* Hide large header on mobile */
-            }
-            .nav-link {
-                display: inline-flex;
-                border-left: none !important;
-                padding: 10px 15px;
-                margin: 0;
-            }
-            .nav-link.active {
-                border-bottom: 3px solid #059669;
-                border-left: none;
-                padding-left: 15px;
-            }
-            .content-area {
-                padding: 20px 15px;
-                max-height: none;
-                background-color: #ffffff;
-            }
-        }
-    </style>
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 850px) {
+      .container-layout {
+        flex-direction: column;
+      }
+      .sidebar {
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid #e5e7eb;
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+      .logo-header { display: none; }
+      .nav-link-sidebar {
+        display: inline-flex;
+        padding: 10px 15px;
+      }
+      .nav-link-sidebar.active {
+        border-bottom: 3px solid #059669;
+        border-left: none;
+      }
+      .content-area {
+        padding: 20px 15px;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-    <div class="container">
-        <!-- LEFT SIDEBAR NAVIGATION -->
-        <nav class="sidebar">
-            <div class="logo-header">
-                <h2>Hostel Info Center</h2>
-            </div>
-            <!-- Replaced emojis with simple section numbers -->
-            <a href="#" class="nav-link" id="menu-overview" data-target="overview"><span class="nav-icon">1.</span> Hostel Overview</a>
-            <a href="#" class="nav-link" id="menu-room" data-target="room"><span class="nav-icon">2.</span> Room Information</a>
-            <a href="#" class="nav-link" id="menu-facilities" data-target="facilities"><span class="nav-icon">3.</span> Facilities & Common Areas</a>
-            <a href="#" class="nav-link" id="menu-security" data-target="security"><span class="nav-icon">4.</span> Safety & Security</a>
-            <a href="#" class="nav-link" id="menu-dates" data-target="dates"><span class="nav-icon">5.</span> Important Dates & Process</a>
-            <a href="#" class="nav-link" id="menu-fees" data-target="fees"><span class="nav-icon">6.</span> Fee & Payment Information</a>
-            <a href="#" class="nav-link" id="menu-support" data-target="support"><span class="nav-icon">7.</span> Student Life & Support</a>
-            <a href="#" class="nav-link" id="menu-parents" data-target="parents"><span class="nav-icon">8.</span> For Parents</a>
-            <a href="#" class="nav-link" id="menu-downloads" data-target="downloads"><span class="nav-icon">9.</span> Downloads & Links</a>
-        </nav>
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar navbar-expand-lg navbar-light shadow">
+    <div class="container d-flex justify-content-between align-items-center">
+      <a class="navbar-brand text-success logo h1" href="index.html">Hosteller</a>
 
-        <!-- RIGHT CONTENT AREA -->
-        <main class="content-area">
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+        data-bs-target="#templatemo_main_nav" aria-controls="templatemo_main_nav" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-            <!-- 1. Hostel Overview Content -->
-            <section id="content-overview" class="content-section">
-                <h3>1. Hostel Overview</h3>
-                <p>The hostel is dedicated to promoting a safe, comfortable, and academically conducive environment for all residents, central to the campus experience.</p>
-                <ul>
-                    <li><strong>Capacity:</strong> Total of 500 beds across two main blocks (East and West).</li>
-                    <li><strong>Type:</strong> Separate **Boys' and Girls' blocks** (E-Block for Boys, W-Block for Girls).</li>
-                    <li><strong>Location:</strong> Located just 5 minutes walk from the main academic buildings, offering convenient access.</li>
-                    <li><strong>Accommodation:</strong> Both **AC and Non-AC options** available for shared rooms.</li>
-                    <li><strong>Management:</strong> Overseen by a committee comprising the Chief Warden, Asst. Warden, and resident faculty advisors.</li>
-                </ul>
-            </section>
-
-            <!-- 2. Room Information Content -->
-            <section id="content-room" class="content-section">
-                <h3>2. Room Information</h3>
-                <p>Rooms are designed for maximum student comfort and utility, ensuring a great space for both rest and study.</p>
-                <ul>
-                    <li><strong>Room Types:</strong> Double and Triple sharing rooms available. Single rooms are allocated based on seniority/medical needs.</li>
-                    <li><strong>Furnishings Provided:</strong> Individual bed frame, spring mattress, study table, ergonomic chair, spacious cupboard (with lock), fan, and LED lighting.</li>
-                    <li><strong>Allotment Process:</strong> Rooms are generally assigned based on **course year and seniority**. Specific requests are accommodated based on availability.</li>
-                    <li><strong>Change Policy:</strong> Room change requests must be submitted through the student portal within the first two weeks of the semester, subject to warden approval.</li>
-                    <li><strong>Housekeeping:</strong> Common area cleaning is daily. Room interiors are cleaned by staff **three times per week**.</li>
-                    <li><strong>Laundry:</strong> Professional paid laundry service is available with drop-off/pickup points on the ground floor of each block.</li>
-                </ul>
-            </section>
-
-            <!-- 3. Facilities & Common Areas Content -->
-            <section id="content-facilities" class="content-section">
-                <h3>3. Facilities & Common Areas</h3>
-                <p>Beyond the rooms, residents have access to various resources to support their academic and personal lives.</p>
-                <ul>
-                    <li><strong>Wi-Fi Access:</strong> High-speed 24x7 Wi-Fi is available in all rooms and common areas.</li>
-                    <li><strong>Water Supply:</strong> 24x7 filtered water supply. RO water purifiers and coolers are installed on every floor.</li>
-                    <li><strong>Study Halls:</strong> Dedicated quiet reading rooms are available in both blocks for late-night studying.</li>
-                    <li><strong>Recreation:</strong> Common rooms feature a TV lounge, board games, and a table tennis setup.</li>
-                    <li><strong>Fitness:</strong> A common mini-gym and yoga hall are available in the central facility block.</li>
-                    <li><strong>Electricity:</strong> 24x7 electricity with backup generators for uninterrupted supply.</li>
-                </ul>
-            </section>
-
-            <!-- 4. Safety & Security Content -->
-            <section id="content-security" class="content-section">
-                <h3>4. Safety & Security</h3>
-                <p>Security and resident safety is the highest priority, with strict protocols in place 24 hours a day.</p>
-                <ul>
-                    <li><strong>Security Coverage:</strong> 24x7 trained security guards and extensive **CCTV coverage** throughout the premises.</li>
-                    <li><strong>Entry System:</strong> Entry and exit require **ID card validation and biometric scan**.</li>
-                    <li><strong>Warden Contacts:</strong> Resident Tutors (RAs) are available on each floor for immediate assistance.</li>
-                    <li><strong>Curfew:</strong> Mandatory **night attendance** is taken at 10:30 PM. Curfew hours apply strictly.</li>
-                    <li><strong>Fire Safety:</strong> All blocks are equipped with fire alarms, extinguishers on every floor, and clearly posted evacuation plans.</li>
-                    <li><strong>Visitors:</strong> Visitors are only permitted in the designated reception area during specified visiting hours (4 PM - 7 PM). ID verification is mandatory.</li>
-                </ul>
-                <div class="highlight-box">
-                    Emergency Security Helpline: **+91 99999 00000 (24x7)**
-                </div>
-            </section>
-
-            <!-- 5. Important Dates & Stay Process Content -->
-            <section id="content-dates" class="content-section">
-                <h3>5. Important Dates & Stay Process</h3>
-                <p>Key dates and procedural timelines for the upcoming academic year and stay renewal processes.</p>
-                <ul>
-                    <li><strong>Hostel Admission:</strong> Applications open from **June 1st to June 20th**.</li>
-                    <li><strong>Room Allotment Schedule:</strong> Final list announced on **July 5th** on the official notice board.</li>
-                    <li><strong>Check-in Timeline:</strong> Mandatory check-in window is **July 25th - July 30th**.</li>
-                    <li><strong>Renewal Procedure:</strong> Renewal for the next year begins in April; notification will be sent via email.</li>
-                    <li><strong>Late Arrival Policy:</strong> Must inform the warden in advance via email if arrival is expected after the official check-in date.</li>
-                </ul>
-            </section>
-
-            <!-- 6. Fee & Payment Information Content -->
-            <section id="content-fees" class="content-section">
-                <h3>6. Fee & Payment Information</h3>
-                <p>All fees are payable per semester via the online portal. Please adhere to the deadlines to avoid penalties.</p>
-                <ul>
-                    <li><strong>Fee Breakdown:</strong> Room Rent (varies by AC/Non-AC), Security Deposit (refundable), and Common Facility Charges.</li>
-                    <li><strong>Refund Policy:</strong> Security deposit is fully refundable upon check-out. Room rent is non-refundable after the first 30 days of the semester.</li>
-                    <li><strong>Payment Modes:</strong> Online payment via Credit/Debit card, UPI, or Net Banking is preferred.</li>
-                    <li><strong>Reminders:</strong> Automated fee due reminders are sent 10 days before the deadline. A late fee penalty applies after the due date.</li>
-                </ul>
-                <div class="link-group">
-                    <a href="#">&rarr; Online Fee Payment Portal Link</a>
-                </div>
-            </section>
-
-            <!-- 7. Student Life & Support Content -->
-            <section id="content-support" class="content-section">
-                <h3>7. Student Life & Support</h3>
-                <p>We believe in holistic development and offer various support systems to help students thrive.</p>
-                <ul>
-                    <li><strong>Mentorship:</strong> Senior students are assigned as mentors (buddy system) to guide new residents.</li>
-                    <li><strong>Events:</strong> Regular hostel events, cultural evenings, and intramural competitions are organized by the Student Committee.</li>
-                    <li><strong>Counseling:</strong> Access to confidential, on-campus counseling and mental health support services is available.</li>
-                    <li><strong>Grievance:</strong> A digital **Complaint Redressal Form** is available for submitting any issues anonymously or formally.</li>
-                    <li><strong>Lost & Found:</strong> Services managed at the front desk of the central facility block.</li>
-                </ul>
-            </section>
-
-            <!-- 8. For Parents Content -->
-            <section id="content-parents" class="content-section">
-                <h3>8. For Parents</h3>
-                <p>Dedicated information to assure parents of their child's well-being and safety while residing at the hostel.</p>
-                <ul>
-                    <li><strong>Warden Contact:</strong> Direct contact numbers for the Chief Warden are provided upon admission.</li>
-                    <li><strong>Emergency Helpline:</strong> 24x7 emergency contacts available for parents.</li>
-                    <li><strong>Visiting Hours:</strong> Parents may visit their wards during the designated visiting hours only (4 PM - 7 PM).</li>
-                    <li><strong>Stay Arrangements:</strong> Dedicated guest house facility is available for parents visiting from out of town (booking required).</li>
-                    <li><strong>Safety Assurance:</strong> We maintain strict monitoring and discipline systems to ensure a focused and safe environment.</li>
-                </ul>
-                <div class="link-group">
-                    <a href="#">&rarr; Parent Feedback / Communication Channel</a>
-                </div>
-            </section>
-
-            <!-- 9. Downloads & Useful Links Content -->
-            <section id="content-downloads" class="content-section">
-                <h3>9. Downloads & Useful Links</h3>
-                <p>Quick access to essential documents and external portals.</p>
-                <div class="link-group">
-                    <a href="#">Hostel Rulebook / Stay Policy (PDF)</a>
-                    <a href="#">Leave Application Form (Download)</a>
-                    <a href="#">Student Login Portal</a>
-                    <a href="#">Fee Payment Portal</a>
-                    <a href="#">Submit Complaint / Grievance &rarr;</a>
-                </div>
-            </section>
-
-        </main>
+      <div class="collapse navbar-collapse justify-content-center" id="templatemo_main_nav">
+        <ul class="navbar-nav align-items-center">
+          <li class="nav-item mx-2"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item mx-2"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item mx-2"><a class="nav-link" href="contact.html">Contact</a></li>
+          <li class="nav-item mx-2">
+            <a class="btn btn-success rounded-pill px-4" href="loginpageS.html">Student Login</a>
+          </li>
+          <li class="nav-item mx-2"><a class="nav-link" href="loginpageA.html">Admin Login</a></li>
+        </ul>
+      </div>
     </div>
+  </nav>
 
-    <script>
-        // FUNCTION TO MANAGE TAB VISIBILITY AND ACTIVE STATE
-        function showContent(targetId) {
-            // 1. Hide all content sections
-            document.querySelectorAll('.content-section').forEach(section => {
-                section.style.display = 'none';
-            });
+  <!-- ===== MAIN LAYOUT ===== -->
+  <div class="container-layout">
+    <!-- SIDEBAR -->
+    <nav class="sidebar">
+      <div class="logo-header"><h2>Hostel Info Center</h2></div>
+      <a href="#" class="nav-link-sidebar" id="menu-overview" data-target="overview">1. Hostel Overview</a>
+      <a href="#" class="nav-link-sidebar" id="menu-room" data-target="room">2. Room Information</a>
+      <a href="#" class="nav-link-sidebar" id="menu-facilities" data-target="facilities">3. Facilities & Common Areas</a>
+      <a href="#" class="nav-link-sidebar" id="menu-security" data-target="security">4. Safety & Security</a>
+      <a href="#" class="nav-link-sidebar" id="menu-dates" data-target="dates">5. Important Dates & Process</a>
+      <a href="#" class="nav-link-sidebar" id="menu-fees" data-target="fees">6. Fee & Payment Information</a>
+      <a href="#" class="nav-link-sidebar" id="menu-support" data-target="support">7. Student Life & Support</a>
+      <a href="#" class="nav-link-sidebar" id="menu-parents" data-target="parents">8. For Parents</a>
+      <a href="#" class="nav-link-sidebar" id="menu-downloads" data-target="downloads">9. Downloads & Links</a>
+    </nav>
 
-            // 2. Remove 'active' class from all menu links
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.classList.remove('active');
-            });
+    <!-- CONTENT AREA -->
+       <main class="content-area">
+      <section id="content-overview" class="content-section">
+        <h3>1. Hostel Overview</h3>
+        <p>The hostel promotes a safe, comfortable, and academically supportive environment for residents.</p>
+        <ul>
+          <li><strong>Capacity:</strong> 500 beds across two main blocks.</li>
+          <li><strong>Type:</strong> Separate Boys' and Girls' blocks.</li>
+          <li><strong>Location:</strong> 5 minutes walk from academic buildings.</li>
+          <li><strong>Accommodation:</strong> AC and Non-AC rooms available.</li>
+        </ul>
+      </section>
 
-            // 3. Show the targeted content section
-            const contentElement = document.getElementById('content-' + targetId);
-            if (contentElement) {
-                contentElement.style.display = 'block';
-            }
+      <section id="content-room" class="content-section">
+        <h3>2. Room Information</h3>
+        <p>Rooms are designed for comfort and utility, suitable for rest and study.</p>
+        <ul>
+          <li><strong>Room Types:</strong> Double and triple sharing rooms.</li>
+          <li><strong>Furnishings:</strong> Bed, mattress, table, chair, cupboard, fan, LED light.</li>
+        </ul>
+      </section>
 
-            // 4. Set the 'active' class on the clicked menu link
-            const menuElement = document.getElementById('menu-' + targetId);
-            if (menuElement) {
-                menuElement.classList.add('active');
-            }
-        }
+      <section id="content-facilities" class="content-section">
+        <h3>3. Facilities & Common Areas</h3>
+        <ul>
+          <li>Wi-Fi and 24-hour power backup.</li>
+          <li>Common TV and recreation rooms.</li>
+          <li>Indoor games and reading lounges.</li>
+          <li>Clean dining hall with nutritious food.</li>
+        </ul>
+      </section>
 
-        // EVENT LISTENER SETUP
-        document.addEventListener('DOMContentLoaded', () => {
-            const navLinks = document.querySelectorAll('.nav-link');
+      <section id="content-security" class="content-section">
+        <h3>4. Safety & Security</h3>
+        <ul>
+          <li>24x7 security staff and CCTV surveillance.</li>
+          <li>Access control for visitors.</li>
+          <li>Emergency medical support available.</li>
+        </ul>
+      </section>
 
-            navLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    // Get the target ID from the data-target attribute
-                    const targetId = this.getAttribute('data-target');
-                    showContent(targetId);
-                });
-            });
+      <section id="content-dates" class="content-section">
+        <h3>5. Important Dates & Process</h3>
+        <ul>
+          <li><strong>Application Start:</strong> June 1</li>
+          <li><strong>Room Allotment:</strong> July 10</li>
+          <li><strong>Check-in:</strong> From July 20</li>
+        </ul>
+      </section>
 
-            // *** FIX: Initialize the first tab (Hostel Overview) on page load ***
-            showContent('overview');
+      <section id="content-fees" class="content-section">
+        <h3>6. Fee & Payment Information</h3>
+        <ul>
+          <li>Room Fee: ₹45,000 (per semester)</li>
+          <li>Mess Fee: ₹15,000 (per semester)</li>
+          <li>Security Deposit: ₹5,000 (refundable)</li>
+        </ul>
+      </section>
+
+      <section id="content-support" class="content-section">
+        <h3>7. Student Life & Support</h3>
+        <p>We provide student counseling, wellness programs, and a mentorship system to support academic and personal growth.</p>
+      </section>
+
+      <section id="content-parents" class="content-section">
+        <h3>8. For Parents</h3>
+        <p>Parents can reach the warden’s office for updates, visit requests, or emergencies anytime during office hours.</p>
+      </section>
+
+      <section id="content-downloads" class="content-section">
+        <h3>9. Downloads & Links</h3>
+        <ul>
+          <li><a href="#">Hostel Rules PDF</a></li>
+          <li><a href="#">Mess Menu Schedule</a></li>
+          <li><a href="#">Application Form</a></li>
+        </ul>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // SIDEBAR NAVIGATION HANDLER
+    function showContent(targetId) {
+      document.querySelectorAll('.content-section').forEach(s => s.style.display = 'none');
+      document.querySelectorAll('.nav-link-sidebar').forEach(l => l.classList.remove('active'));
+      const content = document.getElementById('content-' + targetId);
+      const menu = document.getElementById('menu-' + targetId);
+      if (content) content.style.display = 'block';
+      if (menu) menu.classList.add('active');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.nav-link-sidebar').forEach(link => {
+        link.addEventListener('click', e => {
+          e.preventDefault();
+          showContent(e.target.getAttribute('data-target'));
         });
-    </script>
+      });
+      showContent('overview');
+    });
+  </script>
 
 </body>
 </html>
