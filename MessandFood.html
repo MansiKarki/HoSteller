@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hostel Mess Dashboard</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom scrollbar for a sleek look */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #e2e8f0; /* Light background */
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #4CAF50; /* Primary Green thumb */
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #1E8449;
+        }
+        /* Inter font for modern feel */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        // COLOR SCHEME: Green/White
+                        'primary': '#4CAF50',    // Bright Header/Accent Green
+                        'secondary': '#1E8449',  // Darker Text/Accent Green
+                        'bg-main': '#f8fafc',    // Very Light Gray (Body Background)
+                        'bg-card': '#ffffff',    // White (Card Background)
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-bg-main min-h-screen text-gray-800 p-4 sm:p-8 transition-colors duration-500">
+
+    <div class="max-w-6xl mx-auto">
+        <!-- HEADER (Now Bright Green) -->
+        <header class="mb-8 p-6 bg-primary rounded-xl shadow-2xl">
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+                Mess & Food Management
+            </h1>
+            <p class="text-white/80 mt-1 text-lg">Real-time menu, status, and feedback portal.</p>
+        </header>
+
+        <!-- Main Dashboard Grid -->
+        <main class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+            <!-- COLUMN 1: Status Panels (Stacked) -->
+            <div class="lg:col-span-1 space-y-6">
+                
+                <!-- Panel 1: Current Status & Next Meal -->
+                <div id="status-panel" class="bg-bg-card p-6 rounded-2xl shadow-xl border-t-4 border-secondary transition duration-300 hover:shadow-gray-300">
+                    <h2 class="text-2xl font-bold mb-4 flex items-center text-secondary">
+                        <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        Current Status
+                    </h2>
+    
+                    <div id="current-meal-info" class="space-y-4">
+                        <!-- Dynamic content will be injected here -->
+                        <div class="animate-pulse bg-gray-200 h-6 w-3/4 rounded mb-2"></div>
+                        <div class="animate-pulse bg-gray-200 h-4 w-1/2 rounded"></div>
+                    </div>
+    
+                    <div class="mt-6 pt-4 border-t border-gray-200">
+                        <h3 class="text-xl font-semibold mb-2 text-primary">Next Meal in...</h3>
+                        <div id="next-meal-countdown" class="text-3xl font-extrabold text-secondary bg-gray-100 p-3 rounded-lg text-center shadow-inner">
+                            Calculating...
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NEW Panel 2: Meal Token Generation / Attendance -->
+                <div id="token-panel" class="bg-bg-card p-6 rounded-2xl shadow-xl border-t-4 border-primary transition duration-300 hover:shadow-gray-300">
+                    <h2 class="text-2xl font-bold mb-4 flex items-center text-primary">
+                        <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2v2a2 2 0 01-2 2h-1a2 2 0 01-2-2V9a2 2 0 012-2h1z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 18H5a2 2 0 01-2-2v-9a2 2 0 012-2h14a2 2 0 012 2v9a2 2 0 01-2 2h-5"></path></svg>
+                        Daily Meal Token & Attendance
+                    </h2>
+
+                    <div id="token-info" class="space-y-2">
+                        <p class="text-lg text-gray-600">Next Meal: <span id="next-meal-name" class="font-bold text-secondary">Loading...</span> (<span id="next-meal-time" class="text-sm">--</span>)</p>
+                        <p id="attendance-status" class="text-sm font-semibold text-orange-500">Checking status...</p>
+                    </div>
+
+                    <button id="generate-token-btn" class="mt-4 w-full px-4 py-3 bg-primary text-white font-bold rounded-lg hover:bg-secondary transition duration-200 transform hover:scale-[1.02] shadow-lg shadow-primary/30" disabled>
+                        Mark Attendance for Next Meal
+                    </button>
+                </div>
+            </div>
+
+            <!-- COLUMN 2 & 3: Menu & Rules (Stacked) -->
+            <div class="lg:col-span-2 space-y-6">
+
+                <!-- Panel 3: Weekly Menu (Largest Panel) -->
+                <div class="bg-bg-card p-6 rounded-2xl shadow-xl border-t-4 border-primary transition duration-300 hover:shadow-gray-300">
+                    <h2 class="text-2xl font-bold mb-4 flex items-center text-primary">
+                        <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2m-9 0V3h4v2m-4 0h4"></path></svg>
+                        Weekly Food Planner
+                    </h2>
+
+                    <!-- Day Tabs (Flexible UI part) -->
+                    <div id="day-tabs" class="flex overflow-x-auto whitespace-nowrap space-x-2 pb-2 -mx-2 px-2 border-b border-gray-200">
+                        <!-- Tabs will be injected here -->
+                    </div>
+
+                    <!-- Menu Content -->
+                    <div id="menu-content" class="mt-4 min-h-[300px]">
+                        <p class="text-gray-500 text-center py-10" id="loading-menu">Loading menu data...</p>
+                        <!-- Menu details for the selected day -->
+                    </div>
+                </div>
+                
+                <!-- Panel 2: Mess Rules and Regulations -->
+                <div id="rules-panel" class="bg-bg-card p-6 rounded-2xl shadow-xl border-t-4 border-primary transition duration-300 hover:shadow-gray-300">
+                    <h2 class="text-2xl font-bold mb-4 flex items-center text-primary">
+                        <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.047m17.236 0c.27.42.483.872.641 1.353m-17.236-1.353C4.075 7.64 3.862 8.092 3.704 8.573m17.236-1.353L12 21.056 3.704 7.22A11.955 11.955 0 0112 2.944c2.812 0 5.405.82 7.618 2.276z"></path></svg>
+                        Mess Rules and Regulations
+                    </h2>
+                    <div id="rules-content" class="text-gray-700 space-y-3">
+                        <!-- Rules will be injected here -->
+                        <p class="animate-pulse bg-gray-200 h-4 w-full rounded"></p>
+                        <p class="animate-pulse bg-gray-200 h-4 w-3/4 rounded"></p>
+                        <p class="animate-pulse bg-gray-200 h-4 w-full rounded"></p>
+                    </div>
+                </div>
+            </div>
+
+            
+            <!-- Panel 4: Quick Feedback/Action (Spanning full width on large screens) -->
+            <div class="lg:col-span-3 bg-bg-card p-6 rounded-2xl shadow-xl border-t-4 border-secondary transition duration-300 hover:shadow-gray-300">
+                <h2 class="text-2xl font-bold mb-4 flex items-center text-secondary">
+                    <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+                    Quick Feedback
+                </h2>
+
+                <p class="text-gray-500 mb-4">Help us improve the mess. Your anonymous feedback is valuable.</p>
+
+                <div id="feedback-form">
+                    <label for="rating" class="block text-sm font-medium text-gray-700 mb-2">Rate Today's Meal (1-5)</label>
+                    <!-- Updated range track color to match new theme -->
+                    <input type="range" id="rating" name="rating" min="1" max="5" value="3" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-lg transition duration-200" style="--tw-range-track-color: #1E8449; --tw-range-thumb-color: #4CAF50;">
+                    <p id="rating-value" class="text-center mt-2 text-xl font-bold text-secondary">3 / 5</p>
+
+                    <button id="submit-feedback" class="mt-4 w-full px-4 py-2 bg-secondary text-white font-bold rounded-lg hover:bg-primary transition duration-200 transform hover:scale-[1.02] shadow-lg shadow-secondary/30">
+                        Submit Feedback
+                    </button>
+                    <p id="feedback-message" class="mt-3 text-center text-sm hidden"></p>
+                </div>
+            </div>
+            
+
+        </main>
+    </div>
+
+    <!-- Firebase SDK Imports -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, onSnapshot, collection, setDoc, query, addDoc, serverTimestamp, updateDoc, getDoc, where, getDocs } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Set Firestore log level to Debug for visibility
+        setLogLevel('Debug');
+
+        // Global variables provided by the environment
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'hostel-mess-app-default';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null; 
+
+        let db, auth, userId = null;
+        let isAuthReady = false;
+
+        const timeTable = [
+            { name: "Breakfast", start: "07:30", end: "09:00" },
+            { name: "Lunch", start: "12:30", end: "14:00" },
+            { name: "Dinner", start: "17:30", end: "19:00" }
+        ];
+
+        // --- Utility Functions ---
+
+        /** Converts "HH:MM" string to a Date object for today. */
+        function getTimeToday(timeStr) {
+            const [hours, minutes] = timeStr.split(':').map(Number);
+            const now = new Date();
+            const date = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hours, minutes, 0);
+            return date;
+        }
+
+        /** Formats time from "HH:MM" to "h:mm AM/PM". */
+        function formatTime(timeStr) {
+            const [h, m] = timeStr.split(':').map(Number);
+            const ampm = h >= 12 ? 'PM' : 'AM';
+            const hour = h % 12 || 12;
+            const minute = m.toString().padStart(2, '0');
+            return `${hour}:${minute} ${ampm}`;
+        }
+
+        /** Converts a date object to 'DayName' (e.g., 'Monday') */
+        function getDayName(date) {
+            return date.toLocaleDateString('en-US', { weekday: 'long' });
+        }
+        
+        /** Gets the date string in YYYY-MM-DD format for use in Firestore queries */
+        function getFirestoreDateString(date) {
+            const y = date.getFullYear();
+            const m = String(date.getMonth() + 1).padStart(2, '0');
+            const d = String(date.getDate()).padStart(2, '0');
+            return `${y}-${m}-${d}`;
+        }
+        
+        // --- Core UI Update Functions ---
+
+        function getNextMeal() {
+            const now = new Date();
+            
+            let currentMeal = null;
+            let nextMeal = null;
+            let nextMealTime = null;
+
+            // 1. Determine Current Meal
+            for (const meal of timeTable) {
+                const startTime = getTimeToday(meal.start);
+                const endTime = getTimeToday(meal.end);
+                if (now >= startTime && now <= endTime) {
+                    currentMeal = meal;
+                    break;
+                }
+            }
+            
+            // 2. Determine Next Meal (Loop through current day, then next day if needed)
+            const startIndex = currentMeal ? timeTable.findIndex(meal => meal.name === currentMeal.name) + 1 : 0;
+            
+            // Check meals later today
+            for (let i = startIndex; i < timeTable.length; i++) {
+                const meal = timeTable[i];
+                const mealTime = getTimeToday(meal.start);
+                if (mealTime > now) {
+                    nextMeal = meal;
+                    nextMealTime = mealTime;
+                    break;
+                }
+            }
+
+            // If no meals left today, find the first meal tomorrow
+            if (!nextMeal) {
+                const tomorrow = new Date(now);
+                tomorrow.setDate(now.getDate() + 1);
+                nextMeal = timeTable[0];
+                nextMealTime = getTimeToday(nextMeal.start);
+                nextMealTime.setDate(tomorrow.getDate()); // Set to tomorrow's date
+            }
+
+            return { currentMeal, nextMeal, nextMealTime };
+        }
+
+
+        function updateCurrentStatus(menuData) {
+            const now = new Date();
+            const dayName = getDayName(now);
+            const dayMenu = menuData[dayName] || { Breakfast: 'No Menu Set', Lunch: 'No Menu Set', Dinner: 'No Menu Set' };
+            
+            const { currentMeal, nextMeal, nextMealTime } = getNextMeal();
+            
+            // Get current meal food if available
+            const currentMealFood = currentMeal ? dayMenu[currentMeal.name] : null;
+
+            // --- Render Status UI ---
+            const statusDiv = document.getElementById('current-meal-info');
+            const countdownDiv = document.getElementById('next-meal-countdown');
+            statusDiv.innerHTML = '';
+            countdownDiv.textContent = 'Calculating...';
+
+            if (currentMeal) {
+                statusDiv.innerHTML = `
+                    <p class="text-4xl font-extrabold text-secondary">${currentMeal.name} is OPEN</p>
+                    <p class="text-xl text-gray-700">Serving till: <span class="font-bold">${formatTime(currentMeal.end)}</span></p>
+                    <p class="text-lg text-gray-600 mt-2">Today's menu: <span class="font-semibold text-gray-800">${currentMealFood || 'Menu N/A'}</span></p>
+                `;
+            } else {
+                statusDiv.innerHTML = `
+                    <p class="text-4xl font-extrabold text-gray-500">Mess is Closed</p>
+                    <p class="text-xl text-gray-700">Opening time: <span class="font-bold">${formatTime(timeTable[0].start)}</span></p>
+                `;
+            }
+
+            // --- Render Countdown ---
+            if (nextMeal && nextMealTime) {
+                function updateCountdown() {
+                    const diff = nextMealTime.getTime() - new Date().getTime();
+                    if (diff < 0) {
+                         // Stop countdown and reload status
+                        clearInterval(window.countdownInterval);
+                        updateCurrentStatus(menuData);
+                        updateTokenPanel(); // Also update token panel
+                        return;
+                    }
+                    const hours = Math.floor(diff / (1000 * 60 * 60));
+                    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                    const dayString = nextMealTime.getDate() !== now.getDate() ? 'Tomorrow, ' : '';
+                    const timeString = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+                    countdownDiv.innerHTML = `
+                        <span class="text-lg text-gray-500 block">${dayString}${nextMeal.name} at ${formatTime(nextMeal.start)}</span>
+                        ${timeString}
+                    `;
+                }
+                
+                // Clear previous interval if exists
+                if (window.countdownInterval) clearInterval(window.countdownInterval);
+                
+                window.countdownInterval = setInterval(updateCountdown, 1000);
+                updateCountdown(); // Initial call
+            }
+        }
+
+
+        function renderMenu(menuData) {
+            const days = Object.keys(menuData);
+            const dayTabs = document.getElementById('day-tabs');
+            const menuContent = document.getElementById('menu-content');
+            dayTabs.innerHTML = '';
+            
+            // Get today's day name to set initial active tab
+            const todayName = getDayName(new Date());
+            let initialDay = days.includes(todayName) ? todayName : days[0];
+
+            days.forEach(day => {
+                const isActive = day === initialDay;
+                const button = document.createElement('button');
+                button.textContent = day;
+                button.className = `px-4 py-2 text-sm font-semibold rounded-full transition-colors duration-200 ${
+                    isActive 
+                        ? 'bg-primary text-white shadow-lg shadow-primary/50' // Active: White text on Primary Green
+                        : 'bg-gray-200 text-gray-600 hover:bg-gray-300' // Inactive: Dark text on light gray
+                }`;
+                button.onclick = () => {
+                    setActiveTab(day, menuData);
+                };
+                dayTabs.appendChild(button);
+            });
+            
+            // Render initial content
+            if (initialDay) {
+                setActiveTab(initialDay, menuData);
+            } else {
+                document.getElementById('loading-menu').textContent = 'Menu data is currently unavailable.';
+            }
+        }
+
+        function setActiveTab(day, menuData) {
+            const menuContent = document.getElementById('menu-content');
+            const dayTabs = document.getElementById('day-tabs');
+            
+            // Update button styles
+            Array.from(dayTabs.children).forEach(btn => {
+                if (btn.textContent === day) {
+                    btn.className = 'px-4 py-2 text-sm font-semibold rounded-full bg-primary text-white shadow-lg shadow-primary/50 transition-colors duration-200';
+                } else {
+                    btn.className = 'px-4 py-2 text-sm font-semibold rounded-full bg-gray-200 text-gray-600 hover:bg-gray-300 transition-colors duration-200';
+                }
+            });
+
+            // Update menu content
+            const dayMenu = menuData[day];
+            if (!dayMenu) {
+                menuContent.innerHTML = `<p class="text-center text-red-500 py-10">No menu set for ${day}.</p>`;
+                return;
+            }
+
+            menuContent.innerHTML = timeTable.map(meal => {
+                const foodItems = dayMenu[meal.name] || 'Not specified';
+                return `
+                    <div class="mb-4 p-4 bg-gray-50 rounded-xl shadow-sm border-l-4 border-secondary/70">
+                        <div class="flex justify-between items-center mb-1">
+                            <h3 class="text-xl font-bold text-secondary">${meal.name}</h3>
+                            <span class="text-sm text-gray-500 bg-gray-200 px-2 py-1 rounded-full">${formatTime(meal.start)} - ${formatTime(meal.end)}</span>
+                        </div>
+                        <p class="text-gray-800 text-lg">${foodItems}</p>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // NEW FUNCTION: Check and Update Token/Attendance Panel
+        async function updateTokenPanel() {
+            if (!isAuthReady || !userId) return;
+
+            const { nextMeal, nextMealTime } = getNextMeal();
+            const tokenButton = document.getElementById('generate-token-btn');
+            const statusMessage = document.getElementById('attendance-status');
+            const nextMealNameSpan = document.getElementById('next-meal-name');
+            const nextMealTimeSpan = document.getElementById('next-meal-time');
+            
+            nextMealNameSpan.textContent = nextMeal.name;
+            nextMealTimeSpan.textContent = formatTime(nextMeal.start);
+            tokenButton.textContent = `Mark Attendance for ${nextMeal.name}`;
+            
+            const todayDateString = getFirestoreDateString(nextMealTime.getDate() !== new Date().getDate() ? new Date(nextMealTime) : new Date());
+
+            // Check if attendance is already marked for this meal today
+            const attendanceRef = collection(db, 'artifacts', appId, 'users', userId, 'mess_attendance');
+            const q = query(
+                attendanceRef, 
+                where("mealName", "==", nextMeal.name),
+                where("date", "==", todayDateString)
+            );
+
+            try {
+                const querySnapshot = await getDocs(q);
+                
+                if (querySnapshot.docs.length > 0) {
+                    // Attendance already marked
+                    tokenButton.disabled = true;
+                    tokenButton.classList.remove('bg-primary', 'hover:bg-secondary');
+                    tokenButton.classList.add('bg-gray-400', 'cursor-not-allowed', 'shadow-none');
+                    statusMessage.textContent = 'Attendance is already marked for this meal.';
+                    statusMessage.classList.remove('text-orange-500', 'text-green-600', 'text-red-500');
+                    statusMessage.classList.add('text-primary');
+
+                } else {
+                    // Attendance not marked
+                    tokenButton.disabled = false;
+                    tokenButton.classList.remove('bg-gray-400', 'cursor-not-allowed', 'shadow-none');
+                    tokenButton.classList.add('bg-primary', 'hover:bg-secondary');
+                    statusMessage.textContent = 'Ready to mark attendance for the next meal.';
+                    statusMessage.classList.remove('text-orange-500', 'text-red-500', 'text-primary');
+                    statusMessage.classList.add('text-green-600');
+                }
+            } catch (error) {
+                console.error("Error checking attendance status:", error);
+                statusMessage.textContent = 'Error checking status.';
+                statusMessage.classList.remove('text-orange-500', 'text-primary', 'text-green-600');
+                statusMessage.classList.add('text-red-500');
+                tokenButton.disabled = true;
+            }
+        }
+        
+        // NEW FUNCTION: Handle Token Generation Button Click
+        async function generateMealToken() {
+            if (!isAuthReady || !userId) return;
+            
+            const { nextMeal, nextMealTime } = getNextMeal();
+            const tokenButton = document.getElementById('generate-token-btn');
+            const statusMessage = document.getElementById('attendance-status');
+            const todayDateString = getFirestoreDateString(nextMealTime.getDate() !== new Date().getDate() ? new Date(nextMealTime) : new Date());
+
+            tokenButton.disabled = true;
+            tokenButton.textContent = 'Processing...';
+            statusMessage.textContent = 'Submitting attendance...';
+            statusMessage.classList.remove('text-green-600', 'text-red-500', 'text-primary');
+            statusMessage.classList.add('text-orange-500');
+            
+            const attendanceRef = collection(db, 'artifacts', appId, 'users', userId, 'mess_attendance');
+
+            try {
+                // Record the attendance
+                await addDoc(attendanceRef, {
+                    userId: userId,
+                    mealName: nextMeal.name,
+                    date: todayDateString,
+                    timestamp: serverTimestamp(),
+                    status: 'Attended'
+                });
+                
+                statusMessage.textContent = `Attendance for ${nextMeal.name} marked successfully! Token generated.`;
+                statusMessage.classList.remove('text-orange-500', 'text-red-500', 'text-primary');
+                statusMessage.classList.add('text-green-600');
+                
+                // Update the panel status immediately
+                updateTokenPanel();
+
+            } catch (error) {
+                console.error("Error marking attendance:", error);
+                statusMessage.textContent = 'Error marking attendance. Please try again.';
+                statusMessage.classList.remove('text-orange-500', 'text-primary', 'text-green-600');
+                statusMessage.classList.add('text-red-500');
+                tokenButton.disabled = false;
+                tokenButton.textContent = `Mark Attendance for ${nextMeal.name}`;
+            }
+        }
+        
+        // NEW FUNCTION: Attach click listener for token button
+        function setupTokenListener() {
+            document.getElementById('generate-token-btn').addEventListener('click', generateMealToken);
+        }
+
+
+        // NEW FUNCTION: Listen for Mess Rules (Kept from previous version)
+        function startRulesListener() {
+            // Public Data Path for Rules
+            const rulesDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'mess_info', 'rules');
+            const rulesContentDiv = document.getElementById('rules-content');
+
+            onSnapshot(rulesDocRef, (docSnap) => {
+                rulesContentDiv.innerHTML = '';
+                if (docSnap.exists()) {
+                    const rulesData = docSnap.data();
+                    const rulesList = rulesData.rules || [];
+
+                    const listHtml = rulesList.map(rule => 
+                        `<li class="flex items-start"><svg class="w-4 h-4 mt-1 mr-2 text-secondary flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span>${rule}</span></li>`
+                    ).join('');
+                    
+                    rulesContentDiv.innerHTML = `<ul class="list-none space-y-2">${listHtml}</ul>`;
+                    rulesContentDiv.classList.remove('animate-pulse');
+                } else {
+                    rulesContentDiv.innerHTML = '<p class="text-gray-500">Official rules not yet set by administration.</p>';
+                }
+            }, (error) => {
+                console.error("Error listening to rules:", error);
+                rulesContentDiv.innerHTML = '<p class="text-red-500">Error loading rules.</p>';
+            });
+
+            // --- Mock Rule Data Setup (For first run, to demonstrate the rules) ---
+            const rulesDocRefInit = doc(db, 'artifacts', appId, 'public', 'data', 'mess_info', 'rules');
+            getDoc(rulesDocRefInit).then(docSnap => {
+                if (!docSnap.exists()) {
+                    setDoc(rulesDocRefInit, {
+                        rules: [
+                            "Meal timings are **fixed**; no food will be served outside scheduled hours.",
+                            "Students **must present** their valid ID card to the mess staff at the time of entry.",
+                            "Strictly **no carrying out** of utensils or food from the dining area.",
+                            "Wastage of food is strongly discouraged. Take only what you will consume.",
+                            "Guests are permitted only after **prior payment** and approval from the Mess Manager.",
+                            "Maintain **silence and discipline** inside the dining hall at all times.",
+                            "Dress code is mandatory; wearing nightwear is prohibited in the dining area.",
+                            "Suggestions and complaints must be placed in the designated feedback box, not verbally addressed to staff."
+                        ],
+                        lastUpdated: serverTimestamp()
+                    }).catch(err => console.error("Error setting mock rules data:", err));
+                }
+            });
+        }
+        
+        // --- Firebase Initialization and Handlers ---
+
+        async function initializeFirebase() {
+            if (!firebaseConfig) {
+                console.error("Firebase config is missing. Cannot initialize Firestore.");
+                document.getElementById('loading-menu').textContent = 'Configuration error. Cannot connect to database.';
+                return;
+            }
+            
+            try {
+                const app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+                
+                // Sign in with custom token or anonymously
+                if (initialAuthToken) {
+                    await signInWithCustomToken(auth, initialAuthToken);
+                } else {
+                    await signInAnonymously(auth);
+                }
+
+                // Wait for auth state to be ready
+                onAuthStateChanged(auth, (user) => {
+                    if (user) {
+                        userId = user.uid;
+                        isAuthReady = true;
+                        startRealtimeListeners();
+                    } else {
+                        userId = 'anonymous';
+                        isAuthReady = true;
+                        startRealtimeListeners();
+                    }
+                });
+
+            } catch (error) {
+                console.error("Error during Firebase initialization or sign-in:", error);
+                document.getElementById('loading-menu').textContent = `Database connection failed: ${error.message}`;
+            }
+        }
+
+        function startRealtimeListeners() {
+            if (!isAuthReady) {
+                console.log("Auth not ready yet, skipping listeners.");
+                return;
+            }
+            
+            // 1. Listen to Mess Menu
+            const menuDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'mess_menu', 'weekly_menu');
+            onSnapshot(menuDocRef, (docSnap) => {
+                if (docSnap.exists()) {
+                    const menuData = docSnap.data();
+                    renderMenu(menuData);
+                    updateCurrentStatus(menuData);
+                } else {
+                    console.log("No weekly menu data found in Firestore. Using mock data.");
+                    
+                    // --- Mock Data Insertion (For first run) ---
+                    const mockMenu = {
+                        "Sunday": { "Breakfast": "Poori, Sabzi, Tea", "Lunch": "Chicken/Paneer Biryani, Raita", "Dinner": "Dal Makhani, Roti, Rice" },
+                        "Monday": { "Breakfast": "Aloo Paratha, Curd", "Lunch": "Rajma Chawal, Salad", "Dinner": "Egg Curry/Veg Kolhapuri, Roti" },
+                        "Tuesday": { "Breakfast": "Poha, Jalebi", "Lunch": "Mix Veg, Dal Fry, Rice, Roti", "Dinner": "Masoor Dal, Bhindi Fry, Roti" },
+                        "Wednesday": { "Breakfast": "Oats, Fruit, Milk", "Lunch": "Kadhi Pakora, Rice, Papad", "Dinner": "Chhole Bhature, Onion" },
+                        "Thursday": { "Breakfast": "Sandwich, Juice", "Lunch": "Aloo Matar, Rice, Roti", "Dinner": "Chicken Curry/Tofu Curry, Rice" },
+                        "Friday": { "Breakfast": "Idli, Sambar, Chutney", "Lunch": "Lemon Rice, Samosa", "Dinner": "Paneer Butter Masala, Naan" },
+                        "Saturday": { "Breakfast": "Vada Pav, Tea", "Lunch": "Curd Rice, Pickle", "Dinner": "Pizza/Pasta Night" }
+                    };
+                    
+                    renderMenu(mockMenu);
+                    updateCurrentStatus(mockMenu);
+                }
+            }, (error) => {
+                console.error("Error listening to menu data:", error);
+                document.getElementById('loading-menu').textContent = 'Failed to fetch real-time menu.';
+            });
+            
+            // 2. Setup event listeners for feedback
+            setupFeedbackListener();
+            
+            // 3. Start Rules Listener
+            startRulesListener();
+            
+            // 4. Start Token/Attendance Listener (NEW)
+            updateTokenPanel(); // Initial check
+            setupTokenListener();
+        }
+        
+        // --- Feedback Logic (RETAINED) ---
+
+        function setupFeedbackListener() {
+            const ratingInput = document.getElementById('rating');
+            const ratingValue = document.getElementById('rating-value');
+            const submitButton = document.getElementById('submit-feedback');
+            const messageElement = document.getElementById('feedback-message');
+
+            ratingInput.addEventListener('input', (e) => {
+                ratingValue.textContent = `${e.target.value} / 5`;
+                // Change color based on rating for visual feedback
+                const colorMap = {
+                    1: 'text-red-500', 2: 'text-orange-500', 3: 'text-yellow-500', 4: 'text-lime-500', 5: 'text-secondary'
+                };
+                Object.values(colorMap).forEach(c => ratingValue.classList.remove(c));
+                ratingValue.classList.add(colorMap[e.target.value]);
+            });
+
+            submitButton.addEventListener('click', async () => {
+                if (!isAuthReady) {
+                    messageElement.textContent = 'System is still initializing. Please wait.';
+                    messageElement.classList.remove('hidden');
+                    messageElement.classList.add('text-orange-500');
+                    return;
+                }
+
+                const rating = parseInt(ratingInput.value);
+                const dayName = getDayName(new Date());
+
+                // Private User Data Path
+                const feedbackCollectionRef = collection(db, 'artifacts', appId, 'users', userId, 'mess_feedback');
+
+                submitButton.disabled = true;
+                submitButton.textContent = 'Submitting...';
+                messageElement.classList.add('hidden');
+
+                try {
+                    await addDoc(feedbackCollectionRef, {
+                        userId: userId,
+                        rating: rating,
+                        mealDay: dayName,
+                        timestamp: serverTimestamp()
+                    });
+
+                    messageElement.textContent = 'Thank you! Your feedback has been recorded.';
+                    messageElement.classList.remove('hidden');
+                    messageElement.classList.remove('text-red-500', 'text-orange-500');
+                    messageElement.classList.add('text-secondary');
+
+                } catch (e) {
+                    console.error("Error submitting feedback: ", e);
+                    messageElement.textContent = 'Error: Could not submit feedback. Try again.';
+                    messageElement.classList.remove('hidden');
+                    messageElement.classList.remove('text-secondary', 'text-orange-500');
+                    messageElement.classList.add('text-red-500');
+                } finally {
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Submit Feedback';
+                }
+            });
+        }
+        
+        // --- Start Application ---
+        document.addEventListener('DOMContentLoaded', initializeFirebase);
+        
+    </script>
+</body>
+</html>
