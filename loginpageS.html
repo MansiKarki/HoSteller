@@ -241,10 +241,48 @@
                 grid-template-columns: 1fr;
             }
         }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8f5e9 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .navbar { background: #fff; padding: 1rem 2rem; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .logo { font-size: 2rem; font-weight: 700; color: #5cb85c; }
+
+        .login-container { flex: 1; display: flex; justify-content: center; align-items: center; padding: 2rem; }
+        .login-box { background: #fff; border-radius: 20px; padding: 3rem; max-width: 450px; width: 100%; box-shadow: 0 10px 40px rgba(0,0,0,0.1); }
+
+        .login-header h1 { font-size: 2rem; color: #333; margin-bottom: .5rem; text-align:center; }
+        .login-header p { text-align:center; color:#666; }
+
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group input {
+            width: 100%; padding: .9rem 1rem; border:2px solid #e0e0e0;
+            border-radius:10px; font-size:1rem;
+        }
+        .form-group input:focus {
+            border-color:#5cb85c; box-shadow:0 0 0 3px rgba(92,184,92,0.2);
+        }
+
+        .forgot-password { text-align:right; margin-bottom:1rem; }
+        .forgot-password a { color:#5cb85c; text-decoration:none; }
+
+        .login-btn {
+            width:100%; padding:1rem; background:#5cb85c; color:#fff;
+            border:none; border-radius:10px; font-size:1.1rem; font-weight:600;
+            cursor:pointer; transition:0.3s;
+        }
+        .login-btn:hover { background:#4a9d4a; }
+
     </style>
 </head>
+
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light shadow">
+
+     <nav class="navbar navbar-expand-lg navbar-light shadow">
         <div class="container d-flex justify-content-between align-items-center">
 
             <a class="navbar-brand text-success logo h1 align-self-center" href="index.html">
@@ -287,72 +325,56 @@
 
         </div>
     </nav>
+
+    <!-- LOGIN FORM -->
     <div class="login-container">
         <div class="login-box">
+
             <div class="login-header">
                 <h1>Student Login</h1>
                 <p>Access your hostel hub</p>
             </div>
 
-            <form id="loginForm">
+            <form>
                 <div class="form-group">
-                    <label for="email">Email or Student ID</label>
-                    <input type="text" id="email" name="email" placeholder="Enter your email or student ID" required>
+                    <label for="email">Email or Student Name</label>
+                    <input type="text" id="email" placeholder="Enter your name" required>
                 </div>
 
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                    <input type="password" id="password" placeholder="Enter your password" required>
                 </div>
 
                 <div class="forgot-password">
                     <a href="#">Forgot Password?</a>
                 </div>
 
-                <button type="submit" class="login-btn">Login</button>
+                <!-- FIXED BUTTON (NO <a> TAG) -->
+                <button type="button" class="login-btn" onclick="loginStudent()">Login</button>
             </form>
 
-            <div class="divider">
-                <span>OR</span>
-            </div>
-
-            <div class="signup-link">
-                Don't have an account? <a href="#">Sign Up</a>
-            </div>
-
-            <div class="features">
-                <div class="feature-item">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                    </svg>
-                    <p>Secure Login</p>
-                </div>
-                <div class="feature-item">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
-                    </svg>
-                    <p>24/7 Access</p>
-                </div>
-                <div class="feature-item">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/>
-                    </svg>
-                    <p>Easy Payments</p>
-                </div>
-            </div>
         </div>
     </div>
 
+    <!-- LOGIN SCRIPT (FULLY FIXED) -->
     <script>
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            
-            if (email && password) {
-                alert('Login functionality would be connected to backend here.\nEmail/ID: ' + email);
+        function loginStudent() {
+            let name = document.getElementById("email").value.trim();
+
+            if (!name) {
+                alert("Please enter your name");
+                return;
             }
-        });
+
+            // Save in sessionStorage (this is what dashboard reads)
+            sessionStorage.setItem("studentName", name);
+            sessionStorage.setItem("studentId", "2025001");   // Fixed roll number
+
+            // Correct redirect
+            window.location.href = "dashbpard.html";
+        }
     </script>
+
 </body>
 </html>
