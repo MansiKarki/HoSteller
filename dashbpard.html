@@ -166,7 +166,7 @@
         /* Tables */
         .custom-table {
             width: 100%;
-            border-collapse: collapse; /* remove gaps between cells */
+            border-collapse: collapse;
         }
 
         .custom-table thead {
@@ -176,9 +176,9 @@
 
         .custom-table thead th,
         .custom-table tbody td {
-            padding: 10px; /* slightly tighter rows */
+            padding: 10px;
             font-weight: 500;
-            border: 1px solid var(--border-color); /* full grid borders */
+            border: 1px solid var(--border-color);
         }
 
         .custom-table tbody td {
@@ -192,8 +192,8 @@
         /* Status Badges */
         .badge-success { background: #4caf50; color: white; padding: 5px 12px; border-radius: 20px; font-size: 12px; }
         .badge-warning { background: #ff9800; color: white; padding: 5px 12px; border-radius: 20px; font-size: 12px; }
-        .badge-danger { background: #f44336; color: white; padding: 5px 12px; border-radius: 20px; font-size: 12px; }
-        .badge-info { background: #2196f3; color: white; padding: 5px 12px; border-radius: 20px; font-size: 12px; }
+        .badge-danger  { background: #f44336; color: white; padding: 5px 12px; border-radius: 20px; font-size: 12px; }
+        .badge-info    { background: #2196f3; color: white; padding: 5px 12px; border-radius: 20px; font-size: 12px; }
 
         /* Info Cards */
         .info-grid {
@@ -286,7 +286,7 @@
             .summary-cards {
                 grid-template-columns: 1fr;
             }
-            
+
             .section-header {
                 flex-direction: column;
                 align-items: flex-start;
@@ -400,7 +400,7 @@
                     <div class="value">+91 98765 43210</div>
                 </div>
             </div>
-            
+
             <h5 class="mt-4 mb-3">Roommate Details</h5>
             <div class="roommate-card">
                 <img src="assets/img/logo-removebg-preview.png" alt="Roommate">
@@ -468,7 +468,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <h5 class="mb-3">Payment History</h5>
             <div class="table-responsive">
                 <table class="custom-table">
@@ -526,7 +526,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="table-responsive">
                 <table class="custom-table">
                     <thead>
@@ -989,13 +989,13 @@
         // Load student information from session storage
         window.addEventListener('DOMContentLoaded', function() {
             const studentName = sessionStorage.getItem('studentName');
-            const studentId = sessionStorage.getItem('studentId');
-            
+            const studentId   = sessionStorage.getItem('studentId');
+
             if (studentName) {
-                document.getElementById('welcomeName').textContent = studentName;
+                document.getElementById('welcomeName').textContent        = studentName;
                 document.getElementById('studentNameDisplay').textContent = studentName;
             }
-            
+
             if (studentId) {
                 document.getElementById('studentIdDisplay').textContent = studentId;
             }
@@ -1005,7 +1005,7 @@
         document.querySelectorAll('.star').forEach(star => {
             star.addEventListener('click', function() {
                 const rating = this.dataset.rating;
-                const stars = this.parentElement.querySelectorAll('.star');
+                const stars  = this.parentElement.querySelectorAll('.star');
                 stars.forEach((s, index) => {
                     if (index < rating) {
                         s.classList.add('active');
@@ -1023,61 +1023,72 @@
 
         // Room Change Request
         function submitRoomChange() {
-            const currentRoom = document.querySelector('#roomChangeModal input[readonly]').value;
+            const currentRoom   = document.querySelector('#roomChangeModal input[readonly]').value;
             const preferredBlock = document.querySelector('#roomChangeModal select').value;
-            const reason = document.querySelector('#roomChangeModal textarea').value;
-            
+            const reason        = document.querySelector('#roomChangeModal textarea').value;
+
             if (!reason.trim()) {
                 alert('Please enter a reason for room change.');
                 return;
             }
-            
-            alert('Room Change Request Submitted Successfully!\n\nCurrent Room: ' + currentRoom + '\nPreferred Block: ' + preferredBlock + '\nReason: ' + reason + '\n\nYour request has been sent to the warden for approval.');
-            
-            // Close modal
+
+            alert(
+                'Room Change Request Submitted Successfully!\n\n' +
+                'Current Room: ' + currentRoom +
+                '\nPreferred Block: ' + preferredBlock +
+                '\nReason: ' + reason +
+                '\n\nYour request has been sent to the warden for approval.'
+            );
+
             const modal = bootstrap.Modal.getInstance(document.getElementById('roomChangeModal'));
             modal.hide();
-            
-            // Clear form
             document.querySelector('#roomChangeModal textarea').value = '';
         }
 
         // Pay Now Handler
         function handlePayNow() {
-            const amount = '₹12,500';
+            const amount  = '₹12,500';
             const dueDate = '15 October 2025';
-            
-            const confirmPay = window.confirm('Proceed to Payment Gateway?\n\nAmount Due: ' + amount + '\nDue Date: ' + dueDate + '\n\nClick OK to proceed to payment gateway.');
-            
+
+            const confirmPay = window.confirm(
+                'Proceed to Payment Gateway?\n\n' +
+                'Amount Due: ' + amount +
+                '\nDue Date: ' + dueDate +
+                '\n\nClick OK to proceed to payment gateway.'
+            );
+
             if (confirmPay) {
-                alert('Redirecting to Payment Gateway...\n\nIn production, this would redirect to:\n• Razorpay\n• Paytm\n• PhonePe\n• or your preferred payment provider');
-                // In production: window.location.href = 'payment-gateway-url';
+                alert(
+                    'Redirecting to Payment Gateway...\n\n' +
+                    'In production, this would redirect to:\n' +
+                    '• Razorpay\n• Paytm\n• PhonePe\n• or your preferred payment provider'
+                );
             }
         }
 
         // Download Receipt
         function downloadReceipt(transactionId) {
-            alert('Downloading Receipt for Transaction: ' + transactionId + '\n\nReceipt will be downloaded as PDF.\n\nIn production, this would generate and download the actual receipt.');
-            // In production: window.location.href = '/api/download-receipt/' + transactionId;
+            alert(
+                'Downloading Receipt for Transaction: ' + transactionId +
+                '\n\nReceipt will be downloaded as PDF.\n\nIn production, this would generate and download the actual receipt.'
+            );
         }
 
         // File Complaint
         function submitComplaint() {
-            const category = document.querySelector('#complaintModal select').value;
+            const category    = document.querySelector('#complaintModal select').value;
             const description = document.querySelector('#complaintModal textarea').value;
-            const fileInput = document.querySelector('#complaintModal input[type="file"]');
-            
+            const fileInput   = document.querySelector('#complaintModal input[type="file"]');
+
             if (!description.trim()) {
                 alert('Please enter complaint description.');
                 return;
             }
-            
-            // Generate complaint ID
+
             const complaintId = 'CMP00' + Math.floor(Math.random() * 900 + 100);
-            const today = new Date().toLocaleDateString('en-GB').replace(/\//g, ' ');
-            
-            // Add new row to complaints table
-            const tbody = document.querySelector('.dashboard-section:nth-child(5) .custom-table tbody');
+            const today       = new Date().toLocaleDateString('en-GB').replace(/\//g, ' ');
+
+            const tbody  = document.querySelector('.dashboard-section:nth-child(5) .custom-table tbody');
             const newRow = document.createElement('tr');
             newRow.innerHTML = `
                 <td>${complaintId}</td>
@@ -1088,119 +1099,145 @@
                 <td><button class="btn btn-sm btn-outline-info" onclick="trackComplaint('${complaintId}')">Track</button></td>
             `;
             tbody.insertBefore(newRow, tbody.firstChild);
-            
-            // Update pending count
+
             const pendingCount = document.querySelector('.summary-card.complaints h3');
             pendingCount.textContent = parseInt(pendingCount.textContent) + 1;
-            
-            // Update complaints section count
-            const pendingComplaintsValue = document.querySelector('.dashboard-section:nth-child(5) .info-item .value.text-warning');
+
+            const pendingComplaintsValue =
+                document.querySelector('.dashboard-section:nth-child(5) .info-item .value.text-warning');
             pendingComplaintsValue.textContent = parseInt(pendingComplaintsValue.textContent) + 1;
-            
-            // Close modal
+
             const modal = bootstrap.Modal.getInstance(document.getElementById('complaintModal'));
             modal.hide();
-            
-            // Show success message
-            alert('Complaint Filed Successfully!\n\nComplaint ID: ' + complaintId + '\nCategory: ' + category + '\n\nYour complaint has been added to the dashboard and will be reviewed soon.');
-            
-            // Clear form
+
+            alert(
+                'Complaint Filed Successfully!\n\n' +
+                'Complaint ID: ' + complaintId +
+                '\nCategory: ' + category +
+                '\n\nYour complaint has been added to the dashboard and will be reviewed soon.'
+            );
+
             document.querySelector('#complaintModal textarea').value = '';
             fileInput.value = '';
         }
 
         // Track Complaint
         function trackComplaint(complaintId) {
-            alert('Complaint Tracking: ' + complaintId + '\n\nStatus Timeline:\n✓ Filed: 10 Oct 2025, 10:30 AM\n✓ Under Review: 10 Oct 2025, 2:00 PM\n⏳ Pending Resolution\n\nEstimated Resolution: Within 24-48 hours');
+            alert(
+                'Complaint Tracking: ' + complaintId +
+                '\n\nStatus Timeline:\n' +
+                '✓ Filed: 10 Oct 2025, 10:30 AM\n' +
+                '✓ Under Review: 10 Oct 2025, 2:00 PM\n' +
+                '⏳ Pending Resolution\n\n' +
+                'Estimated Resolution: Within 24-48 hours'
+            );
         }
 
         // Download Timetable
         function downloadTimetable() {
-            alert('Downloading Academic Timetable...\n\nTimetable will be downloaded as PDF.\n\nIn production, this would generate and download your personalized timetable.');
-            // In production: window.location.href = '/api/download-timetable';
+            alert(
+                'Downloading Academic Timetable...\n\n' +
+                'Timetable will be downloaded as PDF.\n\n' +
+                'In production, this would generate and download your personalized timetable.'
+            );
         }
 
         // Rate Meal
         function submitMealFeedback() {
             const activeStars = document.querySelectorAll('#mealFeedbackModal .star.active');
-            const rating = activeStars.length;
-            const feedback = document.querySelector('#mealFeedbackModal textarea').value;
-            
+            const rating      = activeStars.length;
+            const feedback    = document.querySelector('#mealFeedbackModal textarea').value;
+
             if (rating === 0) {
                 alert('Please select a rating.');
                 return;
             }
-            
-            alert('Meal Feedback Submitted!\n\nRating: ' + rating + '/5 stars\nFeedback: ' + (feedback || 'No additional comments') + '\n\nThank you for your feedback! It helps us improve our mess services.');
-            
-            // Close modal
+
+            alert(
+                'Meal Feedback Submitted!\n\n' +
+                'Rating: ' + rating + '/5 stars\n' +
+                'Feedback: ' + (feedback || 'No additional comments') +
+                '\n\nThank you for your feedback! It helps us improve our mess services.'
+            );
+
             const modal = bootstrap.Modal.getInstance(document.getElementById('mealFeedbackModal'));
             modal.hide();
-            
-            // Clear form
+
             document.querySelector('#mealFeedbackModal textarea').value = '';
             document.querySelectorAll('#mealFeedbackModal .star').forEach(s => s.classList.remove('active'));
         }
 
         // Event Registration
         function registerEvent(eventName) {
-            const confirmReg = window.confirm('Register for: ' + eventName + '?\n\nClick OK to confirm your registration.');
+            const confirmReg = window.confirm(
+                'Register for: ' + eventName + '?\n\nClick OK to confirm your registration.'
+            );
             if (confirmReg) {
-                // Find the row and update it
                 const rows = document.querySelectorAll('.dashboard-section:nth-child(8) .custom-table tbody tr');
                 rows.forEach(row => {
                     if (row.cells[0].textContent === eventName) {
                         row.cells[4].innerHTML = '<span class="badge-success">Registered</span>';
-                        row.cells[5].innerHTML = '<button class="btn btn-sm btn-outline-danger" onclick="unregisterEvent(\'' + eventName + '\')">Unregister</button>';
+                        row.cells[5].innerHTML =
+                            '<button class="btn btn-sm btn-outline-danger" onclick="unregisterEvent(\'' +
+                            eventName + '\')">Unregister</button>';
                     }
                 });
-                
-                // Update events count
+
                 const eventsCount = document.querySelector('.summary-card.events h3');
                 eventsCount.textContent = parseInt(eventsCount.textContent) + 1;
-                
-                alert('Successfully Registered!\n\nEvent: ' + eventName + '\n\nThe event status has been updated on your dashboard.');
+
+                alert(
+                    'Successfully Registered!\n\n' +
+                    'Event: ' + eventName +
+                    '\n\nThe event status has been updated on your dashboard.'
+                );
             }
         }
 
         // Event Unregister
         function unregisterEvent(eventName) {
-            const confirmUnreg = window.confirm('Unregister from: ' + eventName + '?\n\nAre you sure you want to cancel your registration?');
+            const confirmUnreg = window.confirm(
+                'Unregister from: ' + eventName +
+                '?\n\nAre you sure you want to cancel your registration?'
+            );
             if (confirmUnreg) {
-                // Find the row and update it
                 const rows = document.querySelectorAll('.dashboard-section:nth-child(8) .custom-table tbody tr');
                 rows.forEach(row => {
                     if (row.cells[0].textContent === eventName) {
                         row.cells[4].innerHTML = '<span class="badge-info">Upcoming</span>';
-                        row.cells[5].innerHTML = '<button class="btn btn-sm btn-primary-custom" onclick="registerEvent(\'' + eventName + '\')">Register</button>';
+                        row.cells[5].innerHTML =
+                            '<button class="btn btn-sm btn-primary-custom" onclick="registerEvent(\'' +
+                            eventName + '\')">Register</button>';
                     }
                 });
-                
-                // Update events count
+
                 const eventsCount = document.querySelector('.summary-card.events h3');
                 if (parseInt(eventsCount.textContent) > 0) {
                     eventsCount.textContent = parseInt(eventsCount.textContent) - 1;
                 }
-                
-                alert('Successfully Unregistered!\n\nEvent: ' + eventName + '\n\nThe event status has been updated on your dashboard.');
+
+                alert(
+                    'Successfully Unregistered!\n\n' +
+                    'Event: ' + eventName +
+                    '\n\nThe event status has been updated on your dashboard.'
+                );
             }
         }
 
         // Leave Application
         function submitLeaveApplication() {
             const leaveType = document.querySelector('#leaveModal select').value;
-            const fromDate = document.querySelector('#leaveModal input[type="date"]').value;
-            const toDate = document.querySelectorAll('#leaveModal input[type="date"]')[1].value;
-            const reason = document.querySelector('#leaveModal textarea').value;
+            const fromDate  = document.querySelector('#leaveModal input[type="date"]').value;
+            const toDate    = document.querySelectorAll('#leaveModal input[type="date"]')[1].value;
+            const reason    = document.querySelector('#leaveModal textarea').value;
             const fileInput = document.querySelector('#leaveModal input[type="file"]');
-            
+
             if (!fromDate || !toDate || !reason.trim()) {
                 alert('Please fill all required fields.');
                 return;
             }
-            
-            // Add new row to leave management table
-            const tbody = document.querySelector('.dashboard-section:nth-child(9) .custom-table tbody');
+
+            const tbody  = document.querySelector('.dashboard-section:nth-child(9) .custom-table tbody');
             const newRow = document.createElement('tr');
             newRow.innerHTML = `
                 <td>${leaveType}</td>
@@ -1210,15 +1247,18 @@
                 <td><span class="badge-warning">Pending</span></td>
             `;
             tbody.insertBefore(newRow, tbody.firstChild);
-            
-            // Close modal
+
             const modal = bootstrap.Modal.getInstance(document.getElementById('leaveModal'));
             modal.hide();
-            
-            // Show success message
-            alert('Leave Application Submitted!\n\nLeave Type: ' + leaveType + '\nFrom: ' + fromDate + '\nTo: ' + toDate + '\n\nYour application has been added to the dashboard and sent for approval.');
-            
-            // Clear form
+
+            alert(
+                'Leave Application Submitted!\n\n' +
+                'Leave Type: ' + leaveType +
+                '\nFrom: ' + fromDate +
+                '\nTo: ' + toDate +
+                '\n\nYour application has been added to the dashboard and sent for approval.'
+            );
+
             document.querySelector('#leaveModal textarea').value = '';
             document.querySelector('#leaveModal input[type="date"]').value = '';
             document.querySelectorAll('#leaveModal input[type="date"]')[1].value = '';
@@ -1227,8 +1267,10 @@
 
         // View Notice PDF
         function viewNoticePDF(noticeTitle) {
-            alert('Opening Notice: ' + noticeTitle + '\n\nIn production, this would open or download the PDF document.');
-            // In production: window.open('/api/notice-pdf/' + noticeId, '_blank');
+            alert(
+                'Opening Notice: ' + noticeTitle +
+                '\n\nIn production, this would open or download the PDF document.'
+            );
         }
 
         // My Registrations
@@ -1237,5 +1279,4 @@
         }
     </script>
 </body>
-
 </html>

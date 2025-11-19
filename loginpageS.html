@@ -2,10 +2,10 @@
 <html lang="en">
 
 <head>
-    <title>Hosteller</title>
+    <title>Student Login - Hosteller</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="apple-touch-icon" href="assets/img/apple-icon.png">
+    <link rel="apple-touch-icon" href="assets/img/apple-icon.png">
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/logo-removebg-preview.png">
 
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -16,284 +16,195 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
     <link rel="stylesheet" href="assets/css/fontawesome.min.css">
 
-
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #e8f5e9 100%);
+            background-color: #ffffff;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-        }
-
-        .navbar {
-            background: white;
-            padding: 1rem 2rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #5cb85c;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-        }
-
-        .nav-links a {
-            color: #666;
-            text-decoration: none;
-            font-size: 1rem;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: #5cb85c;
         }
 
         .login-container {
             flex: 1;
             display: flex;
-            justify-content: center;
             align-items: center;
-            padding: 2rem;
+            justify-content: center;
+            padding: 50px 0;
         }
 
-        .login-box {
-            background: white;
+        .login-card {
+            background: #ffffff;
             border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-            padding: 3rem;
-            width: 100%;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+            overflow: hidden;
             max-width: 450px;
+            width: 100%;
+            margin: 20px;
         }
 
         .login-header {
+            background-color: #ffffff;
+            padding: 32px 40px 24px;
             text-align: center;
-            margin-bottom: 2rem;
+            color: #222222;
+            border-bottom: 1px solid #eeeeee;
         }
 
-        .login-header h1 {
-            color: #333;
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
+        .login-header h2 {
+            margin: 0;
+            font-weight: 600;
+            font-size: 28px;
         }
 
         .login-header p {
-            color: #666;
-            font-size: 1rem;
+            margin: 10px 0 0 0;
+            opacity: 0.8;
+        }
+
+        .login-body {
+            padding: 40px;
         }
 
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 25px;
         }
 
-        .form-group label {
-            display: block;
-            color: #333;
+        .form-label {
             font-weight: 500;
-            margin-bottom: 0.5rem;
-            font-size: 0.95rem;
+            margin-bottom: 8px;
+            color: #333;
         }
 
-        .form-group input {
-            width: 100%;
-            padding: 0.875rem 1rem;
+        .form-control {
             border: 2px solid #e0e0e0;
             border-radius: 10px;
-            font-size: 1rem;
+            padding: 12px 15px;
+            font-size: 15px;
             transition: all 0.3s;
-            outline: none;
         }
 
-        .form-group input:focus {
-            border-color: #5cb85c;
-            box-shadow: 0 0 0 3px rgba(92, 184, 92, 0.1);
+        .form-control:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 0.15rem rgba(59, 130, 246, 0.25);
         }
 
-        .forgot-password {
-            text-align: right;
-            margin-bottom: 1.5rem;
+        .input-group-text {
+            background: transparent;
+            border: 2px solid #e0e0e0;
+            border-left: none;
+            border-radius: 0 10px 10px 0;
+            color: rgb(76, 175, 80);
         }
 
-        .forgot-password a {
-            color: #5cb85c;
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: color 0.3s;
+        .input-group .form-control {
+            border-right: none;
+            border-radius: 10px 0 0 10px;
         }
 
-        .forgot-password a:hover {
-            color: #4a9d4a;
-        }
-
-        .login-btn {
-            width: 100%;
-            padding: 1rem;
-            background: #5cb85c;
-            color: white;
-            border: none;
+        .btn-login {
+            background-color: #ffffff;
+            border: 1px solid #3b82f6;
             border-radius: 10px;
-            font-size: 1.1rem;
+            padding: 12px;
             font-weight: 600;
-            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            color: #1d4ed8;
             transition: all 0.3s;
         }
 
-        .login-btn:hover {
-            background: #4a9d4a;
+        .btn-login:hover {
+            background-color: #1d4ed8;
             transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(92, 184, 92, 0.3);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.35);
+            color: #ffffff;
         }
 
         .divider {
             text-align: center;
-            margin: 1.5rem 0;
+            margin: 25px 0;
             position: relative;
         }
 
         .divider::before {
-            content: '';
+            content: "";
             position: absolute;
             left: 0;
             top: 50%;
-            width: 45%;
-            height: 1px;
-            background: #e0e0e0;
-        }
-
-        .divider::after {
-            content: '';
-            position: absolute;
-            right: 0;
-            top: 50%;
-            width: 45%;
+            width: 100%;
             height: 1px;
             background: #e0e0e0;
         }
 
         .divider span {
+            background: white;
+            padding: 0 15px;
+            position: relative;
             color: #999;
-            font-size: 0.9rem;
+            font-size: 14px;
+        }
+
+        .forgot-password {
+            text-align: right;
+            margin-top: -15px;
+            margin-bottom: 20px;
+        }
+
+        .forgot-password a {
+            color: rgb(76, 175, 80);
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .forgot-password a:hover {
+            text-decoration: underline;
         }
 
         .signup-link {
             text-align: center;
-            margin-top: 1.5rem;
+            margin-top: 20px;
             color: #666;
         }
 
         .signup-link a {
-            color: #5cb85c;
+            color: rgb(76, 175, 80);
             text-decoration: none;
             font-weight: 600;
-            transition: color 0.3s;
         }
 
         .signup-link a:hover {
-            color: #4a9d4a;
+            text-decoration: underline;
         }
 
-        .features {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 1px solid #e0e0e0;
-        }
-
-        .feature-item {
-            text-align: center;
-        }
-
-        .feature-item svg {
-            width: 30px;
-            height: 30px;
-            margin-bottom: 0.5rem;
-            fill: #5cb85c;
-        }
-
-        .feature-item p {
-            font-size: 0.85rem;
-            color: #666;
-        }
-
-        @media (max-width: 768px) {
-            .login-box {
-                padding: 2rem;
-            }
-
-            .features {
-                grid-template-columns: 1fr;
-            }
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Roboto', sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #e8f5e9 100%);
-            min-height: 100vh;
+        .remember-me {
             display: flex;
-            flex-direction: column;
-        }
-        .navbar { background: #fff; padding: 1rem 2rem; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-        .logo { font-size: 2rem; font-weight: 700; color: #5cb85c; }
-
-        .login-container { flex: 1; display: flex; justify-content: center; align-items: center; padding: 2rem; }
-        .login-box { background: #fff; border-radius: 20px; padding: 3rem; max-width: 450px; width: 100%; box-shadow: 0 10px 40px rgba(0,0,0,0.1); }
-
-        .login-header h1 { font-size: 2rem; color: #333; margin-bottom: .5rem; text-align:center; }
-        .login-header p { text-align:center; color:#666; }
-
-        .form-group { margin-bottom: 1.5rem; }
-        .form-group input {
-            width: 100%; padding: .9rem 1rem; border:2px solid #e0e0e0;
-            border-radius:10px; font-size:1rem;
-        }
-        .form-group input:focus {
-            border-color:#5cb85c; box-shadow:0 0 0 3px rgba(92,184,92,0.2);
+            align-items: center;
+            margin-bottom: 20px;
         }
 
-        .forgot-password { text-align:right; margin-bottom:1rem; }
-        .forgot-password a { color:#5cb85c; text-decoration:none; }
-
-        .login-btn {
-            width:100%; padding:1rem; background:#5cb85c; color:#fff;
-            border:none; border-radius:10px; font-size:1.1rem; font-weight:600;
-            cursor:pointer; transition:0.3s;
+        .remember-me input {
+            margin-right: 8px;
         }
-        .login-btn:hover { background:#4a9d4a; }
 
+        .navbar {
+            background: white !important;
+        }
     </style>
 </head>
 
 <body>
-
-     <nav class="navbar navbar-expand-lg navbar-light shadow">
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-light shadow">
         <div class="container d-flex justify-content-between align-items-center">
-
             <a class="navbar-brand text-success logo h1 align-self-center" href="index.html">
-             Hosteller
+                Hosteller
             </a>
 
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
+            <div class="align-self-center collapse navbar-collapse flex-fill d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
                 <div class="flex-fill">
                     <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
                         <li class="nav-item">
@@ -306,75 +217,117 @@
                             <a class="nav-link" href="contact.html">Contact</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="index.html#faq">FAQ</a>
+                            <a class="nav-link btn btn-success rounded-pill px-4 mx-1" href="loginpageS.html">Student Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="loginpageA.html">Admin Login</a>
                         </li>
                     </ul>
                 </div>
-                <div class="navbar align-self-center d-flex">
-                    <div class="d-lg-none flex-sm-fill mt-3 mb-4 col-7 col-sm-auto pr-3">
-                        <div class="input-group">
-                            <input type="text" class="form-control" id="inputMobileSearch" placeholder="Search ...">
-                            <div class="input-group-text">
-                                <i class="fa fa-fw fa-search"></i>
-                            </div>
-                        </div>
-                    </div>
-                   
-                </div>
             </div>
-
         </div>
     </nav>
+    <!-- Close Header -->
 
-    <!-- LOGIN FORM -->
+    <!-- Login Container -->
     <div class="login-container">
-        <div class="login-box">
-
+        <div class="login-card">
             <div class="login-header">
-                <h1>Student Login</h1>
-                <p>Access your hostel hub</p>
+                <h2>Student Login</h2>
+                <p>Welcome back! Please login to your account</p>
             </div>
+            <div class="login-body">
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label class="form-label" for="studentName">Student Name</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="studentName" placeholder="Enter your name" required>
+                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                        </div>
+                    </div>
 
-            <form>
-                <div class="form-group">
-                    <label for="email">Email or Student Name</label>
-                    <input type="text" id="email" placeholder="Enter your name" required>
-                </div>
+                    <div class="form-group">
+                        <label class="form-label" for="studentId">Student ID</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="studentId" placeholder="Enter your student ID" required>
+                            <span class="input-group-text"><i class="fas fa-id-card"></i></span>
+                        </div>
+                    </div>
 
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" placeholder="Enter your password" required>
-                </div>
+                    <div class="form-group">
+                        <label class="form-label" for="password">Password</label>
+                        <div class="input-group">
+                            <input type="password" class="form-control" id="password" placeholder="Enter your password" required>
+                            <span class="input-group-text" style="cursor: pointer;" onclick="togglePassword()">
+                                <i class="fas fa-eye" id="toggleIcon"></i>
+                            </span>
+                        </div>
+                    </div>
 
-                <div class="forgot-password">
-                    <a href="#">Forgot Password?</a>
-                </div>
+                    <div class="forgot-password">
+                        <a href="#">Forgot Password?</a>
+                    </div>
 
-                <!-- FIXED BUTTON (NO <a> TAG) -->
-                <button type="button" class="login-btn" onclick="loginStudent()">Login</button>
-            </form>
+                    <div class="remember-me">
+                        <input type="checkbox" id="rememberMe">
+                        <label for="rememberMe" style="margin: 0; cursor: pointer;">Remember me</label>
+                    </div>
 
+                    <button type="submit" class="btn btn-login">Login</button>
+
+                    <div class="signup-link">
+                        Don't have an account? <a href="#">Sign up here</a>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 
-    <!-- LOGIN SCRIPT (FULLY FIXED) -->
+    <!-- Start Script -->
+    <script src="assets/js/jquery-1.11.0.min.js"></script>
+    <script src="assets/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/templatemo.js"></script>
+    <script src="assets/js/custom.js"></script>
+
     <script>
-        function loginStudent() {
-            let name = document.getElementById("email").value.trim();
+        // Toggle password visibility
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const toggleIcon = document.getElementById('toggleIcon');
 
-            if (!name) {
-                alert("Please enter your name");
-                return;
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.classList.remove('fa-eye');
+                toggleIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.classList.remove('fa-eye-slash');
+                toggleIcon.classList.add('fa-eye');
             }
-
-            // Save in sessionStorage (this is what dashboard reads)
-            sessionStorage.setItem("studentName", name);
-            sessionStorage.setItem("studentId", "2025001");   // Fixed roll number
-
-            // Correct redirect
-            window.location.href = "dashbpard.html";
         }
-    </script>
 
+        // Handle form submission
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const studentName = document.getElementById('studentName').value;
+            const studentId = document.getElementById('studentId').value;
+            const password = document.getElementById('password').value;
+
+            // Here you would normally send the data to your backend for authentication
+            console.log('Login attempt:', { studentName, studentId, password });
+
+            // Store student info in session storage
+            sessionStorage.setItem('studentName', studentName);
+            sessionStorage.setItem('studentId', studentId);
+
+            // For demo purposes, redirect to dashboard
+            // In production, this should only happen after successful authentication
+            window.location.href = 'dashbpard.html';
+        });
+    </script>
+    <!-- End Script -->
 </body>
+
 </html>
