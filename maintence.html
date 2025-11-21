@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Hosteller</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="apple-touch-icon" href="assets/img/apple-icon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/logo-removebg-preview.png">
+
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/templatemo.css">
+    <link rel="stylesheet" href="assets/css/custom.css">
+
+    <!-- Load fonts style after rendering the layout styles -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+    <link rel="stylesheet" href="assets/css/fontawesome.min.css">
+
+
+<style>
+    .rounded-image {
+    border-radius: 30px;   /* controls curve size — adjust as needed */
+    overflow: hidden;      /* ensures edges are clean */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* optional soft shadow */
+}
+
+/* ensure gray background stretches full width */
+.carousel-item {
+    background-color: #f5f5f5;
+    width: 100%;
+}
+
+
+
+    .faq-section {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .faq-title {
+      text-align: center;
+      font-size: 40px;
+     
+      margin-bottom: 30px;
+      padding-top: 50px;
+      
+    }
+
+    .faq-item {
+      border-top: 1px solid rgb(76, 175, 80);
+    }
+
+    .faq-question {
+      background: none;
+      border: none;
+      width: 100%;
+      text-align: left;
+      padding: 25px 0;
+      font-size: 18px;
+      color: #000000;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .faq-question::after {
+      content: '▾';
+      position: absolute;
+      right: 0;
+      transition: transform 0.3s ease;
+    }
+
+    .faq-question.active::after {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      display: none;
+      padding: 0 0 15px 0;
+      color: #000000;
+    }
+
+    .faq-item:last-child {
+      border-bottom: 7px solid #ddd;
+    }
+    .faq-question:focus {
+  outline: none; /* Removes the outline */
+}
+
+  #bp-web-widget {
+    bottom: 30px !important;
+    right: 30px !important;
+  }
+
+
+
+    /* ===== LAYOUT ===== */
+    .container-layout {
+      display: flex;
+      width: 100%;
+      margin: 0;
+      min-height: 100vh;
+    }
+
+    /* ===== SIDEBAR ===== */
+    .sidebar {
+      width: 300px;
+      background-color: #f9fafb;
+      border-right: 1px solid #e5e7eb;
+      padding: 20px 0;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+    }
+    .logo-header {
+      text-align: center;
+      border-bottom: 1px solid #e5e7eb;
+      padding-bottom: 15px;
+      margin-bottom: 10px;
+    }
+    .logo-header h2 {
+      font-size: 1.2rem;
+      color: #1f2937;
+      margin: 0;
+    }
+    .nav-link-sidebar {
+      display: flex;
+      align-items: center;
+      padding: 12px 20px;
+      color: #4b5563;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+    .nav-link-sidebar:hover {
+      background-color: #e0f2f7;
+      color: #06b6d4;
+    }
+    .nav-link-sidebar.active {
+      color: #059669;
+      background-color: #ecfdf5;
+      border-left: 5px solid #059669;
+      font-weight: 600;
+      padding-left: 15px;
+    }
+
+    /* ===== CONTENT AREA ===== */
+    .content-area {
+      flex-grow: 1;
+      padding: 30px;
+      overflow-y: auto;
+      background-color: #ffffff;
+    }
+    .content-section {
+      display: none;
+      animation: fadeIn 0.4s ease-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .content-section h3 {
+      font-size: 1.75rem;
+      color: #10b981;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #e5e7eb;
+      padding-bottom: 10px;
+    }
+    .content-section ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    .content-section li {
+      padding: 8px 0;
+      border-bottom: 1px solid #f3f4f6;
+      padding-left: 25px;
+      position: relative;
+    }
+    .content-section li::before {
+      content: "•";
+      color: #10b981;
+      font-weight: bold;
+      position: absolute;
+      left: 5px;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 850px) {
+      .container-layout {
+        flex-direction: column;
+      }
+      .sidebar {
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid #e5e7eb;
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+      .logo-header { display: none; }
+      .nav-link-sidebar {
+        display: inline-flex;
+        padding: 10px 15px;
+      }
+      .nav-link-sidebar.active {
+        border-bottom: 3px solid #059669;
+        border-left: none;
+      }
+      .content-area {
+        padding: 20px 15px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light shadow">
+        <div class="container d-flex justify-content-between align-items-center">
+
+            <a class="navbar-brand text-success logo h1 align-self-center" href="index.html">
+            Hosteller
+            </a>
+
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
+                <div class="flex-fill">
+                    <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="about.html">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                           <a class="nav-link btn btn-success rounded-pill px-4 mx-1" href="loginpageS.html">Student Login</a>
+                        </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="loginpageA.html">Admin Login</a>
+                        </li>
+                    </ul>
+                </div>
+                
+            </div>
+
+        </div>
+    </nav>
+
+  <!-- ===== MAIN LAYOUT ===== -->
+  <div class="container-layout">
+    <!-- SIDEBAR -->
+    <nav class="sidebar">
+      <div class="logo-header"><h2>Maintenance Request Guide</h2></div>
+      <a href="#" class="nav-link-sidebar" id="menu-overview" data-target="overview">1. Category </a>
+      <a href="#" class="nav-link-sidebar" id="menu-room" data-target="room">2. Description</a>
+      <a href="#" class="nav-link-sidebar" id="menu-facilities" data-target="facilities">3. Priority</a>
+      <a href="#" class="nav-link-sidebar" id="menu-security" data-target="security">4. Follow-up</a>
+
+
+    </nav>
+
+    <!-- CONTENT AREA -->
+       <main class="content-area">
+      <section id="content-overview" class="content-section">
+      <h2 class="text-2xl font-bold text-gray-800 mb-4">1. Category Selection</h2>
+                <p>Select the correct issue type:</p>
+
+                <ul class="list-disc pl-6 text-gray-700 space-y-1 mt-3">
+                    <li>Electrical</li>
+                    <li>Plumbing</li>
+                    <li>Furniture</li>
+                    <li>Cleaning</li>
+                    <li>Wi-Fi</li>
+                    <li>Room Repair</li>
+                    <li>Bathroom Issue</li>
+                    <li>Other</li>
+                </ul>
+
+      </section>
+
+      <section id="content-room" class="content-section">
+       <h2 class="text-2xl font-bold text-gray-800 mb-4">2. Detailed Description</h2>
+
+                <ul class="list-disc pl-6 text-gray-700 space-y-2">
+                    <li>What is the issue?</li>
+                    <li>Since when is it happening?</li>
+                    <li>How is the issue affecting you?</li>
+                </ul>
+
+      </section>
+
+      <section id="content-facilities" class="content-section">
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">3. Priority Option</h2>
+
+                <ul class="list-disc pl-6 text-gray-700 space-y-2">
+                    <li><strong>Normal:</strong> General repair issues.</li>
+                    <li><strong>High Priority:</strong> Safety or urgent problems.</li>
+                </ul>
+
+      </section>
+
+      <section id="content-security" class="content-section">
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">5. Follow-up Details</h2>
+
+                <ul class="list-disc pl-6 text-gray-700 space-y-2">
+                    <li>Your available time for inspection.</li>
+                    <li>Extra details if the issue comes and goes.</li>
+                </ul>
+
+      </section>
+
+
+
+
+    </main>
+  </div>
+
+  <script>
+    // SIDEBAR NAVIGATION HANDLER
+    function showContent(targetId) {
+      document.querySelectorAll('.content-section').forEach(s => s.style.display = 'none');
+      document.querySelectorAll('.nav-link-sidebar').forEach(l => l.classList.remove('active'));
+      const content = document.getElementById('content-' + targetId);
+      const menu = document.getElementById('menu-' + targetId);
+      if (content) content.style.display = 'block';
+      if (menu) menu.classList.add('active');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.nav-link-sidebar').forEach(link => {
+        link.addEventListener('click', e => {
+          e.preventDefault();
+          showContent(e.target.getAttribute('data-target'));
+        });
+      });
+      showContent('overview');
+    });
+  </script>
+
+</body>
+</html>
