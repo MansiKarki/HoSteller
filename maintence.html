@@ -5,93 +5,18 @@
     <title>Hosteller</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="apple-touch-icon" href="assets/img/apple-icon.png">
+    <link rel="apple-touch-icon" href="assets/img/apple-icon.png">
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/logo-removebg-preview.png">
 
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/templatemo.css">
     <link rel="stylesheet" href="assets/css/custom.css">
 
-    <!-- Load fonts style after rendering the layout styles -->
+    <!-- Load fonts style -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
     <link rel="stylesheet" href="assets/css/fontawesome.min.css">
 
-
 <style>
-    .rounded-image {
-    border-radius: 30px;   /* controls curve size — adjust as needed */
-    overflow: hidden;      /* ensures edges are clean */
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* optional soft shadow */
-}
-
-/* ensure gray background stretches full width */
-.carousel-item {
-    background-color: #f5f5f5;
-    width: 100%;
-}
-
-
-
-    .faq-section {
-      max-width: 700px;
-      margin: 0 auto;
-    }
-
-    .faq-title {
-      text-align: center;
-      font-size: 40px;
-     
-      margin-bottom: 30px;
-      padding-top: 50px;
-      
-    }
-
-    .faq-item {
-      border-top: 1px solid rgb(76, 175, 80);
-    }
-
-    .faq-question {
-      background: none;
-      border: none;
-      width: 100%;
-      text-align: left;
-      padding: 25px 0;
-      font-size: 18px;
-      color: #000000;
-      cursor: pointer;
-      position: relative;
-    }
-
-    .faq-question::after {
-      content: '▾';
-      position: absolute;
-      right: 0;
-      transition: transform 0.3s ease;
-    }
-
-    .faq-question.active::after {
-      transform: rotate(180deg);
-    }
-
-    .faq-answer {
-      display: none;
-      padding: 0 0 15px 0;
-      color: #000000;
-    }
-
-    .faq-item:last-child {
-      border-bottom: 7px solid #ddd;
-    }
-    .faq-question:focus {
-  outline: none; /* Removes the outline */
-}
-
-  #bp-web-widget {
-    bottom: 30px !important;
-    right: 30px !important;
-  }
-
-
 
     /* ===== LAYOUT ===== */
     .container-layout {
@@ -112,6 +37,12 @@
       height: 100vh;
       overflow-y: auto;
     }
+    .content-area li {
+    margin-top: 20
+    20px;
+    margin-bottom: 10px;
+}
+
     .logo-header {
       text-align: center;
       border-bottom: 1px solid #e5e7eb;
@@ -159,30 +90,6 @@
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    .content-section h3 {
-      font-size: 1.75rem;
-      color: #10b981;
-      margin-bottom: 20px;
-      border-bottom: 2px solid #e5e7eb;
-      padding-bottom: 10px;
-    }
-    .content-section ul {
-      list-style: none;
-      padding-left: 0;
-    }
-    .content-section li {
-      padding: 8px 0;
-      border-bottom: 1px solid #f3f4f6;
-      padding-left: 25px;
-      position: relative;
-    }
-    .content-section li::before {
-      content: "•";
-      color: #10b981;
-      font-weight: bold;
-      position: absolute;
-      left: 5px;
-    }
 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 850px) {
@@ -210,7 +117,8 @@
         padding: 20px 15px;
       }
     }
-  </style>
+</style>
+
 </head>
 
 <body>
@@ -219,129 +127,221 @@
         <div class="container d-flex justify-content-between align-items-center">
 
             <a class="navbar-brand text-success logo h1 align-self-center" href="index.html">
-            Hosteller
+                Hosteller
             </a>
 
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
                 <div class="flex-fill">
                     <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="index.html">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="about.html">About</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="contact.html">Contact</a>
-                        </li>
-                        <li class="nav-item">
-                           <a class="nav-link btn btn-success rounded-pill px-4 mx-1" href="loginpageS.html">Student Login</a>
-                        </li>
-                          <li class="nav-item">
-                            <a class="nav-link" href="loginpageA.html">Admin Login</a>
-                        </li>
+                        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link btn btn-success rounded-pill px-4 mx-1" href="loginpageS.html">Student Login</a></li>
+                        <li class="nav-item"><a class="nav-link" href="loginpageA.html">Admin Login</a></li>
                     </ul>
                 </div>
-                
             </div>
 
         </div>
     </nav>
 
-  <!-- ===== MAIN LAYOUT ===== -->
-  <div class="container-layout">
-    <!-- SIDEBAR -->
-    <nav class="sidebar">
-      <div class="logo-header"><h2>Maintenance Request Guide</h2></div>
-      <a href="#" class="nav-link-sidebar" id="menu-overview" data-target="overview">1. Category </a>
-      <a href="#" class="nav-link-sidebar" id="menu-room" data-target="room">2. Description</a>
-      <a href="#" class="nav-link-sidebar" id="menu-facilities" data-target="facilities">3. Priority</a>
-      <a href="#" class="nav-link-sidebar" id="menu-security" data-target="security">4. Follow-up</a>
+<!-- ===== MAIN LAYOUT ===== -->
+<div class="container-layout">
 
+<!-- SIDEBAR -->
+<nav class="sidebar">
+    <div class="logo-header"><h2>Maintenance Request Guide</h2></div>
 
-    </nav>
+    <a href="#" class="nav-link-sidebar" data-target="electrical">1. Electrical Maintenance</a>
+    <a href="#" class="nav-link-sidebar" data-target="plumbing">2. Plumbing & Water Supply</a>
+    <a href="#" class="nav-link-sidebar" data-target="furniture">3. Furniture Repair</a>
+    <a href="#" class="nav-link-sidebar" data-target="structural">4. Room & Building Structural</a>
+    <a href="#" class="nav-link-sidebar" data-target="bathroom">5. Bathroom Maintenance</a>
+    <a href="#" class="nav-link-sidebar" data-target="cleaning">6. Cleaning & Housekeeping</a>
+    <a href="#" class="nav-link-sidebar" data-target="wifi">7. Internet & Wi-Fi Support</a>
+    <a href="#" class="nav-link-sidebar" data-target="common-area">8. Common Area Maintenance</a>
+</nav>
 
-    <!-- CONTENT AREA -->
-       <main class="content-area">
-      <section id="content-overview" class="content-section">
-      <h2 class="text-2xl font-bold text-gray-800 mb-4">1. Category Selection</h2>
-                <p>Select the correct issue type:</p>
+<!-- CONTENT AREA -->
+<main class="content-area">
 
-                <ul class="list-disc pl-6 text-gray-700 space-y-1 mt-3">
-                    <li>Electrical</li>
-                    <li>Plumbing</li>
-                    <li>Furniture</li>
-                    <li>Cleaning</li>
-                    <li>Wi-Fi</li>
-                    <li>Room Repair</li>
-                    <li>Bathroom Issue</li>
-                    <li>Other</li>
-                </ul>
+<!-- Section 1 -->
+<section id="electrical" class="content-section">
+    <h3>1. Electrical Maintenance</h3>
+      <ul class="list-disc pl-6 text-gray-700 space-y-2 mt-3">
+        <li>Fan not working or making noise</li>
+        <li>Tube light / LED / bulb replacement</li>
+        <li>Power fluctuations inside the room</li>
+        <li>Switchboard repair</li>
+        <li>Broken plug sockets</li>
+        <li>Room power failure</li>
+        <li>Short circuit or burning smell</li>
+        <li>Charging points not working</li>
+        <li>AC/Heater electrical issues (if available)</li>
+        <li>Corridor or bathroom light problems</li>
+        <li>Loose or exposed wiring</li>
+        <li>Wi-Fi router power issues</li>
+    </ul>
+</section>
 
-      </section>
+<!-- Section 2 -->
+<section id="plumbing" class="content-section">
+    <h3>2. Plumbing & Water Supply</h3>
+    <ul class="list-disc pl-6 text-gray-700 space-y-2 mt-3">
+        <li>Tap leakage</li>
+        <li>Pipe leakage (room/bathroom)</li>
+        <li>No water supply</li>
+        <li>Low water pressure</li>
+        <li>Blocked washbasin</li>
+        <li>Clogged toilet</li>
+        <li>Shower not working</li>
+        <li>Flush not working</li>
+        <li>Water tank overflow</li>
+        <li>Constant dripping sound</li>
+        <li>Hot water supply problems (if available)</li>
+        <li>Bathroom floor water drainage issues</li>
+    </ul>
+</section>
 
-      <section id="content-room" class="content-section">
-       <h2 class="text-2xl font-bold text-gray-800 mb-4">2. Detailed Description</h2>
+<!-- Section 3 -->
+<section id="furniture" class="content-section">
+    <h3>3. Furniture Repair</h3>
+     <ul class="list-disc pl-6 text-gray-700 space-y-2 mt-3">
+        <li>Broken bed</li>
+        <li>Bed frame noise or movement</li>
+        <li>Damaged study table</li>
+        <li>Loose or broken chairs</li>
+        <li>Cupboard or locker not closing properly</li>
+        <li>Broken cupboard shelves</li>
+        <li>Drawer jammed or not sliding smoothly</li>
+        <li>Pinboard or wall hooks installation</li>
+        <li>Broken mirror inside cupboard</li>
+        <li>Shoe rack repair</li>
+    </ul>
+</section>
 
-                <ul class="list-disc pl-6 text-gray-700 space-y-2">
-                    <li>What is the issue?</li>
-                    <li>Since when is it happening?</li>
-                    <li>How is the issue affecting you?</li>
-                </ul>
+<!-- Section 4 -->
+<section id="structural" class="content-section">
+    <h3>4. Room & Building Structural</h3>
+      <ul class="list-disc pl-6 text-gray-700 space-y-2 mt-3">
+        <li>Wall cracks</li>
+        <li>Paint peeling</li>
+        <li>Room dampness or moisture</li>
+        <li>Ceiling plaster falling</li>
+        <li>Broken or loose tiles</li>
+        <li>Window glass cracked</li>
+        <li>Window mesh damaged</li>
+        <li>Door lock or handle repair</li>
+        <li>Door alignment issues</li>
+        <li>Loose or broken door hinges</li>
+        <li>Balcony railing issues</li>
+        <li>Curtain rod fixing</li>
+    </ul>
+</section>
 
-      </section>
+<!-- Section 5 -->
+<section id="bathroom" class="content-section">
+    <h3>5. Bathroom Maintenance</h3>
+   <ul class="list-disc pl-6 text-gray-700 space-y-2 mt-3">
+        <li>Broken bucket or mug replacement (if provided by hostel)</li>
+        <li>Bathroom ventilation fan not working</li>
+        <li>Showerhead replacement</li>
+        <li>Broken soap stand or bathroom rack</li>
+        <li>Drain blockage</li>
+        <li>Water leakage from below the toilet</li>
+        <li>Loose bathroom taps</li>
+    </ul>
+</section>
 
-      <section id="content-facilities" class="content-section">
-        <h2 class="text-2xl font-bold text-gray-800 mb-4">3. Priority Option</h2>
+<!-- Section 6 -->
+<section id="cleaning" class="content-section">
+    <h3>6. Cleaning & Housekeeping</h3>
+   <ul class="list-disc pl-6 text-gray-700 space-y-2 mt-3">
+        <li>Extra room cleaning</li>
+        <li>Bathroom cleaning</li>
+        <li>Dustbin clearance</li>
+        <li>Deep cleaning after any accident or spillage</li>
+        <li>Weekly or monthly scheduled cleaning</li>
+        <li>Cleaning after water leakage incidents</li>
+        <li>Removal of garbage piles</li>
+        <li>Window or curtain cleaning (if provided)</li>
+    </ul>
+</section>
 
-                <ul class="list-disc pl-6 text-gray-700 space-y-2">
-                    <li><strong>Normal:</strong> General repair issues.</li>
-                    <li><strong>High Priority:</strong> Safety or urgent problems.</li>
-                </ul>
+<!-- Section 7 -->
+<section id="wifi" class="content-section">
+    <h3>7. Internet & Wi-Fi Support</h3>
+     <ul class="list-disc pl-6 text-gray-700 space-y-2 mt-3">
+        <li>Wi-Fi not working in room</li>
+        <li>Slow internet speed</li>
+        <li>Router not working</li>
+        <li>Repeated disconnection</li>
+        <li>Wi-Fi login issues</li>
+        <li>Poor signal strength</li>
+        <li>Internet not working on one side of the floor</li>
+    </ul>
+</section>
 
-      </section>
+<!-- Section 8 -->
+<section id="common-area" class="content-section">
+    <h3>8. Common Area Maintenance</h3>
+ <ul class="list-disc pl-6 text-gray-700 space-y-2 mt-3">
+        <li>Study room lights and fans</li>
+        <li>Lounge/TV room equipment</li>
+        <li>Dining hall and mess area repairs</li>
+        <li>Common bathroom issues</li>
+        <li>Lift or escalator issues (if available)</li>
+        <li>Staircase lights</li>
+        <li>Garden or lawn maintenance</li>
+        <li>Sports equipment repair</li>
+    </ul>
+</section>
 
-      <section id="content-security" class="content-section">
-        <h2 class="text-2xl font-bold text-gray-800 mb-4">5. Follow-up Details</h2>
+</main>
+</div>
 
-                <ul class="list-disc pl-6 text-gray-700 space-y-2">
-                    <li>Your available time for inspection.</li>
-                    <li>Extra details if the issue comes and goes.</li>
-                </ul>
+<!-- WORKING SIDEBAR SCRIPT -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
 
-      </section>
-
-
-
-
-    </main>
-  </div>
-
-  <script>
-    // SIDEBAR NAVIGATION HANDLER
-    function showContent(targetId) {
-      document.querySelectorAll('.content-section').forEach(s => s.style.display = 'none');
-      document.querySelectorAll('.nav-link-sidebar').forEach(l => l.classList.remove('active'));
-      const content = document.getElementById('content-' + targetId);
-      const menu = document.getElementById('menu-' + targetId);
-      if (content) content.style.display = 'block';
-      if (menu) menu.classList.add('active');
+    function hideAllSections() {
+        document.querySelectorAll(".content-section").forEach(section => {
+            section.style.display = "none";
+        });
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('.nav-link-sidebar').forEach(link => {
-        link.addEventListener('click', e => {
-          e.preventDefault();
-          showContent(e.target.getAttribute('data-target'));
+    function removeActiveLinks() {
+        document.querySelectorAll(".nav-link-sidebar").forEach(link => {
+            link.classList.remove("active");
         });
-      });
-      showContent('overview');
+    }
+
+    document.querySelectorAll(".nav-link-sidebar").forEach(link => {
+        link.addEventListener("click", function(e) {
+            e.preventDefault();
+
+            const target = this.getAttribute("data-target");
+
+            hideAllSections();
+            removeActiveLinks();
+
+            const section = document.getElementById(target);
+            if (section) section.style.display = "block";
+
+            this.classList.add("active");
+        });
     });
-  </script>
+
+    hideAllSections();
+    document.getElementById("electrical").style.display = "block";
+    document.querySelector('.nav-link-sidebar[data-target="electrical"]').classList.add("active");
+
+});
+</script>
 
 </body>
 </html>
