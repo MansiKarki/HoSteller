@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Hosteller</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="apple-touch-icon" href="assets/img/apple-icon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/logo-removebg-preview.png">
+
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/templatemo.css">
+    <link rel="stylesheet" href="assets/css/custom.css">
+
+    <!-- Load fonts style after rendering the layout styles -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+    <link rel="stylesheet" href="assets/css/fontawesome.min.css">
+
+
+<style>
+    .rounded-image {
+    border-radius: 30px;   /* controls curve size — adjust as needed */
+    overflow: hidden;      /* ensures edges are clean */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* optional soft shadow */
+}
+
+/* ensure gray background stretches full width */
+.carousel-item {
+    background-color: #f5f5f5;
+    width: 100%;
+}
+
+
+
+    .faq-section {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .faq-title {
+      text-align: center;
+      font-size: 40px;
+     
+      margin-bottom: 30px;
+      padding-top: 50px;
+      
+    }
+
+    .faq-item {
+      border-top: 1px solid rgb(76, 175, 80);
+    }
+
+    .faq-question {
+      background: none;
+      border: none;
+      width: 100%;
+      text-align: left;
+      padding: 25px 0;
+      font-size: 18px;
+      color: #000000;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .faq-question::after {
+      content: '▾';
+      position: absolute;
+      right: 0;
+      transition: transform 0.3s ease;
+    }
+
+    .faq-question.active::after {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      display: none;
+      padding: 0 0 15px 0;
+      color: #000000;
+    }
+
+    .faq-item:last-child {
+      border-bottom: 7px solid #ddd;
+    }
+    .faq-question:focus {
+  outline: none; /* Removes the outline */
+}
+
+  #bp-web-widget {
+    bottom: 30px !important;
+    right: 30px !important;
+  }
+
+
+  </style>
+
+
+</head>
+
+<body>
+  
+    <!-- Close Top Nav -->
+     <!-- Custom Chat Icon -->
+<!-- Botpress Chatbot -->
+<!-- <script src="https://cdn.botpress.cloud/webchat/v3.3/inject.js" defer></script>
+<script src="https://files.bpcontent.cloud/2025/10/17/11/20251017113207-BL466NO3.js" defer></script> -->
+<!-- 
+Header -->
+<script src="https://app.dante-ai.com/bubble-embed.js?kb_id=0a03a001-00bd-497a-bed0-ff35cdbf0a92&token=d64c27af-e98f-421c-983c-4dad42748c8e&modeltype=gpt-4-omnimodel-mini&tabs=false"></script> 
+   
+    <nav class="navbar navbar-expand-lg navbar-light shadow">
+        <div class="container d-flex justify-content-between align-items-center">
+
+            <a class="navbar-brand text-success logo h1 align-self-center" href="index.html">
+            Hosteller
+            </a>
+
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
+                <div class="flex-fill">
+                    <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="about.html">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                           <a class="nav-link btn btn-success rounded-pill px-4 mx-1" href="loginpageS.html">Student Login</a>
+                        </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="loginpageA.html">Admin Login</a>
+                        </li>
+                    </ul>
+                </div>
+                
+            </div>
+
+        </div>
+    </nav>
+    <!-- Close Header -->
+
+    <!-- Modal -->
+    <div class="modal fade bg-white" id="templatemo_search" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="w-100 pt-1 mb-5 text-right">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="" method="get" class="modal-content modal-body border-0 p-0">
+                <div class="input-group mb-2">
+                    <input type="text" class="form-control" id="inputModalSearch" name="q" placeholder="Search ...">
+                    <button type="submit" class="input-group-text bg-success text-light">
+                        <i class="fa fa-fw fa-search text-white"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+<!-- Start Banner Hero -->
+<div id="template-mo-zay-hero-carousel" class="carousel slide" data-bs-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="0" class="active"></li>
+        <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="1"></li>
+        <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="2"></li>
+    </ol>
+
+    <div class="carousel-inner">
+
+        <!-- Carousel Item 1 -->
+     <div class="carousel-item active" style="background-color: #f5f5f5;">
+    <div class="container">
+        <div class="row p-5">
+            <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
+                <img class="img-fluid rounded-image" src="./assets/img/4.jpg" alt="Campus Hostels" style="height: 350px; object-fit: cover;">
+            </div>
+            <div class="col-lg-6 mb-0 d-flex align-items-center">
+                <div class="text-align-left align-self-center">
+                    <h1 class="h1 text-success"><b>Campus Hostels</b></h1>
+                    <h3 class="h2">Comfort and Convenience for Students</h3>
+                    <p>
+                    Our campus has <strong>34 hostels</strong>, each with <strong>35 rooms</strong> and modern 
+                    facilities like <strong>Wi-Fi</strong>,<strong>cooking gas</strong>, and more. Designed for
+                     comfort and safety, every hostel offers a friendly and peaceful environment 
+                    for students to live and learn.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+        <!-- Carousel Item 2 -->
+        <div class="carousel-item" style="background-color: #f5f5f5;"> 
+    <div class="container">
+        <div class="row p-5 align-items-center">
+            <div class="mx-auto col-md-8 col-lg-6 order-lg-last text-center">
+                <img class="img-fluid rounded-image" src="./assets/img/2.png" alt="Hostel Office" style="height: 350px; width: 100%; object-fit: cover; border-radius: 25px;">
+            </div>
+            <div class="col-lg-6 col-md-12 text-lg-start text-center mt-4 mt-lg-0">
+                <h1 class="h1 text-success mb-3"><b>Office & Management</b></h1>
+                <h3 class="h2 mb-3">Organized Hostel Administration</h3>
+                <p class="lead mb-0" style="color: #000;">
+    The hostel office manages student records, room allocation, and daily maintenance 
+    to ensure smooth operations. Staff are always available to assist residents with 
+    any support or facility needs.
+             </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+        <!-- Carousel Item 3 -->
+       <!-- Carousel Item 3 -->
+<div class="carousel-item" style="background-color: #f5f5f5;">
+    <div class="container">
+        <div class="row p-5">
+            <!-- Image Section -->
+            <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
+                <img class="img-fluid rounded-image" src="./assets/img/3.png" alt="" 
+                     style="height: 350px; object-fit: cover; border-radius: 15px;">
+            </div>
+
+            <!-- Text Section -->
+            <div class="col-lg-6 mb-0 d-flex align-items-center">
+                <div class="text-start">
+                    <h1 class="h1 text-success mb-3">Safety & Mess Facilities</h1>
+                    <h3 class="h2 mb-3">Secure and Healthy Living</h3>
+                    <p class="lead mb-0" style="color: #000; line-height: 1.6; text-align: justify;">
+                        Each hostel ensures <strong>24×7 security</strong> with CCTV and dedicated wardens, 
+                        offering a safe and comfortable stay for every student. 
+                        The <strong>mess</strong> provides nutritious, hygienic meals daily, 
+                        ensuring a healthy dining experience in a friendly environment.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <a class="carousel-control-prev text-decoration-none w-auto ps-3" href="#template-mo-zay-hero-carousel" role="button" data-bs-slide="prev">
+        <i class="fas fa-chevron-left"></i>
+    </a>
+    <a class="carousel-control-next text-decoration-none w-auto pe-3" href="#template-mo-zay-hero-carousel" role="button" data-bs-slide="next">
+        <i class="fas fa-chevron-right"></i>
+    </a>
+</div>
+<!-- End Banner Hero -->
+
+
+
+    <!-- Start Categories of The Month -->
+  <section class="container-fluid py-5" style="background-color: white;">
+  <div class="container">
+    <div class="row text-center pt-3">
+      <div class="col-lg-6 m-auto">
+       <h1 class="h1">Welcome to Your Hostel Hub</h1>
+           <p>
+            Everything you need for a comfortable stay — from room info and daily meals 
+            to maintenance help and announcements, all just a click away.
+          </p>
+
+        <small class="text-muted">Manage your hostel easily and stay updated with the latest notices..</small>
+      </div>
+    </div>
+
+    <div class="row justify-content-center" id="categoryGrid" style="position: relative;">
+      <!-- Card 1 -->
+      <div class="category-card col-12 col-md-4 p-4" draggable="true" data-name="Watches">
+        <a href="#" class="d-block text-decoration-none">
+          <div class="category-box shadow rounded-3 p-3 text-center">
+            <img src="./assets/img/doorrrr.png" class="img-fluid rounded-3 mb-3" alt="Watches">
+            <h5 class="text-dark">Room & Stay Details</h5>
+            <button class="btn btn-success mt-2">
+               <a href="roomdetail.html" class="text-white text-decoration-none">View Details</a>
+            </button>
+          </div>
+        </a>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="category-card col-12 col-md-4 p-4" draggable="true" data-name="Shoes">
+        <a href="#" class="d-block text-decoration-none">
+          <div class="category-box shadow rounded-3 p-3 text-center">
+            <img src="./assets/img/messs.png" class="img-fluid rounded-3 mb-3" alt="Shoes">
+            <h5 class="text-dark">Mess & Food Menu</h5>
+           <button class="btn btn-success mt-2">
+               <a href="messandfood.html" class="text-white text-decoration-none">View Details</a>
+            </button>
+          </div>
+        </a>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="category-card col-12 col-md-4 p-4" draggable="true" data-name="Accessories">
+        <a href="#" class="d-block text-decoration-none">
+          <div class="category-box shadow rounded-3 p-3 text-center">
+            <img src="./assets/img/sett.png" class="img-fluid rounded-3 mb-3" alt="Accessories">
+            <h5 class="text-dark">Maintenance Requests</h5>
+            <button class="btn btn-success mt-2">
+           <a href="maintence.html" class="text-white text-decoration-none">View Details</a>
+            </button>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Style -->
+<style>
+  .category-box {
+    background-color: #fff;
+    transition: all 0.3s ease;
+  }
+  .category-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  }
+  .category-card img {
+    width: 100%;
+    aspect-ratio: 1 / 1; /* makes square */
+    object-fit: cover;
+  }
+</style>
+
+<!-- Script (Drag & Drop) -->
+<script>
+  const grid = document.getElementById("categoryGrid");
+  let dragItem = null;
+
+  grid.addEventListener("dragstart", e => {
+    dragItem = e.target.closest(".category-card");
+    setTimeout(() => dragItem.classList.add("dragging"), 0);
+  });
+
+  grid.addEventListener("dragend", () => {
+    dragItem.classList.remove("dragging");
+    dragItem = null;
+  });
+
+  grid.addEventListener("dragover", e => {
+    e.preventDefault();
+    const afterElement = getDragAfterElement(grid, e.clientY);
+    const current = document.querySelector(".dragging");
+    if (afterElement == null) {
+      grid.appendChild(current);
+    } else {
+      grid.insertBefore(current, afterElement);
+    }
+  });
+
+  function getDragAfterElement(container, y) {
+    const elements = [...container.querySelectorAll(".category-card:not(.dragging)")];
+    return elements.reduce(
+      (closest, child) => {
+        const box = child.getBoundingClientRect();
+        const offset = y - box.top - box.height / 2;
+        if (offset < 0 && offset > closest.offset) {
+          return { offset, element: child };
+        } else {
+          return closest;
+        }
+      },
+      { offset: Number.NEGATIVE_INFINITY }
+    ).element;
+  }
+</script>
+
+
+
+
+<div class="faq-section"  id="faq">
+  <div class="faq-title"><h3>Frequently Asked Questions</h3></div>
+
+  <div class="faq-item">
+    <button class="faq-question">How is hostel security managed?</button>
+    <div class="faq-answer">Hostel premises are monitored by 24×7 CCTV surveillance, and entry is restricted to authorized individuals only.
+                            Security guards are on duty at all times.</div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question">What are the hostel office working hours?</button>
+    <div class="faq-answer"> The hostel office remains open from 9:00 AM to 6:00 PM, Monday to Saturday. It is closed on Sundays and public holidays. For urgent issues, 
+                             students can contact the warden on duty.</div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question">What are the check-in  timings for hostel residents?</button>
+    <div class="faq-answer">Check-in time for students is between sharp 9:00 PM after if You come u are need to pay penalty.</div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question">What should I do in case of maintenance issues in my room?</button>
+    <div class="faq-answer">Students can raise a maintenance request through the hostel dashboard under the “Maintenance” section or inform the warden.
+                           Issues are usually resolved within 24–48 hours.</div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question">Are visitors allowed inside the hostel?</button>
+    <div class="faq-answer"> Yes, visitors are allowed during designated visiting hours — 4:00 PM to 7:00 PM on weekdays and 10:00 AM to 7:00 PM on weekends. Visitors must register at 
+                             the security desk before entering the hostel premises.</div>
+  </div>
+</div>
+
+<script>
+  const questions = document.querySelectorAll('.faq-question');
+  questions.forEach(q => {
+    q.addEventListener('click', () => {
+      const isActive = q.classList.contains('active');
+      questions.forEach(item => {
+        item.classList.remove('active');
+        item.nextElementSibling.style.display = 'none';
+      });
+
+      if (!isActive) {
+        q.classList.add('active');
+        q.nextElementSibling.style.display = 'block';
+      }
+    });
+  });
+</script>
+
+    <!-- Start Footer -->
+    <footer class="bg-dark" id="tempaltemo_footer">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-4 pt-5">
+                    <h2 class="h2 text-success border-bottom pb-3 border-light logo">Hosteller</h2>
+                    <ul class="list-unstyled text-light footer-link-list">
+                        <li>
+                            <i class="fas fa-map-marker-alt fa-fw"></i>
+                         Torona Hostel Ambegoan,Pune
+                        </li>
+                        <li>
+                            <i class="fa fa-phone fa-fw"></i>
+                            <a class="text-decoration-none" href="tel:010-020-0340">010-020-0340</a>
+                        </li>
+                        <li>
+                            <i class="fa fa-envelope fa-fw"></i>
+                            <a class="text-decoration-none" href="mailto:info@company.com">info@company.com</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-md-4 pt-5">
+                    <h2 class="h2 text-light border-bottom pb-3 border-light">For More</h2>
+                    <ul class="list-unstyled text-light footer-link-list">
+                        <li><a class="text-decoration-none" href="messandfood.html">Mess & Food Menu</a></li>
+                        <li><a class="text-decoration-none" href="maintence.html">Maintenance Request</a></li>
+                        <li><a class="text-decoration-none" href="roomdetail.html">Room & Stay Details</a></li>
+
+                    </ul>
+                </div>
+
+                <div class="col-md-4 pt-5">
+                    <h2 class="h2 text-light border-bottom pb-3 border-light">Further Info</h2>
+                    <ul class="list-unstyled text-light footer-link-list">
+                        <li><a class="text-decoration-none" href="index.html">Home</a></li>
+                        <li><a class="text-decoration-none" href="about.html">About</a></li>
+                        <li><a class="text-decoration-none" href="contact.html">Contact</a></li>
+                        <li><a class="text-decoration-none" href="index.html#faq">FAQs</a></li>
+                
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="row text-light mb-4">
+                <div class="col-12 mb-3">
+                    <div class="w-100 my-3 border-top border-light"></div>
+                </div>
+                <div class="col-auto me-auto">
+                    <ul class="list-inline text-left footer-icons">
+                        <li class="list-inline-item border border-light rounded-circle text-center">
+                            <a class="text-light text-decoration-none" target="_blank" href="http://facebook.com/"><i class="fab fa-facebook-f fa-lg fa-fw"></i></a>
+                        </li>
+                        <li class="list-inline-item border border-light rounded-circle text-center">
+                            <a class="text-light text-decoration-none" target="_blank" href="https://www.instagram.com/"><i class="fab fa-instagram fa-lg fa-fw"></i></a>
+                        </li>
+                        <li class="list-inline-item border border-light rounded-circle text-center">
+                            <a class="text-light text-decoration-none" target="_blank" href="https://twitter.com/"><i class="fab fa-twitter fa-lg fa-fw"></i></a>
+                        </li>
+                        <li class="list-inline-item border border-light rounded-circle text-center">
+                            <a class="text-light text-decoration-none" target="_blank" href="https://www.linkedin.com/"><i class="fab fa-linkedin fa-lg fa-fw"></i></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-auto">
+                    <label class="sr-only" for="subscribeEmail">Email address</label>
+                    <div class="input-group mb-2">
+                        <input type="text" class="form-control bg-dark border-light" id="subscribeEmail" placeholder="Email address">
+                        <div class="input-group-text btn-success text-light">Subscribe</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="w-100 bg-black py-3">
+            <div class="container">
+                <div class="row pt-2">
+                    <div class="col-12">
+                        <p class="text-left text-light">
+                             Copyright &copy; 2025 Made With Coffeee
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </footer>
+    <!-- End Footer -->
+
+    <!-- Start Script -->
+    <script src="assets/js/jquery-1.11.0.min.js"></script>
+    <script src="assets/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/templatemo.js"></script>
+    <script src="assets/js/custom.js"></script>
+    <!-- End Script -->
+</body>
+
+</html>

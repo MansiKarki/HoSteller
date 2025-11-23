@@ -12,8 +12,9 @@
     <link rel="stylesheet" href="assets/css/templatemo.css">
     <link rel="stylesheet" href="assets/css/custom.css">
 
-    <!-- Load fonts style after rendering the layout styles -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+    <!-- Google Font + Icons -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
     <link rel="stylesheet" href="assets/css/fontawesome.min.css">
 
     <style>
@@ -84,8 +85,8 @@
         }
 
         .form-control:focus {
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 0.15rem rgba(59, 130, 246, 0.25);
+            border-color: rgb(76, 175, 80);
+            box-shadow: 0 0 0 0.15rem rgba(76, 175, 80, 0.25);
         }
 
         .input-group-text {
@@ -101,23 +102,31 @@
             border-radius: 10px 0 0 10px;
         }
 
+        /* ✅ UPDATED GREEN LOGIN BUTTON */
         .btn-login {
             background-color: #ffffff;
-            border: 1px solid #3b82f6;
+            border: 2px solid rgb(76, 175, 80);
             border-radius: 10px;
             padding: 12px;
             font-weight: 600;
             font-size: 16px;
             width: 100%;
-            color: #1d4ed8;
+            color: rgb(76, 175, 80);
             transition: all 0.3s;
         }
 
         .btn-login:hover {
-            background-color: #1d4ed8;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.35);
+            background-color: rgb(76, 175, 80);
             color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.35);
+        }
+
+        .btn-login:active {
+            background-color: rgb(69, 160, 73);
+            border-color: rgb(69, 160, 73);
+            color: #ffffff;
+            transform: scale(0.98);
         }
 
         .divider {
@@ -193,41 +202,37 @@
 </head>
 
 <body>
+
     <!-- Header -->
     <nav class="navbar navbar-expand-lg navbar-light shadow">
         <div class="container d-flex justify-content-between align-items-center">
-            <a class="navbar-brand text-success logo h1 align-self-center" href="index.html">
+            <a class="navbar-brand text-success logo h1" href="index.html">
                 Hosteller
             </a>
 
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+                data-bs-target="#templatemo_main_nav">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="align-self-center collapse navbar-collapse flex-fill d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
+            <div class="collapse navbar-collapse flex-fill d-lg-flex justify-content-lg-between"
+                id="templatemo_main_nav">
                 <div class="flex-fill">
                     <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
+                        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
                         <li class="nav-item">
-                            <a class="nav-link" href="index.html">Home</a>
+                            <a class="nav-link btn btn-success rounded-pill px-4 mx-1"
+                                href="loginpageS.html">Student Login</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="about.html">About</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="contact.html">Contact</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link btn btn-success rounded-pill px-4 mx-1" href="loginpageS.html">Student Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="loginpageA.html">Admin Login</a>
-                        </li>
+                        <li class="nav-item"><a class="nav-link" href="loginpageA.html">Admin Login</a></li>
                     </ul>
                 </div>
             </div>
         </div>
     </nav>
-    <!-- Close Header -->
+    <!-- End Header -->
 
     <!-- Login Container -->
     <div class="login-container">
@@ -236,12 +241,14 @@
                 <h2>Student Login</h2>
                 <p>Welcome back! Please login to your account</p>
             </div>
+
             <div class="login-body">
                 <form id="loginForm">
                     <div class="form-group">
                         <label class="form-label" for="studentName">Student Name</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" id="studentName" placeholder="Enter your name" required>
+                            <input type="text" class="form-control" id="studentName" placeholder="Enter your name"
+                                required>
                             <span class="input-group-text"><i class="fas fa-user"></i></span>
                         </div>
                     </div>
@@ -249,7 +256,8 @@
                     <div class="form-group">
                         <label class="form-label" for="studentId">Student ID</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" id="studentId" placeholder="Enter your student ID" required>
+                            <input type="text" class="form-control" id="studentId"
+                                placeholder="Enter your student ID" required>
                             <span class="input-group-text"><i class="fas fa-id-card"></i></span>
                         </div>
                     </div>
@@ -257,7 +265,8 @@
                     <div class="form-group">
                         <label class="form-label" for="password">Password</label>
                         <div class="input-group">
-                            <input type="password" class="form-control" id="password" placeholder="Enter your password" required>
+                            <input type="password" class="form-control" id="password"
+                                placeholder="Enter your password" required>
                             <span class="input-group-text" style="cursor: pointer;" onclick="togglePassword()">
                                 <i class="fas fa-eye" id="toggleIcon"></i>
                             </span>
@@ -270,7 +279,7 @@
 
                     <div class="remember-me">
                         <input type="checkbox" id="rememberMe">
-                        <label for="rememberMe" style="margin: 0; cursor: pointer;">Remember me</label>
+                        <label for="rememberMe">Remember me</label>
                     </div>
 
                     <button type="submit" class="btn btn-login">Login</button>
@@ -283,51 +292,38 @@
         </div>
     </div>
 
-    <!-- Start Script -->
+    <!-- Scripts -->
     <script src="assets/js/jquery-1.11.0.min.js"></script>
     <script src="assets/js/jquery-migrate-1.2.1.min.js"></script>
     <script src="assets/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/templatemo.js"></script>
-    <script src="assets/js/custom.js"></script>
 
     <script>
-        // Toggle password visibility
         function togglePassword() {
             const passwordInput = document.getElementById('password');
             const toggleIcon = document.getElementById('toggleIcon');
 
             if (passwordInput.type === 'password') {
                 passwordInput.type = 'text';
-                toggleIcon.classList.remove('fa-eye');
-                toggleIcon.classList.add('fa-eye-slash');
+                toggleIcon.classList.replace('fa-eye', 'fa-eye-slash');
             } else {
                 passwordInput.type = 'password';
-                toggleIcon.classList.remove('fa-eye-slash');
-                toggleIcon.classList.add('fa-eye');
+                toggleIcon.classList.replace('fa-eye-slash', 'fa-eye');
             }
         }
 
-        // Handle form submission
         document.getElementById('loginForm').addEventListener('submit', function (e) {
             e.preventDefault();
 
             const studentName = document.getElementById('studentName').value;
             const studentId = document.getElementById('studentId').value;
-            const password = document.getElementById('password').value;
 
-            // Here you would normally send the data to your backend for authentication
-            console.log('Login attempt:', { studentName, studentId, password });
-
-            // Store student info in session storage
             sessionStorage.setItem('studentName', studentName);
             sessionStorage.setItem('studentId', studentId);
 
-            // For demo purposes, redirect to dashboard
-            // In production, this should only happen after successful authentication
             window.location.href = 'dashbpard.html';
         });
     </script>
-    <!-- End Script -->
+
 </body>
 
 </html>
