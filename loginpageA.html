@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hosteller - Admin Login</title>
+
+    <!-- Bootstrap / Template CSS -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/templatemo.css">
+    <link rel="stylesheet" href="assets/css/custom.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+    <link rel="stylesheet" href="assets/css/fontawesome.min.css">
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        .login-wrapper {
+            min-height: calc(100vh - 80px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 15px;
+        }
+
+        .login-card {
+            max-width: 450px;
+            width: 100%;
+            border-radius: 16px;
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            background-color: #ffffff;
+            animation: floatIn 0.6s ease-out;
+        }
+
+        @keyframes floatIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0);   }
+        }
+
+        .text-green { color: rgb(76, 175, 80) !important; }
+        .bg-green { background-color: rgb(76, 175, 80) !important; }
+        .border-green { border-color: rgb(76, 175, 80) !important; }
+
+        .btn-green {
+            background-color: rgb(76, 175, 80);
+            border-color: rgb(76, 175, 80);
+            color: #fff;
+        }
+        .btn-green:hover {
+            background-color: rgb(60, 150, 65);
+            border-color: rgb(60, 150, 65);
+        }
+
+        .password-toggle {
+            border: none;
+            background: transparent;
+            color: #6c757d;
+        }
+        .password-toggle:focus { outline: none; }
+
+        .form-control:focus, .form-select:focus {
+            border-color: rgb(76, 175, 80);
+            box-shadow: 0 0 0 0.2rem rgba(76, 175, 80, 0.25);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-light shadow">
+        <div class="container d-flex justify-content-between align-items-center">
+
+            <a class="navbar-brand text-success logo h1 align-self-center" href="index.html">
+                Hosteller
+            </a>
+
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#templatemo_main_nav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="align-self-center collapse navbar-collapse flex-fill d-lg-flex justify-content-lg-between"
+                 id="templatemo_main_nav">
+
+                <div class="flex-fill">
+                    <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Home</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="about.html">About</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">Contact</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-success rounded-pill px-4 mx-1" href="loginpageS.html">
+                                Student Login
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="loginpageA.html">Admin Login</a>
+                        </li>
+
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+    </nav>
+    <!-- END NAVBAR -->
+
+    <!-- ADMIN LOGIN -->
+    <div class="login-wrapper">
+        <div class="login-card p-4 p-md-5">
+
+            <!-- Header -->
+            <div>
+                
+                <h3 class="mb-2">Admin Portal</h3>
+                <span class="badge bg-danger mb-3">Authorized Personnel Only</span>
+            </div>
+
+            <p class="text-muted">
+                Sign in to manage hostels, mess, students, rooms & security.
+            </p>
+
+            <!-- Error Box -->
+            <div id="errorBox" class="alert alert-danger d-none"></div>
+
+            <!-- FORM -->
+            <form id="adminLoginForm" novalidate>
+
+                <!-- Role -->
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Select Role</label>
+                    <select id="role" class="form-select border-green" required>
+                        <option value="super_admin">Super Admin</option>
+                        <option value="warden">Warden</option>
+                        <option value="mess_manager">Mess Manager</option>
+                        <option value="security_admin">Security Admin</option>
+                    </select>
+                </div>
+
+                <!-- Username -->
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Username</label>
+                    <input type="text" id="username" class="form-control border-green"
+                           placeholder="Enter username" required>
+                </div>
+
+                <!-- Password -->
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Password</label>
+                    <div class="input-group">
+                        <input type="password" id="password" class="form-control border-green"
+                               placeholder="Enter password" required>
+                        <button type="button" class="input-group-text password-toggle" id="togglePassword">
+                            <i class="fas fa-eye-slash" id="togglePasswordIcon"></i>
+                        </button>
+                    </div>
+                    <small class="text-muted">Minimum 6 characters.</small>
+                </div>
+
+                <!-- Captcha -->
+                <div class="mb-3">
+                    <label class="form-label fw-semibold" id="captchaLabel">Security Check: What is 5 + 8?</label>
+                    <input type="text" id="captchaInput" class="form-control border-green"
+                           placeholder="Enter answer" required>
+                </div>
+
+                <!-- Remember & Forgot -->
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="rememberMe">
+                        <label class="form-check-label">Remember me</label>
+                    </div>
+
+                    <a href="#" class="text-green text-decoration-none">Forgot Password?</a>
+                </div>
+
+                <!-- Login Button -->
+                <div class="d-grid mb-2">
+                    <button type="submit" id="loginButton" class="btn btn-green">
+                        <span id="loginButtonText">Log In</span>
+                        <span class="spinner-border spinner-border-sm ms-2 d-none" id="loginSpinner"></span>
+                    </button>
+                </div>
+
+                <small class="text-muted">
+                    For security reasons, always log out after work.
+                </small>
+            </form>
+
+            <hr class="my-4">
+
+            <!-- Support -->
+            <p class="mb-1">
+                Need help? Contact Warden: 
+                <a href="tel:9876543210" class="text-green fw-semibold text-decoration-none">
+                    9876543210
+                </a>
+            </p>
+
+            <p class="small text-muted">
+                Or email <a href="mailto:info@hosteller.com" class="text-green text-decoration-none">info@hosteller.com</a>
+            </p>
+
+        </div>
+    </div>
+
+    <!-- JS -->
+    <script src="assets/js/jquery-1.11.0.min.js"></script>
+    <script src="assets/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            const form = document.getElementById('adminLoginForm');
+            const usernameInput = document.getElementById('username');
+            const passwordInput = document.getElementById('password');
+            const roleSelect = document.getElementById('role');
+
+            const captchaLabel = document.getElementById('captchaLabel');
+            const captchaInput = document.getElementById('captchaInput');
+
+            const errorBox = document.getElementById('errorBox');
+            const loginButton = document.getElementById('loginButton');
+            const loginButtonText = document.getElementById('loginButtonText');
+            const loginSpinner = document.getElementById('loginSpinner');
+
+            const togglePasswordBtn = document.getElementById('togglePassword');
+            const togglePasswordIcon = document.getElementById('togglePasswordIcon');
+
+            let captchaAnswer;
+
+            // Generate Captcha
+            function generateCaptcha() {
+                const n1 = Math.floor(Math.random() * 9) + 1;
+                const n2 = Math.floor(Math.random() * 9) + 1;
+                captchaAnswer = n1 + n2;
+                captchaLabel.textContent = `Security Check: What is ${n1} + ${n2}?`;
+            }
+            generateCaptcha();
+
+            // Password Toggle
+            togglePasswordBtn.addEventListener('click', function () {
+                const type = passwordInput.type === 'password' ? 'text' : 'password';
+                passwordInput.type = type;
+
+                togglePasswordIcon.classList.toggle('fa-eye');
+                togglePasswordIcon.classList.toggle('fa-eye-slash');
+            });
+
+            // Show Error
+            function showError(msg) {
+                errorBox.textContent = msg;
+                errorBox.classList.remove('d-none');
+            }
+
+            function clearError() {
+                errorBox.classList.add('d-none');
+            }
+
+            // Form Submit
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                clearError();
+
+                const username = usernameInput.value.trim();
+                const password = passwordInput.value.trim();
+                const captcha = captchaInput.value.trim();
+
+                if (!username || !password || !captcha) {
+                    showError("Please fill all fields.");
+                    return;
+                }
+
+                if (password.length < 6) {
+                    showError("Password must be at least 6 characters.");
+                    return;
+                }
+
+                if (parseInt(captcha) !== captchaAnswer) {
+                    showError("Incorrect security answer.");
+                    generateCaptcha();
+                    captchaInput.value = "";
+                    return;
+                }
+
+                // Button loading
+                loginButton.disabled = true;
+                loginButtonText.textContent = "Verifying...";
+                loginSpinner.classList.remove("d-none");
+
+                setTimeout(() => {
+                    if (username === "admin" && password === "password123") {
+                        window.location.href = "admin-dashboard.html";
+                    } else {
+                        showError("Invalid username or password.");
+                        generateCaptcha();
+                        captchaInput.value = "";
+
+                        loginButton.disabled = false;
+                        loginButtonText.textContent = "Log In";
+                        loginSpinner.classList.add("d-none");
+                    }
+                }, 1200);
+
+            });
+
+        });
+    </script>
+</body>
+</html>
