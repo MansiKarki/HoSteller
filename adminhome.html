@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Hostel Admin Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Custom scrollbar for sidebar */
+    .scrollbar-thin::-webkit-scrollbar {
+      width: 6px;
+    }
+    .scrollbar-thin::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .scrollbar-thin::-webkit-scrollbar-thumb {
+      background-color: rgba(148, 163, 184, 0.8);
+      border-radius: 9999px;
+    }
+  </style>
+</head>
+<body class="bg-slate-100 text-slate-900">
+  <div class="min-h-screen flex">
+
+    <!-- Sidebar -->
+    <aside class="w-64 bg-slate-900 text-slate-100 flex flex-col">
+      <div class="h-16 flex items-center px-6 border-b border-slate-800">
+        <span class="text-xl font-bold tracking-tight">HoSteller Admin</span>
+      </div>
+
+      <nav class="flex-1 overflow-y-auto scrollbar-thin text-sm">
+        <div class="px-4 py-4 space-y-2">
+          <p class="text-xs font-semibold text-slate-400 uppercase tracking-wide">Main</p>
+          <a href="#dashboard" class="flex items-center px-3 py-2 rounded-md bg-slate-800 text-slate-50">
+            <span class="mr-2">📊</span> Dashboard Overview
+          </a>
+          <a href="#students" class="flex items-center px-3 py-2 rounded-md hover:bg-slate-800">
+            <span class="mr-2">🧑‍🎓</span> Student Management
+          </a>
+          <a href="#rooms" class="flex items-center px-3 py-2 rounded-md hover:bg-slate-800">
+            <span class="mr-2">🛏️</span> Room Management
+          </a>
+          <a href="#mess" class="flex items-center px-3 py-2 rounded-md hover:bg-slate-800">
+            <span class="mr-2">🍽️</span> Mess Management
+          </a>
+          <a href="#complaints" class="flex items-center px-3 py-2 rounded-md hover:bg-slate-800">
+            <span class="mr-2">🧾</span> Complaints
+          </a>
+          <a href="#maintenance" class="flex items-center px-3 py-2 rounded-md hover:bg-slate-800">
+            <span class="mr-2">🛠️</span> Maintenance
+          </a>
+          <a href="#visitors" class="flex items-center px-3 py-2 rounded-md hover:bg-slate-800">
+            <span class="mr-2">🔐</span> Visitors & Outpass
+          </a>
+          <a href="#payments" class="flex items-center px-3 py-2 rounded-md hover:bg-slate-800">
+            <span class="mr-2">💳</span> Payments & Fees
+          </a>
+          <a href="#staff" class="flex items-center px-3 py-2 rounded-md hover:bg-slate-800">
+            <span class="mr-2">🤵</span> Staff Management
+          </a>
+          <a href="#activities" class="flex items-center px-3 py-2 rounded-md hover:bg-slate-800">
+            <span class="mr-2">📋</span> Student Activities
+          </a>
+          <a href="#reports" class="flex items-center px-3 py-2 rounded-md hover:bg-slate-800">
+            <span class="mr-2">📈</span> Reports & Analytics
+          </a>
+        </div>
+
+        <div class="px-4 py-4 border-t border-slate-800 space-y-2">
+          <p class="text-xs font-semibold text-slate-400 uppercase tracking-wide">System</p>
+          <a href="#settings" class="flex items-center px-3 py-2 rounded-md hover:bg-slate-800">
+            <span class="mr-2">⚙️</span> Settings
+          </a>
+          <a href="#roles" class="flex items-center px-3 py-2 rounded-md hover:bg-slate-800">
+            <span class="mr-2">🔑</span> Roles & Permissions
+          </a>
+        </div>
+      </nav>
+
+      <div class="p-4 border-t border-slate-800 text-xs text-slate-400">
+        Logged in as: <span class="font-semibold text-slate-200">Super Admin</span>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="flex-1 flex flex-col">
+
+      <!-- Topbar -->
+      <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-6">
+        <div>
+          <h1 class="text-lg font-semibold tracking-tight">Hostel Management Dashboard</h1>
+          <p class="text-xs text-slate-500">Central control panel for hostel operations</p>
+        </div>
+        <div class="flex items-center space-x-4">
+          <input
+            type="text"
+            placeholder="Search students, rooms..."
+            class="hidden md:block text-sm px-3 py-1.5 rounded-md border border-slate-200 focus:outline-none focus:ring-1 focus:ring-sky-500"
+          />
+          <button class="relative p-2 rounded-full hover:bg-slate-100">
+            <span class="text-lg">🔔</span>
+            <span class="absolute -top-0.5 -right-0.5 inline-flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] text-white">
+              3
+            </span>
+          </button>
+          <div class="flex items-center space-x-2">
+            <div class="w-8 h-8 rounded-full bg-sky-500 flex items-center justify-center text-white text-sm font-semibold">
+              SA
+            </div>
+            <div class="hidden sm:block">
+              <p class="text-xs font-semibold">Admin</p>
+              <p class="text-[11px] text-slate-500">Super Admin</p>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Scrollable Content -->
+      <main class="flex-1 overflow-y-auto p-6 space-y-10">
+
+        <!-- DASHBOARD OVERVIEW -->
+        <section id="dashboard" class="space-y-6">
+          <div class="flex items-center justify-between">
+            <h2 class="text-base font-semibold tracking-tight">Dashboard Overview</h2>
+            <button class="px-3 py-1.5 rounded-md bg-sky-600 text-white text-xs hover:bg-sky-700">
+              Download Monthly Report
+            </button>
+          </div>
+
+          <!-- Summary Cards -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="bg-white rounded-lg border border-slate-200 p-4">
+              <p class="text-xs text-slate-500">Total Students</p>
+              <p class="text-2xl font-semibold mt-2">320</p>
+              <p class="text-[11px] text-emerald-600 mt-1">+12 new this month</p>
+            </div>
+            <div class="bg-white rounded-lg border border-slate-200 p-4">
+              <p class="text-xs text-slate-500">Total Rooms</p>
+              <p class="text-2xl font-semibold mt-2">180</p>
+              <p class="text-[11px] text-slate-500 mt-1">Capacity configured</p>
+            </div>
+            <div class="bg-white rounded-lg border border-slate-200 p-4">
+              <p class="text-xs text-slate-500">Occupied / Available Rooms</p>
+              <p class="text-2xl font-semibold mt-2">150 / 30</p>
+              <p class="text-[11px] text-amber-600 mt-1">83% occupancy</p>
+            </div>
+            <div class="bg-white rounded-lg border border-slate-200 p-4">
+              <p class="text-xs text-slate-500">Complaints Pending</p>
+              <p class="text-2xl font-semibold mt-2">9</p>
+              <p class="text-[11px] text-red-600 mt-1">3 urgent</p>
+            </div>
+            <div class="bg-white rounded-lg border border-slate-200 p-4">
+              <p class="text-xs text-slate-500">Mess Attendance Today</p>
+              <p class="text-2xl font-semibold mt-2">278</p>
+              <p class="text-[11px] text-slate-500 mt-1">Breakfast completed</p>
+            </div>
+            <div class="bg-white rounded-lg border border-slate-200 p-4">
+              <p class="text-xs text-slate-500">Visitors Today</p>
+              <p class="text-2xl font-semibold mt-2">14</p>
+              <p class="text-[11px] text-slate-500 mt-1">All checked out</p>
+            </div>
+            <div class="bg-white rounded-lg border border-slate-200 p-4">
+              <p class="text-xs text-slate-500">Maintenance Requests</p>
+              <p class="text-2xl font-semibold mt-2">6</p>
+              <p class="text-[11px] text-emerald-600 mt-1">4 resolved today</p>
+            </div>
+            <div class="bg-white rounded-lg border border-slate-200 p-4">
+              <p class="text-xs text-slate-500">Outpass Requests Pending</p>
+              <p class="text-2xl font-semibold mt-2">5</p>
+              <p class="text-[11px] text-slate-500 mt-1">Awaiting approval</p>
+            </div>
+          </div>
+
+          <!-- Two-column: Recent Complaints & Maintenance -->
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            <div class="lg:col-span-2 bg-white rounded-lg border border-slate-200">
+              <div class="flex items-center justify-between px-4 py-3 border-b border-slate-100">
+                <h3 class="text-sm font-semibold">Recent Complaints</h3>
+                <a href="#complaints" class="text-xs text-sky-600 hover:underline">View all</a>
+              </div>
+              <div class="overflow-x-auto">
+                <table class="min-w-full text-xs">
+                  <thead class="bg-slate-50 border-b border-slate-100">
+                    <tr>
+                      <th class="px-3 py-2 text-left font-semibold text-slate-500">Student</th>
+                      <th class="px-3 py-2 text-left font-semibold text-slate-500">Category</th>
+                      <th class="px-3 py-2 text-left font-semibold text-slate-500">Room</th>
+                      <th class="px-3 py-2 text-left font-semibold text-slate-500">Status</th>
+                      <th class="px-3 py-2 text-left font-semibold text-slate-500">Date</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-slate-100">
+                    <tr>
+                      <td class="px-3 py-2">Rahul Sharma</td>
+                      <td class="px-3 py-2">Electric</td>
+                      <td class="px-3 py-2">B-203</td>
+                      <td class="px-3 py-2">
+                        <span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 text-[11px]">
+                          Pending
+                        </span>
+                      </td>
+                      <td class="px-3 py-2 text-slate-500">24 Nov</td>
+                    </tr>
+                    <tr>
+                      <td class="px-3 py-2">Aisha Khan</td>
+                      <td class="px-3 py-2">Mess</td>
+                      <td class="px-3 py-2">A-110</td>
+                      <td class="px-3 py-2">
+                        <span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 text-[11px]">
+                          Resolved
+                        </span>
+                      </td>
+                      <td class="px-3 py-2 text-slate-500">23 Nov</td>
+                    </tr>
+                    <tr>
+                      <td class="px-3 py-2">Vikram Rao</td>
+                      <td class="px-3 py-2">Water</td>
+                      <td class="px-3 py-2">C-309</td>
+                      <td class="px-3 py-2">
+                        <span class="px-2 py-0.5 rounded-full bg-blue-100 text-blue-700 text-[11px]">
+                          In-progress
+                        </span>
+                      </td>
+                      <td class="px-3 py-2 text-slate-500">23 Nov</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="bg-white rounded-lg border border-slate-200">
+              <div class="flex items-center justify-between px-4 py-3 border-b border-slate-100">
+                <h3 class="text-sm font-semibold">Today’s Highlights</h3>
+              </div>
+              <div class="p-4 space-y-3 text-xs">
+                <div>
+                  <p class="font-semibold text-slate-700">Mess Menu (Lunch)</p>
+                  <p class="text-slate-500 mt-1">Dal, Rice, Roti, Mixed Veg, Salad</p>
+                </div>
+                <div class="border-t border-slate-100 pt-3">
+                  <p class="font-semibold text-slate-700">Upcoming Check-outs</p>
+                  <p class="text-slate-500 mt-1">6 students scheduled in next 3 days.</p>
+                </div>
+                <div class="border-t border-slate-100 pt-3">
+                  <p class="font-semibold text-slate-700">Security Notes</p>
+                  <p class="text-slate-500 mt-1">Night gate closing at 10:00 PM.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- STUDENT MANAGEMENT -->
+        <section id="students" class="space-y-4">
+          <div class="flex items-center justify-between">
+            <h2 class="text-base font-semibold tracking-tight">Student Management</h2>
+            <button class="px-3 py-1.5 rounded-md bg-emerald-600 text-white text-xs hover:bg-emerald-700">
+              + Add New Student
+            </button>
+          </div>
+
+          <div class="bg-white rounded-lg border border-slate-200 p-4 space-y-3">
+            <!-- Filters -->
+            <div class="flex flex-wrap gap-3 text-xs">
+              <input
+                type="text"
+                placeholder="Search by name or ID..."
+                class="px-3 py-1.5 rounded-md border border-slate-200 focus:outline-none focus:ring-1 focus:ring-sky-500 flex-1 min-w-[180px]"
+              />
+              <select class="px-2 py-1.5 rounded-md border border-slate-200">
+                <option>All Years</option>
+                <option>1st Year</option>
+                <option>2nd Year</option>
+                <option>3rd Year</option>
+                <option>4th Year</option>
+              </select>
+              <select class="px-2 py-1.5 rounded-md border border-slate-200">
+                <option>All Departments</option>
+                <option>CSE</option>
+                <option>ECE</option>
+                <option>ME</option>
+              </select>
+              <select class="px-2 py-1.5 rounded-md border border-slate-200">
+                <option>Room Status</option>
+                <option>Allocated</option>
+                <option>Not Allocated</option>
+              </select>
+              <select class="px-2 py-1.5 rounded-md border border-slate-200">
+                <option>Fee Status</option>
+                <option>Paid</option>
+                <option>Pending</option>
+              </select>
+            </div>
+
+            <!-- Students Table -->
+            <div class="overflow-x-auto">
+              <table class="min-w-full text-xs">
+                <thead class="bg-slate-50 border-b border-slate-100">
+                  <tr>
+                    <th class="px-3 py-2 text-left font-semibold text-slate-500">Student</th>
+                    <th class="px-3 py-2 text-left font-semibold text-slate-500">Room</th>
+                    <th class="px-3 py-2 text-left font-semibold text-slate-500">Year / Dept</th>
+                    <th class="px-3 py-2 text-left font-semibold text-slate-500">Fees</th>
+                    <th class="px-3 py-2 text-left font-semibold text-slate-500">Attendance</th>
+                    <th class="px-3 py-2 text-right font-semibold text-slate-500">Actions</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                  <tr>
+                    <td class="px-3 py-2">
+                      <div class="flex flex-col">
+                        <span class="font-semibold text-slate-800">Rahul Sharma</span>
+                        <span class="text-[11px] text-slate-500">ID: HS2023-001</span>
+                      </div>
+                    </td>
+                    <td class="px-3 py-2">B-203</td>
+                    <td class="px-3 py-2 text-slate-600">2nd Year / CSE</td>
+                    <td class="px-3 py-2">
+                      <span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 text-[11px]">
+                        Paid
+                      </span>
+                    </td>
+                    <td class="px-3 py-2 text-slate-600">92%</td>
+                    <td class="px-3 py-2 text-right">
+                      <button class="text-[11px] px-2 py-1 rounded bg-slate-100 hover:bg-slate-200 mr-1">
+                        View
+                      </button>
+                      <button class="text-[11px] px-2 py-1 rounded bg-sky-600 text-white hover:bg-sky-700 mr-1">
+                        Edit
+                      </button>
+                      <button class="text-[11px] px-2 py-1 rounded bg-amber-100 text-amber-700 hover:bg-amber-200">
+                        Room
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="px-3 py-2">
+                      <div class="flex flex-col">
+                        <span class="font-semibold text-slate-800">Aisha Khan</span>
+                        <span class="text-[11px] text-slate-500">ID: HS2023-014</span>
+                      </div>
+                    </td>
+                    <td class="px-3 py-2">A-110</td>
+                    <td class="px-3 py-2 text-slate-600">1st Year / ECE</td>
+                    <td class="px-3 py-2">
+                      <span class="px-2 py-0.5 rounded-full bg-red-100 text-red-700 text-[11px]">
+                        Pending
+                      </span>
+                    </td>
+                    <td class="px-3 py-2 text-slate-600">88%</td>
+                    <td class="px-3 py-2 text-right">
+                      <button class="text-[11px] px-2 py-1 rounded bg-slate-100 hover:bg-slate-200 mr-1">
+                        View
+                      </button>
+                      <button class="text-[11px] px-2 py-1 rounded bg-sky-600 text-white hover:bg-sky-700 mr-1">
+                        Edit
+                      </button>
+                      <button class="text-[11px] px-2 py-1 rounded bg-amber-100 text-amber-700 hover:bg-amber-200">
+                        Room
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="flex items-center justify-between pt-2 text-[11px] text-slate-500">
+              <p>Showing 1–10 of 320 students</p>
+              <div class="space-x-1">
+                <button class="px-2 py-1 rounded border border-slate-200">Prev</button>
+                <button class="px-2 py-1 rounded bg-slate-900 text-white">1</button>
+                <button class="px-2 py-1 rounded border border-slate-200">2</button>
+                <button class="px-2 py-1 rounded border border-slate-200">3</button>
+                <button class="px-2 py-1 rounded border border-slate-200">Next</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ROOM MANAGEMENT -->
+        <section id="rooms" class="space-y-4">
+          <div class="flex items-center justify-between">
+            <h2 class="text-base font-semibold tracking-tight">Room Management</h2>
+            <button class="px-3 py-1.5 rounded-md bg-sky-600 text-white text-xs hover:bg-sky-700">
+              + Add Room
+            </button>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+            <div class="bg-white rounded-lg border border-slate-200 p-4">
+              <p class="text-xs text-slate-500">Total Rooms</p>
+              <p class="text-xl font-semibold mt-2">180</p>
+            </div>
+            <div class="bg-white rounded-lg border border-slate-200 p-4">
+              <p class="text-xs text-slate-500">Occupied Rooms</p>
+              <p class="text-xl font-semibold mt-2">150</p>
+            </div>
+            <div class="bg-white rounded-lg border border-slate-200 p-4">
+              <p class="text-xs text-slate-500">Rooms Under Maintenance</p>
+              <p class="text-xl font-semibold mt-2">6</p>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-lg border border-slate-200 p-4 text-xs">
+            <div class="flex flex-wrap gap-3 mb-3">
+              <select class="px-2 py-1.5 rounded-md border border-slate-200">
+                <option>All Blocks</option>
+                <option>A Block</option>
+                <option>B Block</option>
+                <option>C Block</option>
+              </select>
+              <select class="px-2 py-1.5 rounded-md border border-slate-200">
+                <option>All Statuses</option>
+                <option>Available</option>
+                <option>Occupied</option>
+                <option>Maintenance</option>
+              </select>
+              <input
+                type="text"
+                placeholder="Search by room no..."
+                class="px-3 py-1.5 rounded-md border border-slate-200 focus:outline-none focus:ring-1 focus:ring-sky-500"
+              />
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="min-w-full text-xs">
+                <thead class="bg-slate-50 border-b border-slate-100">
+                  <tr>
+                    <th class="px-3 py-2 text-left font-semibold text-slate-500">Room</th>
+                    <th class="px-3 py-2 text-left font-semibold text-slate-500">Block</th>
+                    <th class="px-3 py-2 text-left font-semibold text-slate-500">Capacity</th>
+                    <th class="px-3 py-2 text-left font-semibold text-slate-500">Occupied</th>
+                    <th class="px-3 py-2 text-left font-semibold text-slate-500">Status</th>
+                    <th class="px-3 py-2 text-right font-semibold text-slate-500">Actions</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                  <tr>
+                    <td class="px-3 py-2">A-101</td>
+                    <td class="px-3 py-2">A</td>
+                    <td class="px-3 py-2">3</td>
+                    <td class="px-3 py-2">3</td>
+                    <td class="px-3 py-2">
+                      <span class="px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 text-[11px]">
+                        Occupied
+                      </span>
+                    </td>
+                    <td class="px-3 py-2 text-right">
+                      <button class="text-[11px] px-2 py-1 rounded bg-slate-100 hover:bg-slate-200 mr-1">
+                        View
+                      </button>
+                      <button class="text-[11px] px-2 py-1 rounded bg-amber-100 text-amber-700 hover:bg-amber-200 mr-1">
+                        Mark Maint.
+                      </button>
+                      <button class="text-[11px] px-2 py-1 rounded bg-sky-600 text-white hover:bg-sky-700">
+                        Assign
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="px-3 py-2">B-203</td>
+                    <td class="px-3 py-2">B</td>
+                    <td class="px-3 py-2">2</td>
+                    <td class="px-3 py-2">1</td>
+                    <td class="px-3 py-2">
+                      <span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 text-[11px]">
+                        Available
+                      </span>
+                    </td>
+                    <td class="px-3 py-2 text-right">
+                      <button class="text-[11px] px-2 py-1 rounded bg-slate-100 hover:bg-slate-200 mr-1">
+                        View
+                      </button>
+                      <button class="text-[11px] px-2 py-1 rounded bg-sky-600 text-white hover:bg-sky-700">
+                        Assign
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- MESS MANAGEMENT -->
+        <section id="mess" class="space-y-4">
+          <div class="flex items-center justify-between">
+            <h2 class="text-base font-semibold tracking-tight">Mess Management</h2>
+            <button class="px-3 py-1.5 rounded-md bg-sky-600 text-white text-xs hover:bg-sky-700">
+              Update Today’s Menu
+            </button>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 text-xs">
+            <!-- Menu -->
+            <div class="bg-white rounded-lg border border-slate-200 p-4 lg:col-span-2">
+              <h3 class="text-sm font-semibold mb-3">Today’s Menu</h3>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                <div class="border border-slate-100 rounded-md p-3">
+                  <p class="text-[11px] text-slate-500 uppercase mb-1">Breakfast</p>
+                  <p class="text-sm text-slate-800">Poha, Tea, Banana</p>
+                </div>
+                <div class="border border-slate-100 rounded-md p-3">
+                  <p class="text-[11px] text-slate-500 uppercase mb-1">Lunch</p>
+                  <p class="text-sm text-slate-800">Dal, Rice, Roti, Mixed Veg</p>
+                </div>
+                <div class="border border-slate-100 rounded-md p-3">
+                  <p class="text-[11px] text-slate-500 uppercase mb-1">Dinner</p>
+                  <p class="text-sm text-slate-800">Paneer, Jeera Rice, Roti</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Attendance -->
+            <div class="bg-white rounded-lg border border-slate-200 p-4">
+              <h3 class="text-sm font-semibold mb-3">Mess Attendance</h3>
+              <p class="text-xs text-slate-600 mb-2">Breakfast: 278 / 320</p>
+              <p class="text-xs text-slate-600 mb-2">Lunch: 0 / 320 (upcoming)</p>
+              <p class="text-xs text-slate-600 mb-2">Dinner: 0 / 320 (upcoming)</p>
+              <button class="mt-2 w-full text-xs px-3 py-1.5 rounded-md bg-emerald-600 text-white hover:bg-emerald-700">
+                View Monthly Mess Bill
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- COMPLAINTS -->
+        <section id="complaints" class="space-y-4">
+          <div class="flex items-center justify-between">
+            <h2 class="text-base font-semibold tracking-tight">Complaint Management</h2>
+            <div class="flex gap-2 text-xs">
+              <select class="px-2 py-1.5 rounded-md border border-slate-200">
+                <option>All Categories</option>
+                <option>Electric</option>
+                <option>Water</option>
+                <option>Room</option>
+                <option>Mess</option>
+              </select>
+              <select class="px-2 py-1.5 rounded-md border border-slate-200">
+                <option>All Status</option>
+                <option>Pending</option>
+                <option>In-progress</option>
+                <option>Completed</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-lg border border-slate-200 p-4 text-xs">
+            <div class="overflow-x-auto">
+              <table class="min-w-full text-xs">
+                <thead class="bg-slate-50 border-b border-slate-100">
+                  <tr>
+                    <th class="px-3 py-2 text-left font-semibold text-slate-500">Student</th>
+                    <th class="px-3 py-2 text-left font-semibold text-slate-500">Category</th>
+                    <th class="px-3 py-2 text-left font-semibold text-slate-500">Details</th>
+                    <th class="px-3 py-2 text-left font-semibold text-slate-500">Assigned To</th>
+                    <th class="px-3 py-2 text-left font-semibold text-slate-500">Status</th>
+                    <th class="px-3 py-2 text-right font-semibold text-slate-500">Actions</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                  <tr>
+                    <td class="px-3 py-2">Rahul Sharma</td>
+                    <td class="px-3 py-2">Electric</td>
+                    <td class="px-3 py-2 line-clamp-1">Fan not working in room.</td>
+                    <td class="px-3 py-2">Electrician #1</td>
+                    <td class="px-3 py-2">
+                      <span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 text-[11px]">
+                        Pending
+                      </span>
+                    </td>
+                    <td class="px-3 py-2 text-right">
+                      <button class="text-[11px] px-2 py-1 rounded bg-slate-100 hover:bg-slate-200 mr-1">
+                        View
+                      </button>
+                      <button class="text-[11px] px-2 py-1 rounded bg-sky-600 text-white hover:bg-sky-700">
+                        Update
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="px-3 py-2">Aisha Khan</td>
+                    <td class="px-3 py-2">Mess</td>
+                    <td class="px-3 py-2 line-clamp-1">Food quality issue reported.</td>
+                    <td class="px-3 py-2">Mess Manager</td>
+                    <td class="px-3 py-2">
+                      <span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 text-[11px]">
+                        Completed
+                      </span>
+                    </td>
+                    <td class="px-3 py-2 text-right">
+                      <button class="text-[11px] px-2 py-1 rounded bg-slate-100 hover:bg-slate-200 mr-1">
+                        View
+                      </button>
+                      <button class="text-[11px] px-2 py-1 rounded bg-slate-100 hover:bg-slate-200">
+                        Feedback
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- MAINTENANCE -->
+        <section id="maintenance" class="space-y-4">
+          <div class="flex items-center justify-between">
+            <h2 class="text-base font-semibold tracking-tight">Maintenance Requests</h2>
+            <button class="px-3 py-1.5 rounded-md bg-slate-900 text-white text-xs hover:bg-slate-800">
+              Generate Monthly Report
+            </button>
+          </div>
+
+          <div class="bg-white rounded-lg border border-slate-200 p-4 text-xs">
+            <div class="overflow-x-auto">
+              <table class="min-w-full text-xs">
+                <thead class="bg-slate-50 border-b border-slate-100">
+                  <tr>
+                    <th class="px-3 py-2 text-left font-semibold text-slate-500">ID</th>
+                    <th class="px-3 py-2 text-left font-semibold text-slate-500">Room</th>
+                    <th class="px-3 py-2 text-left font-semibold text-slate-500">Type</th>
+                    <th class="px-3 py-2 text-left font-semibold text-slate-500">Assigned Staff</th>
+                    <th class="px-3 py-2 text-left font-semibold text-slate-500">Status</th>
+                    <th class="px-3 py-2 text-left font-semibold text-slate-500">Updated</th>
+                    <th class="px-3 py-2 text-right font-semibold text-slate-500">Actions</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                  <tr>
+                    <td class="px-3 py-2">MT-1023</td>
+                    <td class="px-3 py-2">C-309</td>
+                    <td class="px-3 py-2">Water leak</td>
+                    <td class="px-3 py-2">Plumber #2</td>
+                    <td class="px-3 py-2">
+                      <span class="px-2 py-0.5 rounded-full bg-blue-100 text-blue-700 text-[11px]">
+                        In-progress
+                      </span>
+                    </td>
+                    <td class="px-3 py-2 text-slate-500">24 Nov – 10:12 AM</td>
+                    <td class="px-3 py-2 text-right">
+                      <button class="text-[11px] px-2 py-1 rounded bg-slate-100 hover:bg-slate-200 mr-1">
+                        View
+                      </button>
+                      <button class="text-[11px] px-2 py-1 rounded bg-emerald-600 text-white hover:bg-emerald-700">
+                        Mark Done
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- VISITORS & OUTPASS -->
+        <section id="visitors" class="space-y-4">
+          <h2 class="text-base font-semibold tracking-tight">Visitors & Outpass</h2>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 text-xs">
+            <!-- Visitors -->
+            <div class="bg-white rounded-lg border border-slate-200 p-4">
+              <div class="flex items-center justify-between mb-3">
+                <h3 class="text-sm font-semibold">Visitor Log</h3>
+                <button class="px-3 py-1.5 rounded-md bg-sky-600 text-white text-xs hover:bg-sky-700">
+                  New Entry
+                </button>
+              </div>
+              <div class="overflow-x-auto">
+                <table class="min-w-full text-xs">
+                  <thead class="bg-slate-50 border-b border-slate-100">
+                    <tr>
+                      <th class="px-3 py-2 text-left font-semibold text-slate-500">Visitor</th>
+                      <th class="px-3 py-2 text-left font-semibold text-slate-500">Student</th>
+                      <th class="px-3 py-2 text-left font-semibold text-slate-500">In</th>
+                      <th class="px-3 py-2 text-left font-semibold text-slate-500">Out</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-slate-100">
+                    <tr>
+                      <td class="px-3 py-2">Mr. Sharma</td>
+                      <td class="px-3 py-2">Rahul (B-203)</td>
+                      <td class="px-3 py-2 text-slate-500">09:30</td>
+                      <td class="px-3 py-2 text-slate-500">10:15</td>
+                    </tr>
+                    <tr>
+                      <td class="px-3 py-2">Mrs. Khan</td>
+                      <td class="px-3 py-2">Aisha (A-110)</td>
+                      <td class="px-3 py-2 text-slate-500">11:00</td>
+                      <td class="px-3 py-2 text-slate-500">11:45</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Outpass -->
+            <div class="bg-white rounded-lg border border-slate-200 p-4">
+              <div class="flex items-center justify-between mb-3">
+                <h3 class="text-sm font-semibold">Outpass Requests</h3>
+                <button class="px-3 py-1.5 rounded-md bg-emerald-600 text-white text-xs hover:bg-emerald-700">
+                  Approve All
+                </button>
+              </div>
+              <div class="overflow-x-auto">
+                <table class="min-w-full text-xs">
+                  <thead class="bg-slate-50 border-b border-slate-100">
+                    <tr>
+                      <th class="px-3 py-2 text-left font-semibold text-slate-500">Student</th>
+                      <th class="px-3 py-2 text-left font-semibold text-slate-500">Reason</th>
+                      <th class="px-3 py-2 text-left font-semibold text-slate-500">Date</th>
+                      <th class="px-3 py-2 text-left font-semibold text-slate-500">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-slate-100">
+                    <tr>
+                      <td class="px-3 py-2">Vikram Rao</td>
+                      <td class="px-3 py-2">Medical</td>
+                      <td class="px-3 py-2 text-slate-500">24 Nov</td>
+                      <td class="px-3 py-2">
+                        <span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 text-[11px]">
+                          Pending
+                        </span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="px-3 py-2">Rahul Sharma</td>
+                      <td class="px-3 py-2">Personal</td>
+                      <td class="px-3 py-2 text-slate-500">24 Nov</td>
+                      <td class="px-3 py-2">
+                        <span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 text-[11px]">
+                          Approved
+                        </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- PAYMENTS & FEES -->
+        <section id="payments" class="space-y-4">
+          <div class="flex items-center justify-between">
+            <h2 class="text-base font-semibold tracking-tight">Payments & Fees</h2>
+            <button class="px-3 py-1.5 rounded-md bg-slate-900 text-white text-xs hover:bg-slate-800">
+              Export Payment Report
+            </button>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+            <div class="bg-white rounded-lg border border-slate-200 p-4">
+              <p class="text-xs text-slate-500">Hostel Fee Collected</p>
+              <p class="text-xl font-semibold mt-2">₹ 9,60,000</p>
+              <p class="text-[11px] text-emerald-600 mt-1">This semester</p>
+            </div>
+            <div class="bg-white rounded-lg border border-slate-200 p-4">
+              <p class="text-xs text-slate-500">Mess Fee Collected</p>
+              <p class="text-xl font-semibold mt-2">₹ 4,20,000</p>
+              <p class="text-[11px] text-slate-500 mt-1">This month</p>
+            </div>
+            <div class="bg-white rounded-lg border border-slate-200 p-4">
+              <p class="text-xs text-slate-500">Pending / Fines</p>
+              <p class="text-xl font-semibold mt-2">₹ 35,000</p>
+              <p class="text-[11px] text-red-600 mt-1">Late fee & damages</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- STAFF MANAGEMENT -->
+        <section id="staff" class="space-y-4">
+          <div class="flex items-center justify-between">
+            <h2 class="text-base font-semibold tracking-tight">Staff Management</h2>
+            <button class="px-3 py-1.5 rounded-md bg-emerald-600 text-white text-xs hover:bg-emerald-700">
+              + Add Staff
+            </button>
+          </div>
+
+          <div class="bg-white rounded-lg border border-slate-200 p-4 text-xs">
+            <div class="overflow-x-auto">
+              <table class="min-w-full text-xs">
+                <thead class="bg-slate-50 border-b border-slate-100">
+                  <tr>
+                    <th class="px-3 py-2 text-left font-semibold text-slate-500">Name</th>
+                    <th class="px-3 py-2 text-left font-semibold text-slate-500">Role</th>
+                    <th class="px-3 py-2 text-left font-semibold text-slate-500">Shift</th>
+                    <th class="px-3 py-2 text-left font-semibold text-slate-500">Contact</th>
+                    <th class="px-3 py-2 text-left font-semibold text-slate-500">Attendance</th>
+                    <th class="px-3 py-2 text-right font-semibold text-slate-500">Actions</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                  <tr>
+                    <td class="px-3 py-2">Ramesh Kumar</td>
+                    <td class="px-3 py-2">Warden</td>
+                    <td class="px-3 py-2">Day</td>
+                    <td class="px-3 py-2">+91-98XXXXXX01</td>
+                    <td class="px-3 py-2">Present</td>
+                    <td class="px-3 py-2 text-right">
+                      <button class="text-[11px] px-2 py-1 rounded bg-slate-100 hover:bg-slate-200 mr-1">
+                        View
+                      </button>
+                      <button class="text-[11px] px-2 py-1 rounded bg-sky-600 text-white hover:bg-sky-700">
+                        Edit
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- STUDENT ACTIVITY & TASK MONITORING -->
+        <section id="activities" class="space-y-4">
+          <h2 class="text-base font-semibold tracking-tight">Student Activities</h2>
+
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 text-xs">
+            <!-- Activity Log -->
+            <div class="bg-white rounded-lg border border-slate-200 p-4 lg:col-span-2">
+              <h3 class="text-sm font-semibold mb-3">Recent Activity Log</h3>
+              <ul class="space-y-2 text-xs">
+                <li class="flex justify-between">
+                  <span class="text-slate-700">Rahul Sharma logged in.</span>
+                  <span class="text-slate-500">09:05 AM</span>
+                </li>
+                <li class="flex justify-between">
+                  <span class="text-slate-700">Aisha Khan submitted a mess feedback.</span>
+                  <span class="text-slate-500">08:50 AM</span>
+                </li>
+                <li class="flex justify-between">
+                  <span class="text-slate-700">Vikram Rao raised a maintenance request.</span>
+                  <span class="text-slate-500">08:30 AM</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Summary -->
+            <div class="bg-white rounded-lg border border-slate-200 p-4">
+              <h3 class="text-sm font-semibold mb-3">Today’s Summary</h3>
+              <p class="text-xs text-slate-600 mb-1">Logins: 245</p>
+              <p class="text-xs text-slate-600 mb-1">Complaints Submitted: 6</p>
+              <p class="text-xs text-slate-600 mb-1">Mess Feedback: 12</p>
+              <p class="text-xs text-slate-600 mb-1">Rule Violations: 0</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- REPORTS -->
+        <section id="reports" class="space-y-4">
+          <h2 class="text-base font-semibold tracking-tight">Reports & Analytics</h2>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
+            <div class="bg-white rounded-lg border border-slate-200 p-4">
+              <p class="text-sm font-semibold mb-1">Hostel Occupancy Report</p>
+              <p class="text-xs text-slate-600 mb-3">
+                View occupancy trends by month, block, and year.
+              </p>
+              <button class="w-full text-xs px-3 py-1.5 rounded-md bg-slate-900 text-white hover:bg-slate-800">
+                Download CSV
+              </button>
+            </div>
+            <div class="bg-white rounded-lg border border-slate-200 p-4">
+              <p class="text-sm font-semibold mb-1">Student Attendance Report</p>
+              <p class="text-xs text-slate-600 mb-3">
+                Daily / monthly attendance with filters.
+              </p>
+              <button class="w-full text-xs px-3 py-1.5 rounded-md bg-slate-900 text-white hover:bg-slate-800">
+                Download PDF
+              </button>
+            </div>
+            <div class="bg-white rounded-lg border border-slate-200 p-4">
+              <p class="text-sm font-semibold mb-1">Complaint Resolution Time</p>
+              <p class="text-xs text-slate-600 mb-3">
+                Track average resolution time by category and staff.
+              </p>
+              <button class="w-full text-xs px-3 py-1.5 rounded-md bg-slate-900 text-white hover:bg-slate-800">
+                View Report
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- SETTINGS -->
+        <section id="settings" class="space-y-4">
+          <h2 class="text-base font-semibold tracking-tight">Settings</h2>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 text-xs">
+            <div class="bg-white rounded-lg border border-slate-200 p-4 space-y-3">
+              <h3 class="text-sm font-semibold">Hostel Rules</h3>
+              <textarea
+                rows="4"
+                class="w-full text-xs px-3 py-2 rounded-md border border-slate-200 focus:outline-none focus:ring-1 focus:ring-sky-500"
+                placeholder="Enter hostel rules and guidelines..."
+              ></textarea>
+              <button class="px-3 py-1.5 rounded-md bg-sky-600 text-white text-xs hover:bg-sky-700">
+                Save Rules
+              </button>
+            </div>
+
+            <div class="bg-white rounded-lg border border-slate-200 p-4 space-y-3">
+              <h3 class="text-sm font-semibold">General Settings</h3>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div>
+                  <label class="text-[11px] text-slate-600">Room Capacity (Default)</label>
+                  <input
+                    type="number"
+                    value="3"
+                    class="w-full px-3 py-1.5 rounded-md border border-slate-200 focus:outline-none focus:ring-1 focus:ring-sky-500"
+                  />
+                </div>
+                <div>
+                  <label class="text-[11px] text-slate-600">Mess Timings</label>
+                  <input
+                    type="text"
+                    value="7:30–9:30, 12:30–2:30, 8:00–9:30"
+                    class="w-full px-3 py-1.5 rounded-md border border-slate-200 focus:outline-none focus:ring-1 focus:ring-sky-500"
+                  />
+                </div>
+                <div>
+                  <label class="text-[11px] text-slate-600">Gate Closing Time</label>
+                  <input
+                    type="time"
+                    value="22:00"
+                    class="w-full px-3 py-1.5 rounded-md border border-slate-200 focus:outline-none focus:ring-1 focus:ring-sky-500"
+                  />
+                </div>
+                <div>
+                  <label class="text-[11px] text-slate-600">Change Password</label>
+                  <input
+                    type="password"
+                    placeholder="New password"
+                    class="w-full px-3 py-1.5 rounded-md border border-slate-200 focus:outline-none focus:ring-1 focus:ring-sky-500"
+                  />
+                </div>
+              </div>
+              <button class="px-3 py-1.5 rounded-md bg-emerald-600 text-white text-xs hover:bg-emerald-700">
+                Save Settings
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ROLES & PERMISSIONS -->
+        <section id="roles" class="space-y-4">
+          <h2 class="text-base font-semibold tracking-tight">Roles & Access Control</h2>
+
+          <div class="bg-white rounded-lg border border-slate-200 p-4 text-xs overflow-x-auto">
+            <table class="min-w-full text-xs">
+              <thead class="bg-slate-50 border-b border-slate-100">
+                <tr>
+                  <th class="px-3 py-2 text-left font-semibold text-slate-500">Role</th>
+                  <th class="px-3 py-2 text-left font-semibold text-slate-500">Access</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100">
+                <tr>
+                  <td class="px-3 py-2 font-semibold">Super Admin</td>
+                  <td class="px-3 py-2">
+                    Full control of all modules including student activity logs & sensitive data.
+                  </td>
+                </tr>
+                <tr>
+                  <td class="px-3 py-2 font-semibold">Warden</td>
+                  <td class="px-3 py-2">
+                    Students, Rooms, Complaints, Maintenance, Student activity monitoring.
+                  </td>
+                </tr>
+                <tr>
+                  <td class="px-3 py-2 font-semibold">Mess Manager</td>
+                  <td class="px-3 py-2">Mess Menu, Mess Attendance, Mess Billing, Feedback.</td>
+                </tr>
+                <tr>
+                  <td class="px-3 py-2 font-semibold">Security Admin</td>
+                  <td class="px-3 py-2">Visitor logs, Outpass management, Entry/Exit logs.</td>
+                </tr>
+                <tr>
+                  <td class="px-3 py-2 font-semibold">Staff</td>
+                  <td class="px-3 py-2">Assigned maintenance tasks only.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+</body>
+</html>
