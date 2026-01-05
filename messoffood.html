@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Hosteller</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="apple-touch-icon" href="assets/img/apple-icon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/logo-removebg-preview.png">
+
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/templatemo.css">
+    <link rel="stylesheet" href="assets/css/custom.css">
+
+    <!-- Load fonts style after rendering the layout styles -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+    <link rel="stylesheet" href="assets/css/fontawesome.min.css">
+
+
+<style>
+    .rounded-image {
+    border-radius: 30px;   /* controls curve size — adjust as needed */
+    overflow: hidden;      /* ensures edges are clean */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* optional soft shadow */
+}
+
+/* ensure gray background stretches full width */
+.carousel-item {
+    background-color: #f5f5f5;
+    width: 100%;
+}
+
+
+
+    .faq-section {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .faq-title {
+      text-align: center;
+      font-size: 40px;
+     
+      margin-bottom: 30px;
+      padding-top: 50px;
+      
+    }
+
+    .faq-item {
+      border-top: 1px solid rgb(76, 175, 80);
+    }
+
+    .faq-question {
+      background: none;
+      border: none;
+      width: 100%;
+      text-align: left;
+      padding: 25px 0;
+      font-size: 18px;
+      color: #000000;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .faq-question::after {
+      content: '▾';
+      position: absolute;
+      right: 0;
+      transition: transform 0.3s ease;
+    }
+
+    .faq-question.active::after {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      display: none;
+      padding: 0 0 15px 0;
+      color: #000000;
+    }
+
+    .faq-item:last-child {
+      border-bottom: 7px solid #ddd;
+    }
+    .faq-question:focus {
+  outline: none; /* Removes the outline */
+}
+
+  #bp-web-widget {
+    bottom: 30px !important;
+    right: 30px !important;
+  }
+
+
+
+    /* ===== LAYOUT ===== */
+    .container-layout {
+      display: flex;
+      width: 100%;
+      margin: 0;
+      min-height: 100vh;
+    }
+
+    /* ===== SIDEBAR ===== */
+    .sidebar {
+      width: 300px;
+      background-color: #f9fafb;
+      border-right: 1px solid #e5e7eb;
+      padding: 20px 0;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+    }
+    .logo-header {
+      text-align: center;
+      border-bottom: 1px solid #e5e7eb;
+      padding-bottom: 15px;
+      margin-bottom: 10px;
+    }
+    .logo-header h2 {
+      font-size: 1.2rem;
+      color: #1f2937;
+      margin: 0;
+    }
+    .nav-link-sidebar {
+      display: flex;
+      align-items: center;
+      padding: 12px 20px;
+      color: #4b5563;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+    .nav-link-sidebar:hover {
+      background-color: #e0f2f7;
+      color: #06b6d4;
+    }
+    .nav-link-sidebar.active {
+      color: #059669;
+      background-color: #ecfdf5;
+      border-left: 5px solid #059669;
+      font-weight: 600;
+      padding-left: 15px;
+    }
+    
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 850px) {
+      .container-layout {
+        flex-direction: column;
+      }
+      .sidebar {
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid #e5e7eb;
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+      .logo-header { display: none; }
+      .nav-link-sidebar {
+        display: inline-flex;
+        padding: 10px 15px;
+      }
+      .nav-link-sidebar.active {
+        border-bottom: 3px solid #059669;
+        border-left: none;
+      }
+      .content-area {
+        padding: 20px 15px;
+      }
+    }
+
+      :root {
+        --bg: #f9fafb;
+        --surface: #ffffff;
+        --border: #e5e7eb;
+        --border-strong: #d1d5db;
+
+        /* PRIMARY GREEN THEME */
+        --primary: rgb(76, 175, 80);
+        --primary-dark: rgb(46, 125, 50);
+
+        --success: rgb(76, 175, 80);
+        --success-soft: rgba(76, 175, 80, 0.1);
+
+        --text-main: #111827;
+        --text-muted: #6b7280;
+
+        --danger: #ef4444;
+        --warning: #eab308;
+      }
+
+      body {
+        margin: 0;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: var(--bg);
+        color: var(--text-main);
+
+        /* BASE FONT SIZE INCREASED */
+        font-size: 19px;
+      }
+
+      .page {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem 1.5rem;
+      }
+
+      header.page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid var(--border);
+        margin-bottom: 1.8rem;
+      }
+
+      /* HEADINGS LARGER */
+      .page-title h1 {
+        margin: 0;
+        font-size: 2rem;       /* increased */
+        font-weight: 700;
+      }
+
+      .page-title p {
+        margin: 0.4rem 0 0;
+        font-size: 1rem;       /* increased */
+        color: var(--text-muted);
+      }
+
+      .page-header-right {
+        display: flex;
+        gap: 0.6rem;
+        align-items: center;
+      }
+
+      /* STATUS PILL */
+      .status-pill {
+        padding: 0.25rem 0.85rem;
+        border-radius: 999px;
+        font-size: 0.9rem;
+        border: 1px solid rgba(76, 175, 80, 0.35);
+        background: rgba(76, 175, 80, 0.12);
+        color: var(--primary-dark);
+      }
+
+      .status-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        background: var(--primary);
+      }
+
+      .badge {
+        font-size: 0.9rem;
+        padding: 0.25rem 0.7rem;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+      }
+
+      main {
+        display: grid;
+        grid-template-columns: 2.1fr 1.4fr;
+        gap: 2.4rem;
+      }
+
+      section h2 {
+        margin-bottom: 0.4rem;
+        font-size: 1.3rem;     /* increased */
+        font-weight: 600;
+      }
+
+      .section-subtitle {
+        font-size: 1rem;       /* increased */
+        margin-bottom: 1rem;
+        color: var(--text-muted);
+      }
+
+      /* MENU BLOCK */
+      .meal-block h3 {
+        margin-bottom: 0.3rem;
+        font-size: 1.1rem;     /* increased */
+        font-weight: 600;
+      }
+
+      .meal-time {
+        font-size: 0.95rem;    /* was 0.8rem */
+        color: var(--text-muted);
+        margin-bottom: 0.5rem;
+      }
+
+      /* TABLE FONT SIZE INCREASED */
+      .meal-table,
+      .weekly-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: #ffffff;
+        font-size: 0.95rem;    /* increased */
+        border: 1px solid var(--border);
+      }
+
+      .meal-table th,
+      .meal-table td,
+      .weekly-table th,
+      .weekly-table td {
+        padding: 0.5rem 0.7rem;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .meal-table th {
+        width: 90px;
+        font-size: 0.95rem;
+      }
+
+      .tag-small {
+        background: rgba(76, 175, 80, 0.15);
+        color: var(--primary-dark);
+        padding: 0.15rem 0.45rem;
+        font-size: 0.85rem;    /* increased */
+        border-radius: 999px;
+      }
+
+      /* TIMINGS */
+      .timing-row {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.95rem;
+        padding: 0.5rem 0.6rem;
+        border-radius: 0.5rem;
+        background: #ffffff;
+        margin-bottom: 0.4rem;
+        border: 1px dashed var(--border-strong);
+      }
+
+      /* ANNOUNCEMENTS */
+      .notice-item {
+        padding: 0.6rem 0.6rem;
+        border-radius: 0.5rem;
+        font-size: 0.95rem;
+        background: #fff;
+        border: 1px solid var(--border);
+      }
+
+      .notice-tag {
+        font-size: 0.85rem;
+        padding: 0.15rem 0.45rem;
+        border-radius: 999px;
+      }
+
+      /* TOKENS */
+      .token-block {
+        padding: 0.6rem 0.7rem;
+        font-size: 1rem;
+        border-radius: 0.5rem;
+        border: 1px solid var(--border);
+        background: #fff;
+        margin-bottom: 0.5rem;
+      }
+
+      .token-title {
+        font-size: 1.05rem;
+        font-weight: 600;
+      }
+
+      .token-sub {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+      }
+
+      .badge-soft {
+        padding: 0.25rem 0.6rem;
+        font-size: 0.85rem;
+        border-radius: 999px;
+      }
+
+      .pref-pill-primary,
+      .pref-pill {
+        padding: 0.2rem 0.65rem;
+        border-radius: 999px;
+        font-size: 0.9rem;
+      }
+
+      /* HYGIENE */
+      .hygiene-row {
+        font-size: 1rem;
+        padding: 0.55rem 0.7rem;
+        border-radius: 0.5rem;
+        background: #fff;
+        border: 1px solid var(--border);
+        margin-bottom: 0.5rem;
+      }
+
+      .hygiene-badge {
+        font-size: 0.9rem;
+        padding: 0.2rem 0.6rem;
+        border-radius: 999px;
+      }
+
+      @media (max-width: 960px) {
+        main {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    
+    <nav class="navbar navbar-expand-lg navbar-light shadow">
+        <div class="container d-flex justify-content-between align-items-center">
+
+            <a class="navbar-brand text-success logo h1 align-self-center" href="index.html">
+            Hosteller
+            </a>
+
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
+                <div class="flex-fill">
+                    <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="about.html">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                           <a class="nav-link btn btn-success rounded-pill px-4 mx-1" href="loginpageS.html">Student Login</a>
+                        </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="loginpageA.html">Admin Login</a>
+                        </li>
+                    </ul>
+                </div>
+                
+            </div>
+
+        </div>
+    </nav>
+    <div class="page">
+      <header class="page-header">
+        <div class="page-title">
+          <h1>Mess & Food</h1>
+          <p>Today’s menu, weekly overview, timings, announcements and hygiene info.</p>
+        </div>
+
+        <div class="page-header-right">
+          <div class="status-pill">
+            <span class="status-dot"></span> Mess open
+          </div>
+          <span class="badge">Today’s view</span>
+        </div>
+      </header>
+
+      <main>
+        <!-- LEFT SIDE -->
+        <div>
+          <!-- Today’s Menu -->
+          <section>
+            <h2>Today’s menu</h2>
+            <p class="section-subtitle">Breakfast, lunch and dinner for the current day.</p>
+
+            <div class="menu-layout">
+              <!-- Breakfast -->
+              <div class="meal-block">
+                <h3>Breakfast</h3>
+                <div class="meal-time">7:30 AM – 9:30 AM</div>
+                <table class="meal-table">
+                  <tr>
+                    <th>Main</th>
+                    <td>Poha, Upma (alt.)</td>
+                  </tr>
+                  <tr>
+                    <th>Side</th>
+                    <td>Chutney, Sambar , Dosa</td>
+                  </tr>
+                  <tr>
+                    <th>Extras</th>
+                    <td>Tea, Milk, Boiled egg , Bread</td>
+                  </tr>
+                </table>
+              </div>
+
+              <!-- Lunch -->
+              <div class="meal-block">
+                <h3>Lunch</h3>
+                <div class="meal-time">12:30 PM – 2:30 PM</div>
+                <table class="meal-table">
+                  <tr>
+                    <th>Main</th>
+                    <td>Roti, Sabzi, Rice, Dal tadka</td>
+                  </tr>
+                  <tr>
+                    <th>Side</th>
+                    <td>Curd, Salad</td>
+                  </tr>
+                  <tr>
+                    <th>Special</th>
+                    <td>Friday: Biryani</td>
+                  </tr>
+                </table>
+              </div>
+
+              <!-- Dinner -->
+              <div class="meal-block">
+                <h3>Dinner</h3>
+                <div class="meal-time">7:30 PM – 9:30 PM</div>
+                <table class="meal-table">
+                  <tr>
+                    <th>Main</th>
+                    <td>Roti, Paneer masala, Rice, Dal fry</td>
+                  </tr>
+                  <tr>
+                    <th>Extras</th>
+                    <td>Soup, Sweet dish</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </section>
+
+          <!-- Weekly Menu -->
+          <section style="margin-top: 1.8rem;">
+            <h2>Weekly menu (overview)</h2>
+            <p class="section-subtitle">Compact view of main dishes for each day.</p>
+
+            <table class="weekly-table">
+              <thead>
+                <tr>
+                  <th>Day</th>
+                  <th>Breakfast</th>
+                  <th>Lunch</th>
+                  <th>Dinner</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Monday</td>
+                  <td>Poha</td>
+                  <td>Dal fry + rice</td>
+                  <td>
+                    Paneer masala <span class="tag-small">Chef special</span>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Tuesday</td>
+                  <td>Idli</td>
+                  <td>Rajma + rice</td>
+                  <td>Aloo capsicum</td>
+                </tr>
+
+                <tr>
+                  <td>Wednesday</td>
+                  <td>Upma</td>
+                  <td>Chole + roti</td>
+                  <td>Mixed veg</td>
+                </tr>
+
+                <tr>
+                  <td>Thursday</td>
+                  <td>Paratha</td>
+                  <td>Kadhi + rice</td>
+                  <td>Veg pulao</td>
+                </tr>
+
+                <tr>
+                  <td>Friday</td>
+                  <td>Poha</td>
+                  <td>Biryani</td>
+                  <td>Dal makhani</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+        </div>
+
+        <!-- RIGHT SIDE -->
+        <div>
+          <!-- Timings -->
+          <section>
+            <h2>Mess timings</h2>
+            <p class="section-subtitle">Serving hours for each meal.</p>
+
+            <div class="timing-row"><span>Breakfast</span><span>7:30 AM – 9:30 AM</span></div>
+            <div class="timing-row"><span>Lunch</span><span>12:30 PM – 2:30 PM</span></div>
+            <div class="timing-row"><span>Dinner</span><span>7:30 PM – 9:30 PM</span></div>
+
+            <div class="status-legend" style="margin-top: 0.4rem;">
+              <span class="legend-pill"><span class="legend-dot legend-dot-open"></span> Open</span>
+              <span class="legend-pill"><span class="legend-dot legend-dot-closed"></span> Closed</span>
+              <span class="legend-pill"><span class="legend-dot legend-dot-cleaning"></span> Cleaning</span>
+            </div>
+          </section>
+
+          <!-- Announcements -->
+          <section style="margin-top: 1.8rem;">
+            <h2>Announcements</h2>
+            <ul style="list-style: none; padding: 0; margin: 0;">
+              <li class="notice-item">
+                <div>
+                  <span class="notice-tag">Today</span> Festival special dinner menu.
+                  <div class="notice-meta" style="font-size: 0.85rem; color: var(--text-muted);">
+                    Paneer butter masala and sweet dish added.
+                  </div>
+                </div>
+                <span class="notice-meta" style="font-size: 0.85rem;">Updated 2h ago</span>
+              </li>
+
+              <li class="notice-item" style="margin-top: 0.6rem;">
+                <div>
+                  <span class="notice-tag">Info</span> Mess closed for cleaning this Sunday breakfast.
+                  <div class="notice-meta" style="font-size: 0.85rem; color: var(--text-muted);">
+                    Lunch and dinner will run as usual.
+                  </div>
+                </div>
+              </li>
+
+              <li class="notice-item" style="margin-top: 0.6rem;">
+                <div>
+                  <span class="notice-tag">Update</span> New cook joining next week.
+                  <div class="notice-meta" style="font-size: 0.85rem; color: var(--text-muted);">
+                    Expect new items and menu changes.
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </section>
+
+          <!-- Tokens -->
+          <section style="margin-top: 1.8rem;">
+            <h2>Attendance & tokens</h2>
+
+            <div class="token-block">
+              <div>
+                <div class="token-title">Today’s token: Lunch</div>
+                <div class="token-sub">Show QR at counter.</div>
+              </div>
+              <span class="badge-soft">Active</span>
+            </div>
+
+            <div class="token-block">
+              <div>
+                <div class="token-title">Remaining meals: 18</div>
+                <div class="token-sub">For this month’s mess plan.</div>
+              </div>
+            </div>
+
+            <div class="token-block">
+              <div>
+                <div class="token-title">Opt-out</div>
+                <div class="token-sub">Skip tomorrow’s lunch/dinner.</div>
+              </div>
+              <button type="button">Manage</button>
+            </div>
+
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.6rem;">
+              <span class="pref-pill-primary">Vegetarian</span>
+              <span class="pref-pill">Non-veg (Fri dinner)</span>
+              <span class="pref-pill">Jain food on request</span>
+            </div>
+          </section>
+
+          <!-- Hygiene -->
+          <section style="margin-top: 1.8rem;">
+            <h2>Hygiene & cleanliness</h2>
+
+            <div class="hygiene-row">
+              <span>Last inspection</span>
+              <span>20 Nov 2025</span>
+            </div>
+
+            <div class="hygiene-row">
+              <span>Cleanliness rating</span>
+              <span class="hygiene-badge">4.6 / 5 – Good</span>
+            </div>
+
+            <div class="hygiene-row">
+              <span>Kitchen sanitization</span>
+              <span>Every Sunday, 3–5 PM</span>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

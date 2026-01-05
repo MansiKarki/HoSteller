@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Hosteller</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/logo-removebg-preview.png">
+
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/templatemo.css">
+    <link rel="stylesheet" href="assets/css/custom.css">
+
+    <!-- Load fonts style after rendering the layout styles -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+    <link rel="stylesheet" href="assets/css/fontawesome.min.css">
+
+
+<style>
+    /* Define the custom green color */
+    :root {
+        --main-green: rgb(76, 175, 80);
+        --main-green-light: rgba(76, 175, 80, 0.1);
+        --main-green-border: rgba(76, 175, 80, 0.5);
+    }
+    
+    .rounded-image {
+    border-radius: 30px; 
+    overflow: hidden; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* ensure gray background stretches full width */
+.carousel-item {
+    background-color: #f5f5f5;
+    width: 100%;
+}
+
+
+    .faq-section {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .faq-title {
+      text-align: center;
+      font-size: 40px;
+      
+      margin-bottom: 30px;
+      padding-top: 50px;
+      
+    }
+
+    .faq-item {
+      border-top: 1px solid var(--main-green);
+    }
+
+    .faq-question {
+      background: none;
+      border: none;
+      width: 100%;
+      text-align: left;
+      padding: 25px 0;
+      font-size: 18px;
+      color: #000000;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .faq-question::after {
+      content: '▾';
+      position: absolute;
+      right: 0;
+      transition: transform 0.3s ease;
+    }
+
+    .faq-question.active::after {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      display: none;
+      padding: 0 0 15px 0;
+      color: #000000;
+    }
+
+    .faq-item:last-child {
+      border-bottom: 7px solid #ddd;
+    }
+    .faq-question:focus {
+  outline: none; /* Removes the outline */
+}
+
+  #bp-web-widget {
+    bottom: 30px !important;
+    right: 30px !important;
+  }
+
+
+    /* ===== LAYOUT ===== */
+    .container-layout {
+      display: flex;
+      width: 100%;
+      margin: 0;
+      min-height: 100vh;
+    }
+
+    /* ===== SIDEBAR ===== */
+    .sidebar {
+      width: 300px;
+      background-color: #f9fafb;
+      border-right: 1px solid #e5e7eb;
+      padding: 20px 0;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+    }
+    .logo-header {
+      text-align: center;
+      border-bottom: 1px solid #e5e7eb;
+      padding-bottom: 15px;
+      margin-bottom: 10px;
+    }
+    .logo-header h2 {
+      font-size: 1.2rem;
+      color: #1f2937;
+      margin: 0;
+    }
+    .nav-link-sidebar {
+      display: flex;
+      align-items: center;
+      padding: 12px 20px;
+      color: #4b5563;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+    .nav-link-sidebar:hover {
+      background-color: var(--main-green-light);
+      color: var(--main-green);
+    }
+    .nav-link-sidebar.active {
+      color: var(--main-green);
+      background-color: var(--main-green-light);
+      border-left: 5px solid var(--main-green);
+      font-weight: 600;
+      padding-left: 15px;
+    }
+
+    /* ===== CONTENT AREA ===== */
+    .content-area {
+      flex-grow: 1;
+      padding: 30px;
+      overflow-y: auto;
+      background-color: #ffffff;
+    }
+    .content-section {
+      display: none;
+      animation: fadeIn 0.4s ease-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .content-section h3 {
+      font-size: 1.75rem;
+      color: var(--main-green); /* Use the new green */
+      margin-bottom: 20px;
+      border-bottom: 2px solid #e5e7eb;
+      padding-bottom: 10px;
+    }
+    .content-section ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    .content-section li {
+      padding: 8px 0;
+      border-bottom: 1px solid #f3f4f6;
+      padding-left: 25px;
+      position: relative;
+    }
+    .content-section li::before {
+      content: "•";
+      color: var(--main-green); /* Use the new green */
+      font-weight: bold;
+      position: absolute;
+      left: 5px;
+    }
+    
+    /* Custom styles for the Maintenance Guide section */
+    .maintenance-info-block {
+        background-color: var(--main-green-light);
+        border: 1px solid var(--main-green-border);
+        border-left: 4px solid var(--main-green);
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 25px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .maintenance-tag {
+        display: inline-block;
+        background-color: var(--main-green);
+        color: white;
+        padding: 4px 10px;
+        border-radius: 50rem;
+        font-size: 0.85rem;
+        margin-right: 5px;
+        margin-bottom: 5px;
+        font-weight: 500;
+    }
+    
+    /* Accordion styles for Maintenance Guide */
+    .accordion-button {
+        background-color: #fcfcfc !important;
+        color: #1f2937 !important;
+        font-weight: 600 !important;
+        border-radius: 6px !important;
+        border: 1px solid #eee !important;
+    }
+    .accordion-button:not(.collapsed) {
+        color: var(--main-green) !important;
+        background-color: var(--main-green-light) !important;
+        box-shadow: inset 0 -1px 0 rgba(0,0,0,.125);
+    }
+    .accordion-item {
+        border: none !important;
+        margin-bottom: 10px;
+        border-radius: 8px !important;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+    .accordion-body {
+        padding: 1rem 1.5rem !important;
+    }
+
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 850px) {
+      .container-layout {
+        flex-direction: column;
+      }
+      .sidebar {
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid #e5e7eb;
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+      .logo-header { display: none; }
+      .nav-link-sidebar {
+        display: inline-flex;
+        padding: 10px 15px;
+      }
+      .nav-link-sidebar.active {
+        border-bottom: 3px solid var(--main-green);
+        border-left: none;
+        padding-bottom: 9px;
+      }
+      .content-area {
+        padding: 20px 15px;
+      }
+      .maintenance-tag {
+        font-size: 0.75rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+    <!-- Scripts for Bootstrap -->
+    <script src="assets/js/jquery-1.11.0.min.js"></script>
+    <script src="assets/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/templatemo.js"></script>
+    <script src="assets/js/custom.js"></script>
+    
+    <nav class="navbar navbar-expand-lg navbar-light shadow">
+        <div class="container d-flex justify-content-between align-items-center">
+
+            <a class="navbar-brand logo h1 align-self-center" style="color: var(--main-green);" href="index.html">
+            Hosteller
+            </a>
+
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
+                <div class="flex-fill">
+                    <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="about.html">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                           <a class="nav-link btn rounded-pill px-4 mx-1 text-white" style="background-color: var(--main-green);" href="loginpageS.html">Student Login</a>
+                        </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="loginpageA.html">Admin Login</a>
+                        </li>
+                    </ul>
+                </div>
+                
+            </div>
+
+        </div>
+    </nav>
+
+  <!-- ===== MAIN LAYOUT ===== -->
+  <div class="container-layout">
+    <!-- SIDEBAR -->
+    <nav class="sidebar">
+      <div class="logo-header"><h2>Hostel Info Center</h2></div>
+      <a href="#" class="nav-link-sidebar" id="menu-overview" data-target="overview">1. Hostel Overview</a>
+      <a href="#" class="nav-link-sidebar" id="menu-room" data-target="room">2. Room Information</a>
+      <a href="#" class="nav-link-sidebar" id="menu-facilities" data-target="facilities">3. Facilities & Common Areas</a>
+      <a href="#" class="nav-link-sidebar" id="menu-security" data-target="security">4. Safety & Security</a>
+      <a href="#" class="nav-link-sidebar" id="menu-dates" data-target="dates">5. Important Dates & Process</a>
+      <a href="#" class="nav-link-sidebar" id="menu-fees" data-target="fees">6. Fee & Payment Information</a>
+      <a href="#" class="nav-link-sidebar" id="menu-support" data-target="support">7. Student Life & Support</a>
+      <a href="#" class="nav-link-sidebar" id="menu-parents" data-target="parents">8. For Parents</a>
+      <a href="#" class="nav-link-sidebar" id="menu-downloads" data-target="downloads">9. Downloads & Links</a>
+    </nav>
+
+    <!-- CONTENT AREA -->
+       <main class="content-area">
+      <section id="content-overview" class="content-section">
+        <h3>1. Hostel Overview</h3>
+        <p>The hostel promotes a safe, comfortable, and academically supportive environment for residents.</p>
+        <ul>
+          <li><strong>Capacity:</strong> 500 beds across two main blocks.</li>
+          <li><strong>Type:</strong> Separate Boys' and Girls' blocks.</li>
+          <li><strong>Location:</strong> 5 minutes walk from academic buildings.</li>
+          <li><strong>Accommodation:</strong> AC and Non-AC rooms available.</li>
+        </ul>
+      </section>
+
+      <section id="content-room" class="content-section">
+        <h3>2. Room Information</h3>
+        <p>Rooms are designed for comfort and utility, suitable for rest and study.</p>
+        <ul>
+          <li><strong>Room Types:</strong> Double and triple sharing rooms.</li>
+          <li><strong>Furnishings:</strong> Bed, mattress, table, chair, cupboard, fan, LED light.</li>
+        </ul>
+      </section>
+
+      <section id="content-facilities" class="content-section">
+        <h3>3. Facilities & Common Areas</h3>
+        <ul>
+          <li>Wi-Fi and 24-hour power backup.</li>
+          <li>Common TV and recreation rooms.</li>
+          <li>Indoor games and reading lounges.</li>
+          <li>Clean dining hall with nutritious food.</li>
+        </ul>
+      </section>
+
+      <section id="content-security" class="content-section">
+        <h3>4. Safety & Security</h3>
+        <ul>
+          <li>24x7 security staff and CCTV surveillance.</li>
+          <li>Access control for visitors.</li>
+          <li>Emergency medical support available.</li>
+        </ul>
+      </section>
+
+      <section id="content-dates" class="content-section">
+        <h3>5. Important Dates & Process</h3>
+        <ul>
+          <li><strong>Application Start:</strong> June 1</li>
+          <li><strong>Room Allotment:</strong> July 10</li>
+          <li><strong>Check-in:</strong> From July 20</li>
+        </ul>
+      </section>
+
+      <section id="content-fees" class="content-section">
+        <h3>6. Fee & Payment Information</h3>
+        <ul>
+          <li>Room Fee: ₹45,000 (per semester)</li>
+          <li>Mess Fee: ₹15,000 (per semester)</li>
+          <li>Security Deposit: ₹5,000 (refundable)</li>
+        </ul>
+      </section>
+
+      <section id="content-support" class="content-section">
+        <h3>7. Student Life & Support</h3>
+        <p>We provide student counseling, wellness programs, and a mentorship system to support academic and personal growth.</p>
+      </section>
+
+      <section id="content-parents" class="content-section">
+        <h3>8. For Parents</h3>
+        <p>Parents can reach the warden’s office for updates, visit requests, or emergencies anytime during office hours.</p>
+      </section>
+
+      <section id="content-downloads" class="content-section">
+        <h3>9. Downloads & Links</h3>
+        <ul>
+          <li><a href="#">Hostel Rules PDF</a></li>
+          <li><a href="#">Mess Menu Schedule</a></li>
+          <li><a href="#">Application Form</a></li>
+        </ul>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // SIDEBAR NAVIGATION HANDLER
+    function showContent(targetId) {
+      document.querySelectorAll('.content-section').forEach(s => s.style.display = 'none');
+      document.querySelectorAll('.nav-link-sidebar').forEach(l => l.classList.remove('active'));
+      const content = document.getElementById('content-' + targetId);
+      const menu = document.getElementById('menu-' + targetId);
+      if (content) content.style.display = 'block';
+      if (menu) menu.classList.add('active');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.nav-link-sidebar').forEach(link => {
+        link.addEventListener('click', e => {
+          e.preventDefault();
+          showContent(e.target.getAttribute('data-target'));
+        });
+      });
+      showContent('overview');
+    });
+  </script>
+
+</body>
+</html>
