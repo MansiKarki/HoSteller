@@ -84,3 +84,12 @@ cd contact-backend
 npm install
 npm start
 ```
+
+## 📌 Notes
+
+```bash
+# This project is for educational purposes
+# Backend is minimal and can be extended
+# Admin dashboard access is restricted
+```
+
