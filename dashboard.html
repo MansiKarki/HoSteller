@@ -438,7 +438,7 @@
         <div class="dashboard-section">
             <div class="section-header">
                 <h2><i class="fas fa-rupee-sign text-success me-2"></i>Fee Status & Payment</h2>
-                <button class="btn btn-primary-custom" onclick="handlePayNow()">
+               <button class="btn btn-primary-custom" onclick="openOrderSummary()">
                     <i class="fas fa-credit-card me-2"></i>Pay Now
                 </button>
             </div>
@@ -489,7 +489,11 @@
                             <td>15 Sept 2025</td>
                             <td>UPI</td>
                             <td><span class="badge-success">Paid</span></td>
-                            <td><button class="btn btn-sm btn-outline-success" onclick="downloadReceipt('TXN123456789')">Download Receipt</button></td>
+                            <td><button class="btn btn-sm btn-outline-success"
+        onclick="downloadReceipt(this)">
+    Download Receipt
+</button>
+</td>
                         </tr>
                         <tr>
                             <td>TXN123456788</td>
@@ -497,139 +501,199 @@
                             <td>15 Aug 2025</td>
                             <td>Card</td>
                             <td><span class="badge-success">Paid</span></td>
-                            <td><button class="btn btn-sm btn-outline-success" onclick="downloadReceipt('TXN123456788')">Download Receipt</button></td>
+                            <td><button class="btn btn-sm btn-outline-success"  onclick="downloadReceipt(this)">Download Receipt</button></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
+            <!-- Professional PDF Receipt Template (Hidden) -->
+    <div id="receipt-export-container" style="display:none;">
+
+        <div id="receipt-content" style="padding: 50px; background: white; color: #333; font-family: sans-serif;">
+            <div style="border-bottom: 4px solid #4CAF50; padding-bottom: 20px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <h1 style="color: #4CAF50; margin: 0; font-size: 32px; letter-spacing: 1px;">HOSTELLER</h1>
+                    <p style="margin: 5px 0; color: #666; font-size: 14px;">Official Payment Receipt</p>
+                </div>
+                <div style="text-align: right;">
+                    <h2 style="margin: 0; font-size: 18px; color: #444;">INVOICE</h2>
+                    <p style="margin: 5px 0; font-weight: bold;" id="pdf-txn-header"></p>
+                    <p style="margin: 0; font-size: 13px; color: #888;" id="pdf-date-header"></p>
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; margin-bottom: 40px;">
+                <div style="width: 50%;">
+                    <h4 style="font-size: 12px; color: #888; text-transform: uppercase; border-bottom: 1px solid #eee; padding-bottom: 5px; margin-bottom: 10px;">Billed To</h4>
+                    <p style="margin: 2px 0; font-size: 16px;"><strong>Name:</strong> <span id="pdf-student-name"></span></p>
+                    <p style="margin: 2px 0;"><strong>Roll No:</strong> <span id="pdf-student-id"></span></p>
+                    <p style="margin: 2px 0;"><strong>Hostel ID:</strong> <span id="pdf-hostel-id"></span></p>
+                    <p style="margin: 2px 0;"><strong>Room:</strong> <span id="pdf-room-no"></span></p>
+                </div>
+                <div style="width: 40%; text-align: right;">
+                    <h4 style="font-size: 12px; color: #888; text-transform: uppercase; border-bottom: 1px solid #eee; padding-bottom: 5px; margin-bottom: 10px;">Payment Details</h4>
+                    <p style="margin: 2px 0;"><strong>Method:</strong> <span id="pdf-mode"></span></p>
+                    <p style="margin: 2px 0;"><strong>Status:</strong> <span style="color: #4CAF50; font-weight: bold;">SUCCESSFUL</span></p>
+                </div>
+            </div>
+
+            <table style="width: 100%; border-collapse: collapse; margin-bottom: 40px;">
+                <thead>
+                    <tr style="background: #f8f9fa;">
+                        <th style="padding: 15px; border-bottom: 2px solid #ddd; text-align: left;">Description</th>
+                        <th style="padding: 15px; border-bottom: 2px solid #ddd; text-align: right;">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="padding: 15px; border-bottom: 1px solid #eee;">Hostel Monthly Rent & Mess Charges</td>
+                        <td style="padding: 15px; border-bottom: 1px solid #eee; text-align: right;" id="pdf-amount-row"></td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td style="padding: 20px 15px; text-align: right; font-weight: bold; font-size: 20px;">Total Paid</td>
+                        <td style="padding: 20px 15px; text-align: right; font-weight: bold; font-size: 20px; color: #4CAF50;" id="pdf-total-amount"></td>
+                    </tr>
+                </tfoot>
+            </table>
+
+            <div style="margin-top: 80px; display: flex; justify-content: space-between; align-items: flex-end;">
+                <div style="font-size: 11px; color: #999; max-width: 350px;">
+                    <p style="margin-bottom: 5px;">* This is a computer-generated document and does not require a physical signature.</p>
+                    <p>For any queries, contact help@hosteller.com</p>
+                </div>
+                <div style="text-align: center;">
+                    <div style="border-top: 2px solid #333; width: 180px; margin-bottom: 5px;"></div>
+                    <p style="margin: 0; font-size: 14px; font-weight: bold;">Accounts Department</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+       <script>
+        // PDF Receipt Generation Function
+        function downloadReceipt(button) {
+            const row = button.closest("tr");
+            const cells = row.querySelectorAll("td");
+            
+            // Extract info from table row
+            const data = {
+                txnId: cells[0].innerText.trim(),
+                amount: cells[1].innerText.trim(),
+                date: cells[2].innerText.trim(),
+                mode: cells[3].innerText.trim()
+            };
+
+            // Extract info from profile/dashboard
+            const student = {
+                name: document.getElementById("studentNameDisplay").innerText,
+                id: document.getElementById("studentIdDisplay").innerText,
+                hostel: document.getElementById("hostelIdDisplay").innerText,
+                room: document.getElementById("roomNoDisplay").innerText
+            };
+
+            // Fill the hidden template
+            document.getElementById("pdf-txn-header").innerText = data.txnId;
+            document.getElementById("pdf-date-header").innerText = "Date: " + data.date;
+            document.getElementById("pdf-student-name").innerText = student.name;
+            document.getElementById("pdf-student-id").innerText = student.id;
+            document.getElementById("pdf-hostel-id").innerText = student.hostel;
+            document.getElementById("pdf-room-no").innerText = student.room;
+            document.getElementById("pdf-mode").innerText = data.mode;
+            document.getElementById("pdf-amount-row").innerText = data.amount;
+            document.getElementById("pdf-total-amount").innerText = data.amount;
+
+            // PDF Generation Options
+            const element = document.getElementById('receipt-content');
+            const opt = {
+                margin: 0,
+                filename: `Receipt_${data.txnId}.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true },
+                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+
+            // Trigger Download
+            html2pdf().set(opt).from(element).save();
+        }
+
+        // Mock Payment Functions
+        function openOrderSummary() {
+            new bootstrap.Modal(document.getElementById('orderSummaryModal')).show();
+        }
+
+        function processMockPayment() {
+            const modal = bootstrap.Modal.getInstance(document.getElementById('orderSummaryModal'));
+            modal.hide();
+            
+            const txn = "TXN" + Math.floor(Math.random() * 90000000 + 10000000);
+            const date = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+            
+            const tbody = document.querySelector("#paymentHistoryTable tbody");
+            const newRow = document.createElement("tr");
+            newRow.innerHTML = `
+                <td>${txn}</td>
+                <td>₹12,500</td>
+                <td>${date}</td>
+                <td>UPI</td>
+                <td><span class="badge-success">Paid</span></td>
+                <td><button class="btn btn-sm btn-outline-success" onclick="downloadReceipt(this)"><i class="fas fa-file-pdf me-1"></i> Receipt</button></td>
+            `;
+            tbody.prepend(newRow);
+            
+            alert("Success! Payment recorded. Check history to download your receipt.");
+        }
+    </script>
 
         <!-- Complaints Section -->
-        <div class="dashboard-section">
-            <div class="section-header">
-                <h2><i class="fas fa-clipboard-list text-success me-2"></i>Complaints</h2>
-                <button class="btn btn-primary-custom" data-bs-toggle="modal" data-bs-target="#complaintModal">
-                    <i class="fas fa-plus me-2"></i>File New Complaint
-                </button>
-            </div>
-            <div class="row mb-4">
-                <div class="col-md-6">
-                    <div class="info-item">
-                        <label>Pending Complaints</label>
-                        <div class="value text-warning">2</div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="info-item">
-                        <label>Resolved Complaints</label>
-                        <div class="value text-success">8</div>
-                    </div>
-                </div>
-            </div>
+ <!-- Complaints Section -->
+  
+<div class="dashboard-section">
+    <div class="section-header">
+        <h2><i class="fas fa-clipboard-list text-success me-2"></i>Complaints</h2>
+        <button class="btn btn-primary-custom" data-bs-toggle="modal" data-bs-target="#complaintModal">
+            <i class="fas fa-plus me-2"></i>File New Complaint
+        </button>
+    </div>
 
-            <div class="table-responsive">
-                <table class="custom-table">
-                    <thead>
-                        <tr>
-                            <th>Complaint ID</th>
-                            <th>Type</th>
-                            <th>Description</th>
-                            <th>Date</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>CMP001</td>
-                            <td>Electricity</td>
-                            <td>AC not working</td>
-                            <td>10 Oct 2025</td>
-                            <td><span class="badge-warning">Under Review</span></td>
-                            <td><button class="btn btn-sm btn-outline-info" onclick="trackComplaint('CMP001')">Track</button></td>
-                        </tr>
-                        <tr>
-                            <td>CMP002</td>
-                            <td>Cleanliness</td>
-                            <td>Washroom cleaning required</td>
-                            <td>08 Oct 2025</td>
-                            <td><span class="badge-warning">Pending</span></td>
-                            <td><button class="btn btn-sm btn-outline-info" onclick="trackComplaint('CMP002')">Track</button></td>
-                        </tr>
-                        <tr>
-                            <td>CMP003</td>
-                            <td>Mess</td>
-                            <td>Food quality issue</td>
-                            <td>05 Oct 2025</td>
-                            <td><span class="badge-success">Resolved</span></td>
-                            <td><button class="btn btn-sm btn-outline-info" onclick="trackComplaint('CMP003')">View</button></td>
-                        </tr>
-                    </tbody>
-                </table>
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="info-item">
+                <label>Pending Complaints</label>
+                <div class="value text-warning" id="pendingCount">0</div>
             </div>
         </div>
-
-        <!-- Academic Timetable -->
-        <div class="dashboard-section">
-            <div class="section-header">
-                <h2><i class="fas fa-book text-success me-2"></i>Academic Timetable</h2>
-                <button class="btn btn-primary-custom" onclick="downloadTimetable()">
-                    <i class="fas fa-download me-2"></i>Download PDF
-                </button>
-            </div>
-            <div class="timetable">
-                <table class="custom-table">
-                    <thead>
-                        <tr>
-                            <th>Time</th>
-                            <th>Monday</th>
-                            <th>Tuesday</th>
-                            <th>Wednesday</th>
-                            <th>Thursday</th>
-                            <th>Friday</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>9:00 AM</td>
-                            <td>Mathematics</td>
-                            <td>Physics Lab</td>
-                            <td>Chemistry</td>
-                            <td>English</td>
-                            <td>Computer Lab</td>
-                        </tr>
-                        <tr>
-                            <td>10:00 AM</td>
-                            <td>Physics</td>
-                            <td>Mathematics</td>
-                            <td>Computer Sc.</td>
-                            <td>Physics Lab</td>
-                            <td>Chemistry</td>
-                        </tr>
-                        <tr>
-                            <td>11:00 AM</td>
-                            <td>Chemistry</td>
-                            <td>English</td>
-                            <td>Mathematics</td>
-                            <td>Computer Sc.</td>
-                            <td>Physics</td>
-                        </tr>
-                        <tr>
-                            <td>12:00 PM</td>
-                            <td colspan="5" class="text-center bg-light">LUNCH BREAK</td>
-                        </tr>
-                        <tr>
-                            <td>2:00 PM</td>
-                            <td>Computer Sc.</td>
-                            <td>Chemistry</td>
-                            <td>Physics</td>
-                            <td>Mathematics</td>
-                            <td>English</td>
-                        </tr>
-                    </tbody>
-                </table>
+        <div class="col-md-6">
+            <div class="info-item">
+                <label>Resolved Complaints</label>
+                <div class="value text-success" id="resolvedCount">0</div>
             </div>
         </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="custom-table">
+            <thead>
+                <tr>
+                    <th>Complaint ID</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <!-- EMPTY INITIALLY -->
+            <tbody id="complaintTableBody">
+                <!-- complaints will be added here dynamically -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
 
         <!-- Mess & Food Menu -->
         <div class="dashboard-section">
@@ -747,6 +811,46 @@
             </div>
         </div>
 
+        <script>
+function submitLeaveApplication() {
+    const leaveType = document.querySelector('#leaveModal select').value;
+    const fromDate  = document.querySelector('#leaveModal input[type="date"]').value;
+    const toDate    = document.querySelectorAll('#leaveModal input[type="date"]')[1].value;
+    const reason    = document.querySelector('#leaveModal textarea').value;
+
+    if (!fromDate || !toDate || !reason.trim()) {
+        alert('Please fill all required fields.');
+        return;
+    }
+
+    const tbody = document.getElementById('leaveTableBody');
+
+    const newRow = document.createElement('tr');
+    newRow.innerHTML = `
+        <td>${leaveType}</td>
+        <td>${fromDate}</td>
+        <td>${toDate}</td>
+        <td>${reason}</td>
+        <td><span class="badge-warning">Pending</span></td>
+    `;
+
+    tbody.appendChild(newRow); // add row
+
+    // Close modal
+    bootstrap.Modal.getInstance(
+        document.getElementById('leaveModal')
+    ).hide();
+
+    // Reset form
+    document.querySelector('#leaveModal textarea').value = '';
+    document.querySelector('#leaveModal input[type="date"]').value = '';
+    document.querySelectorAll('#leaveModal input[type="date"]')[1].value = '';
+    document.querySelector('#leaveModal input[type="file"]').value = '';
+
+    alert('Leave applied successfully!');
+}
+</script>
+
         <!-- Leave Management -->
         <div class="dashboard-section">
             <div class="section-header">
@@ -756,33 +860,23 @@
                 </button>
             </div>
             <div class="table-responsive">
-                <table class="custom-table">
-                    <thead>
-                        <tr>
-                            <th>Leave Type</th>
-                            <th>From</th>
-                            <th>To</th>
-                            <th>Reason</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Family Function</td>
-                            <td>2025-09-10</td>
-                            <td>2025-09-12</td>
-                            <td>Family Event</td>
-                            <td><span class="badge-success">Approved</span></td>
-                        </tr>
-                        <tr>
-                            <td>Medical</td>
-                            <td>2025-09-14</td>
-                            <td>2025-09-15</td>
-                            <td>Doctor Visit</td>
-                            <td><span class="badge-warning">Pending</span></td>
-                        </tr>
-                    </tbody>
-                </table>
+               <table class="custom-table">
+    <thead>
+        <tr>
+            <th>Leave Type</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Reason</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+
+    <!-- EMPTY INITIALLY -->
+    <tbody id="leaveTableBody">
+        <!-- No data initially -->
+    </tbody>
+</table>
+
             </div>
         </div>
 
@@ -1067,71 +1161,59 @@
         }
 
         // Download Receipt
-        function downloadReceipt(transactionId) {
-            alert(
-                'Downloading Receipt for Transaction: ' + transactionId +
-                '\n\nReceipt will be downloaded as PDF.\n\nIn production, this would generate and download the actual receipt.'
-            );
-        }
+
+
 
         // File Complaint
-        function submitComplaint() {
-            const category    = document.querySelector('#complaintModal select').value;
-            const description = document.querySelector('#complaintModal textarea').value;
-            const fileInput   = document.querySelector('#complaintModal input[type="file"]');
+       function submitComplaint() {
+    const category    = document.querySelector('#complaintModal select').value;
+    const description = document.querySelector('#complaintModal textarea').value;
+    const fileInput   = document.querySelector('#complaintModal input[type="file"]');
 
-            if (!description.trim()) {
-                alert('Please enter complaint description.');
-                return;
-            }
+    if (!description.trim()) {
+        alert('Please enter complaint description.');
+        return;
+    }
 
-            const complaintId = 'CMP00' + Math.floor(Math.random() * 900 + 100);
-            const today       = new Date().toLocaleDateString('en-GB').replace(/\//g, ' ');
+    const complaintId = 'CMP' + Math.floor(1000 + Math.random() * 9000);
+    const today = new Date().toLocaleDateString('en-GB');
 
-            const tbody  = document.querySelector('.dashboard-section:nth-child(5) .custom-table tbody');
-            const newRow = document.createElement('tr');
-            newRow.innerHTML = `
-                <td>${complaintId}</td>
-                <td>${category}</td>
-                <td>${description}</td>
-                <td>${today}</td>
-                <td><span class="badge-warning">Pending</span></td>
-                <td><button class="btn btn-sm btn-outline-info" onclick="trackComplaint('${complaintId}')">Track</button></td>
-            `;
-            tbody.insertBefore(newRow, tbody.firstChild);
+    const tbody = document.getElementById('complaintTableBody');
 
-            const pendingCount = document.querySelector('.summary-card.complaints h3');
-            pendingCount.textContent = parseInt(pendingCount.textContent) + 1;
+    const newRow = document.createElement('tr');
+    newRow.innerHTML = `
+        <td>${complaintId}</td>
+        <td>${category}</td>
+        <td>${description}</td>
+        <td>${today}</td>
+        <td><span class="badge-warning">Pending</span></td>
+        <td>
+            <button class="btn btn-sm btn-outline-info"
+                onclick="trackComplaint('${complaintId}')">
+                Track
+            </button>
+        </td>
+    `;
 
-            const pendingComplaintsValue =
-                document.querySelector('.dashboard-section:nth-child(5) .info-item .value.text-warning');
-            pendingComplaintsValue.textContent = parseInt(pendingComplaintsValue.textContent) + 1;
+    tbody.prepend(newRow);
 
-            const modal = bootstrap.Modal.getInstance(document.getElementById('complaintModal'));
-            modal.hide();
+    // Update counts
+    document.getElementById('pendingCount').textContent =
+        parseInt(document.getElementById('pendingCount').textContent) + 1;
 
-            alert(
-                'Complaint Filed Successfully!\n\n' +
-                'Complaint ID: ' + complaintId +
-                '\nCategory: ' + category +
-                '\n\nYour complaint has been added to the dashboard and will be reviewed soon.'
-            );
+    document.querySelector('.summary-card.complaints h3').textContent =
+        parseInt(document.querySelector('.summary-card.complaints h3').textContent) + 1;
 
-            document.querySelector('#complaintModal textarea').value = '';
-            fileInput.value = '';
-        }
+    bootstrap.Modal.getInstance(
+        document.getElementById('complaintModal')
+    ).hide();
 
-        // Track Complaint
-        function trackComplaint(complaintId) {
-            alert(
-                'Complaint Tracking: ' + complaintId +
-                '\n\nStatus Timeline:\n' +
-                '✓ Filed: 10 Oct 2025, 10:30 AM\n' +
-                '✓ Under Review: 10 Oct 2025, 2:00 PM\n' +
-                '⏳ Pending Resolution\n\n' +
-                'Estimated Resolution: Within 24-48 hours'
-            );
-        }
+    fileInput.value = '';
+    document.querySelector('#complaintModal textarea').value = '';
+
+    alert('Complaint filed successfully!');
+}
+
 
         // Download Timetable
         function downloadTimetable() {
@@ -1225,45 +1307,43 @@
         }
 
         // Leave Application
-        function submitLeaveApplication() {
-            const leaveType = document.querySelector('#leaveModal select').value;
-            const fromDate  = document.querySelector('#leaveModal input[type="date"]').value;
-            const toDate    = document.querySelectorAll('#leaveModal input[type="date"]')[1].value;
-            const reason    = document.querySelector('#leaveModal textarea').value;
-            const fileInput = document.querySelector('#leaveModal input[type="file"]');
+       function submitLeaveApplication() {
+    const leaveType = document.querySelector('#leaveModal select').value;
+    const fromDate  = document.querySelector('#leaveModal input[type="date"]').value;
+    const toDate    = document.querySelectorAll('#leaveModal input[type="date"]')[1].value;
+    const reason    = document.querySelector('#leaveModal textarea').value;
+    const fileInput = document.querySelector('#leaveModal input[type="file"]');
 
-            if (!fromDate || !toDate || !reason.trim()) {
-                alert('Please fill all required fields.');
-                return;
-            }
+    if (!fromDate || !toDate || !reason.trim()) {
+        alert('Please fill all required fields.');
+        return;
+    }
 
-            const tbody  = document.querySelector('.dashboard-section:nth-child(9) .custom-table tbody');
-            const newRow = document.createElement('tr');
-            newRow.innerHTML = `
-                <td>${leaveType}</td>
-                <td>${fromDate}</td>
-                <td>${toDate}</td>
-                <td>${reason}</td>
-                <td><span class="badge-warning">Pending</span></td>
-            `;
-            tbody.insertBefore(newRow, tbody.firstChild);
+    const tbody = document.getElementById('leaveTableBody');
 
-            const modal = bootstrap.Modal.getInstance(document.getElementById('leaveModal'));
-            modal.hide();
+    const newRow = document.createElement('tr');
+    newRow.innerHTML = `
+        <td>${leaveType}</td>
+        <td>${fromDate}</td>
+        <td>${toDate}</td>
+        <td>${reason}</td>
+        <td><span class="badge-warning">Pending</span></td>
+    `;
 
-            alert(
-                'Leave Application Submitted!\n\n' +
-                'Leave Type: ' + leaveType +
-                '\nFrom: ' + fromDate +
-                '\nTo: ' + toDate +
-                '\n\nYour application has been added to the dashboard and sent for approval.'
-            );
+    tbody.prepend(newRow);
 
-            document.querySelector('#leaveModal textarea').value = '';
-            document.querySelector('#leaveModal input[type="date"]').value = '';
-            document.querySelectorAll('#leaveModal input[type="date"]')[1].value = '';
-            fileInput.value = '';
-        }
+    bootstrap.Modal.getInstance(
+        document.getElementById('leaveModal')
+    ).hide();
+
+    // Reset form
+    document.querySelector('#leaveModal textarea').value = '';
+    document.querySelector('#leaveModal input[type="date"]').value = '';
+    document.querySelectorAll('#leaveModal input[type="date"]')[1].value = '';
+    fileInput.value = '';
+
+    alert('Leave applied successfully!');
+}
 
         // View Notice PDF
         function viewNoticePDF(noticeTitle) {
@@ -1278,5 +1358,153 @@
             alert('My Event Registrations:\n\n✓ Sports Day - 2025-09-25\n\nTotal: 1 active registration');
         }
     </script>
+    <script>
+let selectedMethod = '';
+
+function openOrderSummary() {
+  new bootstrap.Modal(document.getElementById('orderSummaryModal')).show();
+}
+
+function openPaymentMethod() {
+  bootstrap.Modal.getInstance(orderSummaryModal).hide();
+  new bootstrap.Modal(paymentMethodModal).show();
+}
+
+function selectPayment(method) {
+  selectedMethod = method;
+  bootstrap.Modal.getInstance(paymentMethodModal).hide();
+
+  const area = document.getElementById('paymentFormArea');
+  document.getElementById('paymentTitle').textContent = method + ' Payment';
+
+  if (method === 'UPI') {
+    area.innerHTML = `<input class="form-control" placeholder="example@upi">`;
+  } else if (method === 'CARD') {
+    area.innerHTML = `
+      <input class="form-control mb-2" placeholder="Card Number">
+      <div class="row">
+        <div class="col"><input class="form-control" placeholder="MM/YY"></div>
+        <div class="col"><input class="form-control" placeholder="CVV"></div>
+      </div>`;
+  } else {
+    area.innerHTML = `<select class="form-control"><option>SBI</option><option>HDFC</option></select>`;
+  }
+
+  new bootstrap.Modal(paymentDetailsModal).show();
+}
+
+function processPayment() {
+  bootstrap.Modal.getInstance(paymentDetailsModal).hide();
+  new bootstrap.Modal(processingModal).show();
+
+  setTimeout(() => {
+    bootstrap.Modal.getInstance(processingModal).hide();
+
+    const txn = 'TXN' + Math.floor(Math.random() * 1e9);
+    document.getElementById('txnInfo').innerHTML =
+      `Transaction ID: <b>${txn}</b><br>Mode: ${selectedMethod}`;
+
+    // Update balance
+    document.querySelector('.value.text-danger').textContent = '₹0';
+
+    // Add to payment history
+    const tbody = document.querySelector('.custom-table tbody');
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${txn}</td>
+      <td>₹12,500</td>
+      <td>${new Date().toLocaleDateString('en-GB')}</td>
+      <td>${selectedMethod}</td>
+      <td><span class="badge-success">Paid</span></td>
+      <td><button class="btn btn-sm btn-outline-success">Download Receipt</button></td>
+    `;
+    tbody.prepend(row);
+
+    new bootstrap.Modal(successModal).show();
+  }, 2000);
+}
+</script>
+    
+    <!-- ===== REAL PAYMENT FLOW MODALS ===== -->
+
+<!-- Order Summary -->
+<div class="modal fade" id="orderSummaryModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header bg-success text-white">
+        <h5 class="modal-title">Order Summary</h5>
+        <button class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="d-flex justify-content-between">
+          <span>Hostel Fees (Oct 2025)</span>
+          <strong>₹12,500</strong>
+        </div>
+        <hr>
+        <div class="d-flex justify-content-between fs-5">
+          <strong>Total Payable</strong>
+          <strong>₹12,500</strong>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button class="btn btn-success" onclick="openPaymentMethod()">Proceed</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Payment Method -->
+<div class="modal fade" id="paymentMethodModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-success text-white">
+        <h5 class="modal-title">Choose Payment Method</h5>
+      </div>
+      <div class="modal-body">
+        <button class="list-group-item list-group-item-action" onclick="selectPayment('UPI')">📱 UPI</button>
+        <button class="list-group-item list-group-item-action" onclick="selectPayment('CARD')">💳 Card</button>
+        <button class="list-group-item list-group-item-action" onclick="selectPayment('NETBANKING')">🏦 Net Banking</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Payment Details -->
+<div class="modal fade" id="paymentDetailsModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-success text-white">
+        <h5 class="modal-title" id="paymentTitle">Payment</h5>
+      </div>
+      <div class="modal-body" id="paymentFormArea"></div>
+      <div class="modal-footer">
+        <button class="btn btn-success" onclick="processPayment()">Pay ₹12,500</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Processing -->
+<div class="modal fade" id="processingModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center p-4">
+      <div class="spinner-border text-success"></div>
+      <p class="mt-3">Processing Payment…</p>
+    </div>
+  </div>
+</div>
+
+<!-- Success -->
+<div class="modal fade" id="successModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center p-4">
+      <h3 class="text-success">✔ Payment Successful</h3>
+      <p id="txnInfo"></p>
+      <button class="btn btn-success" data-bs-dismiss="modal">Done</button>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
