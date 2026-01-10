@@ -392,7 +392,22 @@ Header -->
    <script type="module" src="firebase-auth.js"></script>
 
 
-    
+    <script>
+document.getElementById("loginForm").addEventListener("submit", function (e) {
+    e.preventDefault(); // stop page refresh
+
+    const email = document.getElementById("email").value;
+    const studentId = document.getElementById("studentId").value;
+
+    // ✅ Save login data
+    localStorage.setItem("loggedInEmail", email);
+    localStorage.setItem("loggedInStudentId", studentId);
+
+    // redirect after login
+    window.location.href = "dashboard.html";
+});
+</script>
+
     <!-- End Script -->
 </body>
 

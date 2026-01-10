@@ -324,7 +324,7 @@
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li><a class="dropdown-item" href="index.html"><i class="fas fa-home me-2"></i>Home</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>My Profile</a></li>
+                            <li><a class="dropdown-item" href="ProfilePage.html"><i class="fas fa-user me-2"></i>My Profile</a></li>
                             <li><a class="dropdown-item" href="#"><i class="fas fa-key me-2"></i>Change Password</a></li>
                             <li><a class="dropdown-item" href="#"><i class="fas fa-file me-2"></i>Documents</a></li>
                             <li><hr class="dropdown-divider"></li>
@@ -376,62 +376,55 @@
             </div>
             <div class="info-grid">
                 <div class="info-item">
-                    <label>Hostel ID</label>
-                    <div class="value">HST-A-01</div>
-                </div>
-                <div class="info-item">
-                    <label>Room Number</label>
-                    <div class="value">Room 205</div>
-                </div>
-                <div class="info-item">
-                    <label>Room Type</label>
-                    <div class="value">Double Sharing</div>
-                </div>
-                <div class="info-item">
-                    <label>Floor/Block</label>
-                    <div class="value">2nd Floor, Block B</div>
-                </div>
-                <div class="info-item">
-                    <label>Warden</label>
-                    <div class="value">Mr. Sharma</div>
-                </div>
-                <div class="info-item">
-                    <label>Contact</label>
-                    <div class="value">+91 98765 43210</div>
-                </div>
+    <label>Hostel ID</label>
+    <div class="value" id="dashHostelId">-</div>
+</div>
+<div class="info-item">
+    <label>Hostel Name</label>
+    <div class="value" id="dashHostelName">-</div>
+</div>
+
+
+<div class="info-item">
+    <label>Room Number</label>
+    <div class="value" id="dashRoomNo">-</div>
+</div>
+
+<div class="info-item">
+    <label>Room Type</label>
+    <div class="value" id="dashRoomType">-</div>
+</div>
+
+<div class="info-item">
+    <label>Floor/Block</label>
+    <div class="value" id="dashFloorBlock">-</div>
+</div>
+
+<div class="info-item">
+    <label>Warden</label>
+    <div class="value" id="dashWarden">-</div>
+</div>
+
+<div class="info-item">
+    <label>Contact</label>
+    <div class="value" id="dashContact">-</div>
+</div>
+
+                
             </div>
 
             <h5 class="mt-4 mb-3">Roommate Details</h5>
             <div class="roommate-card">
                 <img src="assets/img/logo-removebg-preview.png" alt="Roommate">
                 <div class="flex-grow-1">
-                    <h6 class="mb-1">Rahul Kumar</h6>
-                    <small class="text-muted">Computer Science | +91 98765 43211</small>
+                    <h6 class="mb-1" id="dashRoommateName">-</h6>
+<small class="text-muted" id="dashRoommateContact">-</small>
+
                 </div>
                 <button class="btn btn-sm btn-outline-success"><i class="fas fa-phone"></i></button>
             </div>
 
-            <h5 class="mt-4 mb-3">Mess Timings</h5>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="info-item">
-                        <label>Breakfast</label>
-                        <div class="value">7:30 AM - 9:30 AM</div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="info-item">
-                        <label>Lunch</label>
-                        <div class="value">12:30 PM - 2:30 PM</div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="info-item">
-                        <label>Dinner</label>
-                        <div class="value">7:30 PM - 9:30 PM</div>
-                    </div>
-                </div>
-            </div>
+            
         </div>
 
         <!-- Fee Status & Payment -->
@@ -1506,5 +1499,31 @@ function processPayment() {
   </div>
 </div>
 
+<script>
+    
+document.addEventListener("DOMContentLoaded", function () {
+    const data = JSON.parse(localStorage.getItem("studentHostelData"));
+
+    if (!data) return;
+
+    // Hostel details
+    document.getElementById("dashHostelId").innerText   = data.hostelId || "-";
+    document.getElementById("dashHostelName").innerText = data.hostelName || "-";
+    document.getElementById("dashRoomNo").innerText    = data.roomNo || "-";
+    document.getElementById("dashRoomType").innerText  = data.roomType || "-";
+    document.getElementById("dashFloorBlock").innerText= data.floorBlock || "-";
+    document.getElementById("dashWarden").innerText    = data.warden || "-";
+    document.getElementById("dashContact").innerText   = data.contact || "-";
+    
+    // Roommate details
+    document.getElementById("dashRoommateName").innerText =
+        data.roommateName || "Not Assigned";
+
+    document.getElementById("dashRoommateContact").innerText =
+        data.roommateContact || "";
+});
+
+
+</script>
 </body>
 </html>

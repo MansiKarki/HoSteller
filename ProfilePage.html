@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile | Hosteller</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/logo-removebg-preview.png">
+
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; }
+        .sidebar-link:hover { background-color: #f9fafb; color: #059669; }
+        .active-link { color: #059669; border-right: 4px solid #059669; background-color: #f0fdf4; }
+        
+        .profile-input {
+            width: 100%;
+            padding: 0.85rem 1rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.75rem;
+            outline: none;
+            transition: all 0.2s;
+            font-size: 0.95rem;
+        }
+        .profile-input:disabled {
+            background-color: #fcfcfc;
+            border-color: #f3f4f6;
+            color: #6b7280;
+            cursor: not-allowed;
+        }
+        .profile-input:focus {
+            border-color: #059669;
+            box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1);
+        }
+        .section-title {
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: #9ca3af;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #f3f4f6;
+            padding-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <nav class="bg-white border-b border-gray-200 px-6 py-3 flex justify-between items-center sticky top-0 z-50">
+        <div class="flex items-center gap-2">
+            <div class="bg-green-600 p-1.5 rounded-lg text-white">
+                <i class="fas fa-university text-lg"></i>
+            </div>
+            <span class="font-bold text-xl text-gray-800 tracking-tight">Hosteller</span>
+        </div>
+        <div class="flex items-center gap-4">
+            <div class="w-9 h-9 rounded-full bg-emerald-600 flex items-center justify-center text-white font-bold text-sm">SH</div>
+        </div>
+    </nav>
+
+    <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-8 p-4 md:p-8">
+        
+        <aside class="w-full lg:w-1/4 space-y-6">
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 text-center">
+                <img src="https://ui-avatars.com/api/?name=Sanika+Hande&background=059669&color=fff" class="w-24 h-24 rounded-full mx-auto mb-4" alt="Profile">
+                <h2 class="text-xl font-bold text-gray-800">Sanika Hande</h2>
+                <p id="sidebarEmail" class="text-[10px] text-emerald-600 font-medium uppercase mb-6 tracking-widest break-all">sanika.hande@example.com</p>
+                
+                <div class="grid grid-cols-3 gap-2 border-t border-gray-50 pt-6">
+                    <div><p id="sidebarRoom" class="font-bold text-gray-700">205</p><p class="text-[10px] text-gray-400 uppercase">Room</p></div>
+                    <div class="border-x border-gray-100"><p id="sidebarBlock" class="font-bold text-gray-700">B</p><p class="text-[10px] text-gray-400 uppercase">Block</p></div>
+                    <div><p id="sidebarFloor" class="font-bold text-gray-700">2nd</p><p class="text-[10px] text-gray-400 uppercase">Floor</p></div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden py-2">
+                <a href="#" class="flex items-center gap-3 px-6 py-4 sidebar-link active-link"><i class="fas fa-user-circle w-5"></i> <span class="font-medium">Edit Profile</span></a>
+                <button onclick="handleLogout()" class="w-full flex items-center gap-3 px-6 py-4 sidebar-link text-red-600 transition">
+                    <i class="fas fa-sign-out-alt w-5"></i> <span class="font-medium">Logout</span>
+                </button>
+            </div>
+        </aside>
+
+        <main class="flex-1">
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                <div class="p-6 border-b border-gray-50 flex justify-between items-center bg-white">
+                    <h3 class="text-xl font-bold text-gray-800 tracking-tight">Editing Profile</h3>
+                    <button id="mainActionBtn" onclick="handleModeSwitch()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-2.5 rounded-xl font-semibold transition-all">
+                        Edit Profile
+                    </button>
+                </div>
+
+                <form id="profileForm" class="p-6 md:p-12 max-w-2xl mx-auto space-y-8">
+                    
+                    <div class="space-y-6">
+                        <h4 class="section-title">Hostel Details</h4>
+                        
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Hostel ID *</label>
+                            <input type="text" id="hostelId" value="HST-A-01" disabled class="profile-input">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Hostel Name *</label>
+                            <input type="text" id="hostelName" value="Vivekananda Boys Hostel" disabled class="profile-input">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Room Number *</label>
+                            <input type="text" id="roomNo" value="Room 205" disabled class="profile-input">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Room Type *</label>
+                            <input type="text" id="roomType" value="Double Sharing" disabled class="profile-input">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Floor/Block *</label>
+                            <input type="text" id="floorBlock" value="2nd Floor, Block B" disabled class="profile-input">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Warden Name</label>
+                            <input type="text" id="wardenName" value="Mr. Sharma" disabled class="profile-input">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Contact Number</label>
+                            <input type="text" id="contactNum" value="+91 98765 43210" disabled class="profile-input">
+                        </div>
+                    </div>
+
+                    <div class="space-y-6 pt-4">
+                        <h4 class="section-title">Roommate Info</h4>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Roommate Name</label>
+                            <input type="text" id="roommateName" value="Rahul Kumar" disabled class="profile-input">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Roommate Contact</label>
+                            <input type="text" id="roommateContact" value="+91 98765 43211" disabled class="profile-input">
+                        </div>
+                    </div>
+
+                    <p class="text-center text-[10px] text-gray-400 italic pt-6">This form is auto-saved and synced with your hostel dashboard.</p>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        window.onload = function () {
+
+    // ✅ get email from login
+    const loginEmail = localStorage.getItem("loggedInEmail");
+
+    if (loginEmail) {
+        document.getElementById("sidebarEmail").innerText = loginEmail;
+    }
+
+    // hostel-related data
+    const data = JSON.parse(localStorage.getItem("studentHostelData"));
+
+    if (!data) return;
+
+    if (data.roomNo) {
+        document.getElementById("sidebarRoom").innerText =
+            data.roomNo.replace(/[^0-9]/g, "");
+    }
+
+    if (data.floorBlock) {
+        const parts = data.floorBlock.split(",");
+        document.getElementById("sidebarFloor").innerText =
+            parts[0].trim().split(" ")[0] || "2nd";
+
+        if (parts[1]) {
+            document.getElementById("sidebarBlock").innerText =
+                parts[1].trim().split(" ")[1] || "B";
+        }
+    }
+};
+;
+
+        function handleModeSwitch() {
+            const btn = document.getElementById('mainActionBtn');
+            const inputs = document.querySelectorAll('.profile-input');
+            
+            if (btn.innerText === "Edit Profile") {
+                btn.innerText = "Save Changes";
+                btn.classList.replace('bg-emerald-600', 'bg-blue-600');
+                inputs.forEach(input => input.disabled = false);
+            } else {
+                const studentData = {
+                    hostelId: document.getElementById('hostelId').value,
+                    hostelName: document.getElementById('hostelName').value,
+                    roomNo: document.getElementById('roomNo').value,
+                    roomType: document.getElementById('roomType').value,
+                    floorBlock: document.getElementById('floorBlock').value,
+                    warden: document.getElementById('wardenName').value, // Saved Warden Name
+                    contact: document.getElementById('contactNum').value,
+                    roommateName: document.getElementById('roommateName').value,
+                    roommateContact: document.getElementById('roommateContact').value,
+                     
+                };
+
+                localStorage.setItem('studentHostelData', JSON.stringify(studentData));
+
+                btn.innerText = "Edit Profile";
+                btn.classList.replace('bg-blue-600', 'bg-emerald-600');
+                inputs.forEach(input => input.disabled = true);
+                alert(" Details updated Successfully! ");
+            }
+        }
+
+        function handleLogout() {
+    if (confirm("Are you sure you want to logout?")) {
+        localStorage.removeItem('studentHostelData');
+        localStorage.removeItem("loggedInEmail");
+        localStorage.removeItem("loggedInStudentId");
+        alert("Logged out successfully!");
+        window.location.href = "loginpageS.html";
+    }
+}
+
+    </script>
+</body>
+</html>
