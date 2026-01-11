@@ -280,6 +280,38 @@
         .star-rating .star.active {
             color: #ffc107;
         }
+        .profile-circle {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #4caf50;
+  color: white;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.notification-bell {
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.notification-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: red;
+  color: white;
+  font-size: 11px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 
         /* Responsive */
         @media (max-width: 768px) {
@@ -299,42 +331,84 @@
 <body>
     <!-- Header -->
     <div class="dashboard-header">
-        <div class="container">
-            <div class="d-flex justify-content-between align-items-center">
-                <div>
-                    <h1 class="h3 mb-0 text-success">Hosteller Dashboard</h1>
-                    <small class="text-muted">Welcome back, <span id="welcomeName">Student</span>!</small>
-                </div>
-                <div class="profile-section">
-                    <div class="notification-bell">
-                        <i class="fas fa-bell"></i>
-                        <span class="notification-badge">3</span>
-                    </div>
-                    <div class="dropdown">
-                        <button class="btn btn-link text-decoration-none p-0" type="button" id="profileDropdown" data-bs-toggle="dropdown">
-                            <div class="d-flex align-items-center gap-2">
-                                <img src="assets/img/logo-removebg-preview.png" alt="Profile" class="profile-img">
-                                <div class="text-start">
-                                    <div class="fw-bold" style="font-size: 14px;" id="studentNameDisplay">John Doe</div>
-                                    <div style="font-size: 12px; color: #666;">Roll: <span id="studentIdDisplay">2025001</span></div>
-                                </div>
-                                <i class="fas fa-chevron-down text-muted"></i>
-                            </div>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="index.html"><i class="fas fa-home me-2"></i>Home</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="ProfilePage.html"><i class="fas fa-user me-2"></i>My Profile</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-key me-2"></i>Change Password</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-file me-2"></i>Documents</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item text-danger" href="loginpageS.html"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center">
+
+      <!-- LEFT SIDE -->
+      <div>
+        <h1 class="h3 mb-0 text-success">Hosteller Dashboard</h1>
+        <small class="text-muted">
+          Welcome back, <span id="welcomeStudentName">Student</span>!
+        </small>
+      </div>
+
+      <!-- RIGHT SIDE -->
+      <div class="d-flex align-items-center gap-3">
+
+        <!-- Notification -->
+        <div class="notification-bell position-relative">
+          <i class="fas fa-bell"></i>
+          <span class="notification-badge">3</span>
         </div>
+
+        <!-- Profile Dropdown -->
+        <div class="dropdown">
+
+  <!-- SH ICON = DROPDOWN BUTTON -->
+  <button class="profile-circle border-0"
+          type="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false">
+    SH
+  </button>
+
+  <!-- Dropdown Menu -->
+  <ul class="dropdown-menu dropdown-menu-end shadow-sm mt-2">
+    <li>
+      <a class="dropdown-item d-flex align-items-center gap-2"
+         href="dashboard.html">
+        <i class="fas fa-home"></i> Home
+      </a>
+    </li>
+
+    <li>
+      <a class="dropdown-item d-flex align-items-center gap-2"
+         href="ProfilePage.html">
+        <i class="fas fa-user"></i> My Profile
+      </a>
+    </li>
+
+    <li>
+      <a class="dropdown-item d-flex align-items-center gap-2"
+         href="#">
+        <i class="fas fa-key"></i> Change Password
+      </a>
+    </li>
+
+    <li>
+      <a class="dropdown-item d-flex align-items-center gap-2"
+         href="#">
+        <i class="fas fa-file"></i> Documents
+      </a>
+    </li>
+
+    <li><hr class="dropdown-divider"></li>
+
+    <li>
+      <button class="dropdown-item d-flex align-items-center gap-2 text-danger"
+              onclick="logoutUser()">
+        <i class="fas fa-sign-out-alt"></i> Logout
+      </button>
+    </li>
+  </ul>
+</div>
+
+
+      </div>
     </div>
+  </div>
+</div>
+
 
     <!-- Main Content -->
     <div class="container my-4">
@@ -1525,5 +1599,52 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 </script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const studentName = localStorage.getItem("loggedInStudentName");
+
+  if (studentName) {
+    // Welcome text
+    const welcomeEl = document.getElementById("welcomeStudentName");
+    if (welcomeEl) welcomeEl.textContent = studentName;
+
+    // Header name
+    const nameEl = document.getElementById("dashboardStudentName");
+    if (nameEl) nameEl.textContent = studentName;
+  }
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const studentName = localStorage.getItem("loggedInStudentName");
+
+  if (!studentName) {
+    window.location.href = "loginpageS.html";
+    return;
+  }
+
+  // Welcome text
+  const welcomeEl = document.getElementById("welcomeStudentName");
+  if (welcomeEl) welcomeEl.textContent = studentName;
+
+  // SH initials
+  const initials = studentName
+    .split(" ")
+    .map(n => n[0])
+    .join("")
+    .toUpperCase();
+
+  document.querySelector(".profile-circle").innerText = initials;
+});
+
+function logoutUser() {
+  if (confirm("Are you sure you want to logout?")) {
+    localStorage.clear();
+    window.location.href = "loginpageS.html";
+  }
+}
+</script>
+
+
 </body>
 </html>
