@@ -1,0 +1,1529 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Student Dashboard - Hosteller</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" href="assets/img/apple-icon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/logo-removebg-preview.png">
+
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/templatemo.css">
+    <link rel="stylesheet" href="assets/css/custom.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+    <link rel="stylesheet" href="assets/css/fontawesome.min.css">
+
+    <style>
+        :root {
+            --primary-green: rgb(76, 175, 80);
+            --hover-green: rgb(69, 160, 73);
+            --light-gray: #f5f5f5;
+            --border-color: #e0e0e0;
+            --text-dark: #333;
+            --text-muted: #666;
+        }
+
+        body {
+            background-color: var(--light-gray);
+            font-family: 'Roboto', sans-serif;
+        }
+
+        /* Header Styles */
+        .dashboard-header {
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 15px 0;
+        }
+
+        .profile-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .profile-img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--primary-green);
+        }
+
+        .notification-bell {
+            position: relative;
+            font-size: 20px;
+            color: var(--text-dark);
+            cursor: pointer;
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: red;
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Summary Cards */
+        .summary-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .summary-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .summary-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .summary-card .icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .summary-card.fees .icon { background: #e3f2fd; color: #1976d2; }
+        .summary-card.complaints .icon { background: #fff3e0; color: #f57c00; }
+        .summary-card.attendance .icon { background: #e8f5e9; color: var(--primary-green); }
+        .summary-card.events .icon { background: #fce4ec; color: #c2185b; }
+
+        .summary-card h3 {
+            font-size: 32px;
+            font-weight: 700;
+            margin: 10px 0;
+            color: var(--text-dark);
+        }
+
+        .summary-card p {
+            color: var(--text-muted);
+            margin: 0;
+            font-size: 14px;
+        }
+
+        /* Section Styles */
+        .dashboard-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .section-header h2 {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin: 0;
+        }
+
+        /* Buttons */
+        .btn-primary-custom {
+            background-color: var(--primary-green);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .btn-primary-custom:hover {
+            background-color: var(--hover-green);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+        }
+
+        /* Tables */
+        .custom-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .custom-table thead {
+            background-color: var(--primary-green);
+            color: white;
+        }
+
+        .custom-table thead th,
+        .custom-table tbody td {
+            padding: 10px;
+            font-weight: 500;
+            border: 1px solid var(--border-color);
+        }
+
+        .custom-table tbody td {
+            font-weight: 400;
+        }
+
+        .custom-table tbody tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        /* Status Badges */
+        .badge-success { background: #4caf50; color: white; padding: 5px 12px; border-radius: 20px; font-size: 12px; }
+        .badge-warning { background: #ff9800; color: white; padding: 5px 12px; border-radius: 20px; font-size: 12px; }
+        .badge-danger  { background: #f44336; color: white; padding: 5px 12px; border-radius: 20px; font-size: 12px; }
+        .badge-info    { background: #2196f3; color: white; padding: 5px 12px; border-radius: 20px; font-size: 12px; }
+
+        /* Info Cards */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .info-item {
+            padding: 15px;
+            background: var(--light-gray);
+            border-radius: 10px;
+        }
+
+        .info-item label {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .info-item .value {
+            font-size: 16px;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        /* Modal Styles */
+        .modal-header {
+            background-color: var(--primary-green);
+            color: white;
+        }
+
+        /* Timetable */
+        .timetable {
+            overflow-x: auto;
+        }
+
+        .timetable table {
+            min-width: 800px;
+        }
+
+        /* Menu Table */
+        .menu-table td, .menu-table th {
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        /* Roommate Card */
+        .roommate-card {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: var(--light-gray);
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .roommate-card img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        /* Star Rating */
+        .star-rating {
+            display: flex;
+            gap: 5px;
+            font-size: 24px;
+            color: #ddd;
+        }
+
+        .star-rating .star {
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .star-rating .star:hover,
+        .star-rating .star.active {
+            color: #ffc107;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .summary-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <div class="dashboard-header">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h1 class="h3 mb-0 text-success">Hosteller Dashboard</h1>
+                    <small class="text-muted">Welcome back, <span id="welcomeName">Student</span>!</small>
+                </div>
+                <div class="profile-section">
+                    <div class="notification-bell">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn btn-link text-decoration-none p-0" type="button" id="profileDropdown" data-bs-toggle="dropdown">
+                            <div class="d-flex align-items-center gap-2">
+                                <img src="assets/img/logo-removebg-preview.png" alt="Profile" class="profile-img">
+                                <div class="text-start">
+                                    <div class="fw-bold" style="font-size: 14px;" id="studentNameDisplay">John Doe</div>
+                                    <div style="font-size: 12px; color: #666;">Roll: <span id="studentIdDisplay">2025001</span></div>
+                                </div>
+                                <i class="fas fa-chevron-down text-muted"></i>
+                            </div>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="index.html"><i class="fas fa-home me-2"></i>Home</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="ProfilePage.html"><i class="fas fa-user me-2"></i>My Profile</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-key me-2"></i>Change Password</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-file me-2"></i>Documents</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" href="loginpageS.html"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container my-4">
+        <!-- Summary Cards -->
+        <div class="summary-cards">
+            <div class="summary-card fees">
+                <div class="icon"><i class="fas fa-wallet"></i></div>
+                <h3>₹12,500</h3>
+                <p>Pending Fees</p>
+                <small class="text-danger">Due: 15 Oct 2025</small>
+            </div>
+            <div class="summary-card complaints">
+                <div class="icon"><i class="fas fa-exclamation-circle"></i></div>
+                <h3>2</h3>
+                <p>Pending Complaints</p>
+                <small class="text-warning">1 under review</small>
+            </div>
+            <div class="summary-card attendance">
+                <div class="icon"><i class="fas fa-calendar-check"></i></div>
+                <h3>87%</h3>
+                <p>Attendance</p>
+                <small class="text-success">Good standing</small>
+            </div>
+            <div class="summary-card events">
+                <div class="icon"><i class="fas fa-calendar-alt"></i></div>
+                <h3>5</h3>
+                <p>Upcoming Events</p>
+                <small class="text-info">Next: Movie Night</small>
+            </div>
+        </div>
+
+        <!-- Hostel & Room Details -->
+        <div class="dashboard-section">
+            <div class="section-header">
+                <h2><i class="fas fa-home text-success me-2"></i>Allotment & Hostel Details</h2>
+                <button class="btn btn-primary-custom" data-bs-toggle="modal" data-bs-target="#roomChangeModal">
+                    <i class="fas fa-exchange-alt me-2"></i>Request Room Change
+                </button>
+            </div>
+            <div class="info-grid">
+                <div class="info-item">
+    <label>Hostel ID</label>
+    <div class="value" id="dashHostelId">-</div>
+</div>
+<div class="info-item">
+    <label>Hostel Name</label>
+    <div class="value" id="dashHostelName">-</div>
+</div>
+
+
+<div class="info-item">
+    <label>Room Number</label>
+    <div class="value" id="dashRoomNo">-</div>
+</div>
+
+<div class="info-item">
+    <label>Room Type</label>
+    <div class="value" id="dashRoomType">-</div>
+</div>
+
+<div class="info-item">
+    <label>Floor/Block</label>
+    <div class="value" id="dashFloorBlock">-</div>
+</div>
+
+<div class="info-item">
+    <label>Warden</label>
+    <div class="value" id="dashWarden">-</div>
+</div>
+
+<div class="info-item">
+    <label>Contact</label>
+    <div class="value" id="dashContact">-</div>
+</div>
+
+                
+            </div>
+
+            <h5 class="mt-4 mb-3">Roommate Details</h5>
+            <div class="roommate-card">
+                <img src="assets/img/logo-removebg-preview.png" alt="Roommate">
+                <div class="flex-grow-1">
+                    <h6 class="mb-1" id="dashRoommateName">-</h6>
+<small class="text-muted" id="dashRoommateContact">-</small>
+
+                </div>
+                <button class="btn btn-sm btn-outline-success"><i class="fas fa-phone"></i></button>
+            </div>
+
+            
+        </div>
+
+        <!-- Fee Status & Payment -->
+        <div class="dashboard-section">
+            <div class="section-header">
+                <h2><i class="fas fa-rupee-sign text-success me-2"></i>Fee Status & Payment</h2>
+               <button class="btn btn-primary-custom" onclick="openOrderSummary()">
+                    <i class="fas fa-credit-card me-2"></i>Pay Now
+                </button>
+            </div>
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <div class="info-item">
+                        <label>Current Balance</label>
+                        <div class="value text-danger">₹12,500</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="info-item">
+                        <label>Due Date</label>
+                        <div class="value">15 October 2025</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="info-item">
+                        <label>Last Payment</label>
+                        <div class="value">15 Sept 2025</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="info-item">
+                        <label>Payment Mode</label>
+                        <div class="value">UPI</div>
+                    </div>
+                </div>
+            </div>
+
+            <h5 class="mb-3">Payment History</h5>
+            <div class="table-responsive">
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>Transaction ID</th>
+                            <th>Amount</th>
+                            <th>Date</th>
+                            <th>Mode</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>TXN123456789</td>
+                            <td>₹12,500</td>
+                            <td>15 Sept 2025</td>
+                            <td>UPI</td>
+                            <td><span class="badge-success">Paid</span></td>
+                            <td><button class="btn btn-sm btn-outline-success"
+        onclick="downloadReceipt(this)">
+    Download Receipt
+</button>
+</td>
+                        </tr>
+                        <tr>
+                            <td>TXN123456788</td>
+                            <td>₹12,500</td>
+                            <td>15 Aug 2025</td>
+                            <td>Card</td>
+                            <td><span class="badge-success">Paid</span></td>
+                            <td><button class="btn btn-sm btn-outline-success"  onclick="downloadReceipt(this)">Download Receipt</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+            <!-- Professional PDF Receipt Template (Hidden) -->
+    <div id="receipt-export-container" style="display:none;">
+
+        <div id="receipt-content" style="padding: 50px; background: white; color: #333; font-family: sans-serif;">
+            <div style="border-bottom: 4px solid #4CAF50; padding-bottom: 20px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <h1 style="color: #4CAF50; margin: 0; font-size: 32px; letter-spacing: 1px;">HOSTELLER</h1>
+                    <p style="margin: 5px 0; color: #666; font-size: 14px;">Official Payment Receipt</p>
+                </div>
+                <div style="text-align: right;">
+                    <h2 style="margin: 0; font-size: 18px; color: #444;">INVOICE</h2>
+                    <p style="margin: 5px 0; font-weight: bold;" id="pdf-txn-header"></p>
+                    <p style="margin: 0; font-size: 13px; color: #888;" id="pdf-date-header"></p>
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; margin-bottom: 40px;">
+                <div style="width: 50%;">
+                    <h4 style="font-size: 12px; color: #888; text-transform: uppercase; border-bottom: 1px solid #eee; padding-bottom: 5px; margin-bottom: 10px;">Billed To</h4>
+                    <p style="margin: 2px 0; font-size: 16px;"><strong>Name:</strong> <span id="pdf-student-name"></span></p>
+                    <p style="margin: 2px 0;"><strong>Roll No:</strong> <span id="pdf-student-id"></span></p>
+                    <p style="margin: 2px 0;"><strong>Hostel ID:</strong> <span id="pdf-hostel-id"></span></p>
+                    <p style="margin: 2px 0;"><strong>Room:</strong> <span id="pdf-room-no"></span></p>
+                </div>
+                <div style="width: 40%; text-align: right;">
+                    <h4 style="font-size: 12px; color: #888; text-transform: uppercase; border-bottom: 1px solid #eee; padding-bottom: 5px; margin-bottom: 10px;">Payment Details</h4>
+                    <p style="margin: 2px 0;"><strong>Method:</strong> <span id="pdf-mode"></span></p>
+                    <p style="margin: 2px 0;"><strong>Status:</strong> <span style="color: #4CAF50; font-weight: bold;">SUCCESSFUL</span></p>
+                </div>
+            </div>
+
+            <table style="width: 100%; border-collapse: collapse; margin-bottom: 40px;">
+                <thead>
+                    <tr style="background: #f8f9fa;">
+                        <th style="padding: 15px; border-bottom: 2px solid #ddd; text-align: left;">Description</th>
+                        <th style="padding: 15px; border-bottom: 2px solid #ddd; text-align: right;">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="padding: 15px; border-bottom: 1px solid #eee;">Hostel Monthly Rent & Mess Charges</td>
+                        <td style="padding: 15px; border-bottom: 1px solid #eee; text-align: right;" id="pdf-amount-row"></td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td style="padding: 20px 15px; text-align: right; font-weight: bold; font-size: 20px;">Total Paid</td>
+                        <td style="padding: 20px 15px; text-align: right; font-weight: bold; font-size: 20px; color: #4CAF50;" id="pdf-total-amount"></td>
+                    </tr>
+                </tfoot>
+            </table>
+
+            <div style="margin-top: 80px; display: flex; justify-content: space-between; align-items: flex-end;">
+                <div style="font-size: 11px; color: #999; max-width: 350px;">
+                    <p style="margin-bottom: 5px;">* This is a computer-generated document and does not require a physical signature.</p>
+                    <p>For any queries, contact help@hosteller.com</p>
+                </div>
+                <div style="text-align: center;">
+                    <div style="border-top: 2px solid #333; width: 180px; margin-bottom: 5px;"></div>
+                    <p style="margin: 0; font-size: 14px; font-weight: bold;">Accounts Department</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+       <script>
+        // PDF Receipt Generation Function
+        function downloadReceipt(button) {
+            const row = button.closest("tr");
+            const cells = row.querySelectorAll("td");
+            
+            // Extract info from table row
+            const data = {
+                txnId: cells[0].innerText.trim(),
+                amount: cells[1].innerText.trim(),
+                date: cells[2].innerText.trim(),
+                mode: cells[3].innerText.trim()
+            };
+
+            // Extract info from profile/dashboard
+            const student = {
+                name: document.getElementById("studentNameDisplay").innerText,
+                id: document.getElementById("studentIdDisplay").innerText,
+                hostel: document.getElementById("hostelIdDisplay").innerText,
+                room: document.getElementById("roomNoDisplay").innerText
+            };
+
+            // Fill the hidden template
+            document.getElementById("pdf-txn-header").innerText = data.txnId;
+            document.getElementById("pdf-date-header").innerText = "Date: " + data.date;
+            document.getElementById("pdf-student-name").innerText = student.name;
+            document.getElementById("pdf-student-id").innerText = student.id;
+            document.getElementById("pdf-hostel-id").innerText = student.hostel;
+            document.getElementById("pdf-room-no").innerText = student.room;
+            document.getElementById("pdf-mode").innerText = data.mode;
+            document.getElementById("pdf-amount-row").innerText = data.amount;
+            document.getElementById("pdf-total-amount").innerText = data.amount;
+
+            // PDF Generation Options
+            const element = document.getElementById('receipt-content');
+            const opt = {
+                margin: 0,
+                filename: `Receipt_${data.txnId}.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true },
+                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+
+            // Trigger Download
+            html2pdf().set(opt).from(element).save();
+        }
+
+        // Mock Payment Functions
+        function openOrderSummary() {
+            new bootstrap.Modal(document.getElementById('orderSummaryModal')).show();
+        }
+
+        function processMockPayment() {
+            const modal = bootstrap.Modal.getInstance(document.getElementById('orderSummaryModal'));
+            modal.hide();
+            
+            const txn = "TXN" + Math.floor(Math.random() * 90000000 + 10000000);
+            const date = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+            
+            const tbody = document.querySelector("#paymentHistoryTable tbody");
+            const newRow = document.createElement("tr");
+            newRow.innerHTML = `
+                <td>${txn}</td>
+                <td>₹12,500</td>
+                <td>${date}</td>
+                <td>UPI</td>
+                <td><span class="badge-success">Paid</span></td>
+                <td><button class="btn btn-sm btn-outline-success" onclick="downloadReceipt(this)"><i class="fas fa-file-pdf me-1"></i> Receipt</button></td>
+            `;
+            tbody.prepend(newRow);
+            
+            alert("Success! Payment recorded. Check history to download your receipt.");
+        }
+    </script>
+
+        <!-- Complaints Section -->
+ <!-- Complaints Section -->
+  
+<div class="dashboard-section">
+    <div class="section-header">
+        <h2><i class="fas fa-clipboard-list text-success me-2"></i>Complaints</h2>
+        <button class="btn btn-primary-custom" data-bs-toggle="modal" data-bs-target="#complaintModal">
+            <i class="fas fa-plus me-2"></i>File New Complaint
+        </button>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="info-item">
+                <label>Pending Complaints</label>
+                <div class="value text-warning" id="pendingCount">0</div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="info-item">
+                <label>Resolved Complaints</label>
+                <div class="value text-success" id="resolvedCount">0</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="custom-table">
+            <thead>
+                <tr>
+                    <th>Complaint ID</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <!-- EMPTY INITIALLY -->
+            <tbody id="complaintTableBody">
+                <!-- complaints will be added here dynamically -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+        <!-- Mess & Food Menu -->
+        <div class="dashboard-section">
+            <div class="section-header">
+                <h2><i class="fas fa-utensils text-success me-2"></i>Mess & Food Menu</h2>
+                <button class="btn btn-primary-custom" data-bs-toggle="modal" data-bs-target="#mealFeedbackModal">
+                    <i class="fas fa-star me-2"></i>Rate Today's Meal
+                </button>
+            </div>
+            <div class="table-responsive">
+                <table class="custom-table menu-table table table-striped table-bordered align-middle">
+                    <thead>
+                        <tr>
+                            <th>Day</th>
+                            <th>Breakfast</th>
+                            <th>Lunch</th>
+                            <th>Dinner</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Monday</strong></td>
+                            <td>Idli-Sambar</td>
+                            <td>Rice & Dal</td>
+                            <td>Chapati & Paneer</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Tuesday</strong></td>
+                            <td>Poha</td>
+                            <td>Rajma Rice</td>
+                            <td>Egg Curry</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Wednesday</strong></td>
+                            <td>Upma</td>
+                            <td>Chole Rice</td>
+                            <td>Mixed Veg</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Thursday</strong></td>
+                            <td>Paratha</td>
+                            <td>Biryani</td>
+                            <td>Dal Fry</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Friday</strong></td>
+                            <td>Dosa</td>
+                            <td>Pulao</td>
+                            <td>Chicken Curry</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Saturday</strong></td>
+                            <td>Bread & Omelette</td>
+                            <td>Fried Rice</td>
+                            <td>Fish Curry</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sunday</strong></td>
+                            <td>Puri Bhaji</td>
+                            <td>Special Thali</td>
+                            <td>Roti & Sabzi</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Events & Clubs -->
+        <div class="dashboard-section">
+            <div class="section-header">
+                <h2><i class="fas fa-calendar-alt text-success me-2"></i>Events & Clubs</h2>
+                <button class="btn btn-primary-custom" onclick="viewMyRegistrations()">
+                    <i class="fas fa-users me-2"></i>My Registrations
+                </button>
+            </div>
+            <div class="table-responsive">
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>Event Name</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Venue</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Hostel Movie Night</td>
+                            <td>2025-09-20</td>
+                            <td>8:00 PM</td>
+                            <td>Common Hall</td>
+                            <td><span class="badge-info">Upcoming</span></td>
+                            <td><button class="btn btn-sm btn-primary-custom" onclick="registerEvent('Hostel Movie Night')">Register</button></td>
+                        </tr>
+                        <tr>
+                            <td>Coding Club Meetup</td>
+                            <td>2025-09-22</td>
+                            <td>6:00 PM</td>
+                            <td>Lab Block</td>
+                            <td><span class="badge-info">Upcoming</span></td>
+                            <td><button class="btn btn-sm btn-primary-custom" onclick="registerEvent('Coding Club Meetup')">Register</button></td>
+                        </tr>
+                        <tr>
+                            <td>Sports Day</td>
+                            <td>2025-09-25</td>
+                            <td>9:00 AM</td>
+                            <td>Ground</td>
+                            <td><span class="badge-success">Registered</span></td>
+                            <td><button class="btn btn-sm btn-outline-danger" onclick="unregisterEvent('Sports Day')">Unregister</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <script>
+function submitLeaveApplication() {
+    const leaveType = document.querySelector('#leaveModal select').value;
+    const fromDate  = document.querySelector('#leaveModal input[type="date"]').value;
+    const toDate    = document.querySelectorAll('#leaveModal input[type="date"]')[1].value;
+    const reason    = document.querySelector('#leaveModal textarea').value;
+
+    if (!fromDate || !toDate || !reason.trim()) {
+        alert('Please fill all required fields.');
+        return;
+    }
+
+    const tbody = document.getElementById('leaveTableBody');
+
+    const newRow = document.createElement('tr');
+    newRow.innerHTML = `
+        <td>${leaveType}</td>
+        <td>${fromDate}</td>
+        <td>${toDate}</td>
+        <td>${reason}</td>
+        <td><span class="badge-warning">Pending</span></td>
+    `;
+
+    tbody.appendChild(newRow); // add row
+
+    // Close modal
+    bootstrap.Modal.getInstance(
+        document.getElementById('leaveModal')
+    ).hide();
+
+    // Reset form
+    document.querySelector('#leaveModal textarea').value = '';
+    document.querySelector('#leaveModal input[type="date"]').value = '';
+    document.querySelectorAll('#leaveModal input[type="date"]')[1].value = '';
+    document.querySelector('#leaveModal input[type="file"]').value = '';
+
+    alert('Leave applied successfully!');
+}
+</script>
+
+        <!-- Leave Management -->
+        <div class="dashboard-section">
+            <div class="section-header">
+                <h2><i class="fas fa-file-alt text-success me-2"></i>Leave Management</h2>
+                <button class="btn btn-primary-custom" data-bs-toggle="modal" data-bs-target="#leaveModal">
+                    <i class="fas fa-plus me-2"></i>Apply New Leave
+                </button>
+            </div>
+            <div class="table-responsive">
+               <table class="custom-table">
+    <thead>
+        <tr>
+            <th>Leave Type</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Reason</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+
+    <!-- EMPTY INITIALLY -->
+    <tbody id="leaveTableBody">
+        <!-- No data initially -->
+    </tbody>
+</table>
+
+            </div>
+        </div>
+
+        <!-- Notice Board -->
+        <div class="dashboard-section">
+            <div class="section-header">
+                <h2><i class="fas fa-bullhorn text-success me-2"></i>Notice Board</h2>
+            </div>
+            <div class="table-responsive">
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Uploaded By</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2025-09-18</td>
+                            <td>Hostel Clean-up Drive</td>
+                            <td>Participate in cleanup drive this Sunday.</td>
+                            <td>Warden</td>
+                            <td><button class="btn btn-sm btn-outline-success" onclick="viewNoticePDF('Hostel Clean-up Drive')">View PDF</button></td>
+                        </tr>
+                        <tr>
+                            <td>2025-09-15</td>
+                            <td>Mess Timing Change</td>
+                            <td>Dinner timing changed to 8:00 PM from next week.</td>
+                            <td>Admin</td>
+                            <td><button class="btn btn-sm btn-outline-success" onclick="viewNoticePDF('Mess Timing Change')">View PDF</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Room Change Modal -->
+    <div class="modal fade" id="roomChangeModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Request Room Change</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label class="form-label">Current Room</label>
+                            <input type="text" class="form-control" value="Room 205" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Preferred Block</label>
+                            <select class="form-control">
+                                <option>Block A</option>
+                                <option>Block B</option>
+                                <option>Block C</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Reason</label>
+                            <textarea class="form-control" rows="3" placeholder="Enter reason for room change"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary-custom" onclick="submitRoomChange()">Submit Request</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Complaint Modal -->
+    <div class="modal fade" id="complaintModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">File New Complaint</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label class="form-label">Complaint Category</label>
+                            <select class="form-control">
+                                <option>Electricity</option>
+                                <option>Cleanliness</option>
+                                <option>Mess</option>
+                                <option>Room Issue</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Description</label>
+                            <textarea class="form-control" rows="4" placeholder="Describe your complaint"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Upload Photo (Optional)</label>
+                            <input type="file" class="form-control" accept="image/*">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary-custom" onclick="submitComplaint()">Submit Complaint</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Meal Feedback Modal -->
+    <div class="modal fade" id="mealFeedbackModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Rate Today's Meal</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3 text-center">
+                            <label class="form-label">Your Rating</label>
+                            <div class="star-rating justify-content-center">
+                                <span class="star" data-rating="1">★</span>
+                                <span class="star" data-rating="2">★</span>
+                                <span class="star" data-rating="3">★</span>
+                                <span class="star" data-rating="4">★</span>
+                                <span class="star" data-rating="5">★</span>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Feedback</label>
+                            <textarea class="form-control" rows="3" placeholder="Share your feedback about today's meal"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary-custom" onclick="submitMealFeedback()">Submit Feedback</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Leave Application Modal -->
+    <div class="modal fade" id="leaveModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Apply for Leave</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label class="form-label">Leave Type</label>
+                            <select class="form-control">
+                                <option>Medical</option>
+                                <option>Family Function</option>
+                                <option>Personal</option>
+                                <option>Emergency</option>
+                            </select>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">From Date</label>
+                                <input type="date" class="form-control">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">To Date</label>
+                                <input type="date" class="form-control">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Reason</label>
+                            <textarea class="form-control" rows="3" placeholder="Enter reason for leave"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Supporting Document (Optional)</label>
+                            <input type="file" class="form-control">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary-custom" onclick="submitLeaveApplication()">Submit Application</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery-1.11.0.min.js"></script>
+    <script src="assets/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/templatemo.js"></script>
+    <script src="assets/js/custom.js"></script>
+
+    <script>
+        // Load student information from session storage
+        window.addEventListener('DOMContentLoaded', function() {
+            const studentName = sessionStorage.getItem('studentName');
+            const studentId   = sessionStorage.getItem('studentId');
+
+            if (studentName) {
+                document.getElementById('welcomeName').textContent        = studentName;
+                document.getElementById('studentNameDisplay').textContent = studentName;
+            }
+
+            if (studentId) {
+                document.getElementById('studentIdDisplay').textContent = studentId;
+            }
+        });
+
+        // Star rating functionality
+        document.querySelectorAll('.star').forEach(star => {
+            star.addEventListener('click', function() {
+                const rating = this.dataset.rating;
+                const stars  = this.parentElement.querySelectorAll('.star');
+                stars.forEach((s, index) => {
+                    if (index < rating) {
+                        s.classList.add('active');
+                    } else {
+                        s.classList.remove('active');
+                    }
+                });
+            });
+        });
+
+        // Notification bell click
+        document.querySelector('.notification-bell').addEventListener('click', function() {
+            alert('Notifications:\n1. Fee due in 5 days\n2. New event: Movie Night\n3. Complaint CMP001 under review');
+        });
+
+        // Room Change Request
+        function submitRoomChange() {
+            const currentRoom   = document.querySelector('#roomChangeModal input[readonly]').value;
+            const preferredBlock = document.querySelector('#roomChangeModal select').value;
+            const reason        = document.querySelector('#roomChangeModal textarea').value;
+
+            if (!reason.trim()) {
+                alert('Please enter a reason for room change.');
+                return;
+            }
+
+            alert(
+                'Room Change Request Submitted Successfully!\n\n' +
+                'Current Room: ' + currentRoom +
+                '\nPreferred Block: ' + preferredBlock +
+                '\nReason: ' + reason +
+                '\n\nYour request has been sent to the warden for approval.'
+            );
+
+            const modal = bootstrap.Modal.getInstance(document.getElementById('roomChangeModal'));
+            modal.hide();
+            document.querySelector('#roomChangeModal textarea').value = '';
+        }
+
+        // Pay Now Handler
+        function handlePayNow() {
+            const amount  = '₹12,500';
+            const dueDate = '15 October 2025';
+
+            const confirmPay = window.confirm(
+                'Proceed to Payment Gateway?\n\n' +
+                'Amount Due: ' + amount +
+                '\nDue Date: ' + dueDate +
+                '\n\nClick OK to proceed to payment gateway.'
+            );
+
+            if (confirmPay) {
+                alert(
+                    'Redirecting to Payment Gateway...\n\n' +
+                    'In production, this would redirect to:\n' +
+                    '• Razorpay\n• Paytm\n• PhonePe\n• or your preferred payment provider'
+                );
+            }
+        }
+
+        // Download Receipt
+
+
+
+        // File Complaint
+       function submitComplaint() {
+    const category    = document.querySelector('#complaintModal select').value;
+    const description = document.querySelector('#complaintModal textarea').value;
+    const fileInput   = document.querySelector('#complaintModal input[type="file"]');
+
+    if (!description.trim()) {
+        alert('Please enter complaint description.');
+        return;
+    }
+
+    const complaintId = 'CMP' + Math.floor(1000 + Math.random() * 9000);
+    const today = new Date().toLocaleDateString('en-GB');
+
+    const tbody = document.getElementById('complaintTableBody');
+
+    const newRow = document.createElement('tr');
+    newRow.innerHTML = `
+        <td>${complaintId}</td>
+        <td>${category}</td>
+        <td>${description}</td>
+        <td>${today}</td>
+        <td><span class="badge-warning">Pending</span></td>
+        <td>
+            <button class="btn btn-sm btn-outline-info"
+                onclick="trackComplaint('${complaintId}')">
+                Track
+            </button>
+        </td>
+    `;
+
+    tbody.prepend(newRow);
+
+    // Update counts
+    document.getElementById('pendingCount').textContent =
+        parseInt(document.getElementById('pendingCount').textContent) + 1;
+
+    document.querySelector('.summary-card.complaints h3').textContent =
+        parseInt(document.querySelector('.summary-card.complaints h3').textContent) + 1;
+
+    bootstrap.Modal.getInstance(
+        document.getElementById('complaintModal')
+    ).hide();
+
+    fileInput.value = '';
+    document.querySelector('#complaintModal textarea').value = '';
+
+    alert('Complaint filed successfully!');
+}
+
+
+        // Download Timetable
+        function downloadTimetable() {
+            alert(
+                'Downloading Academic Timetable...\n\n' +
+                'Timetable will be downloaded as PDF.\n\n' +
+                'In production, this would generate and download your personalized timetable.'
+            );
+        }
+
+        // Rate Meal
+        function submitMealFeedback() {
+            const activeStars = document.querySelectorAll('#mealFeedbackModal .star.active');
+            const rating      = activeStars.length;
+            const feedback    = document.querySelector('#mealFeedbackModal textarea').value;
+
+            if (rating === 0) {
+                alert('Please select a rating.');
+                return;
+            }
+
+            alert(
+                'Meal Feedback Submitted!\n\n' +
+                'Rating: ' + rating + '/5 stars\n' +
+                'Feedback: ' + (feedback || 'No additional comments') +
+                '\n\nThank you for your feedback! It helps us improve our mess services.'
+            );
+
+            const modal = bootstrap.Modal.getInstance(document.getElementById('mealFeedbackModal'));
+            modal.hide();
+
+            document.querySelector('#mealFeedbackModal textarea').value = '';
+            document.querySelectorAll('#mealFeedbackModal .star').forEach(s => s.classList.remove('active'));
+        }
+
+        // Event Registration
+        function registerEvent(eventName) {
+            const confirmReg = window.confirm(
+                'Register for: ' + eventName + '?\n\nClick OK to confirm your registration.'
+            );
+            if (confirmReg) {
+                const rows = document.querySelectorAll('.dashboard-section:nth-child(8) .custom-table tbody tr');
+                rows.forEach(row => {
+                    if (row.cells[0].textContent === eventName) {
+                        row.cells[4].innerHTML = '<span class="badge-success">Registered</span>';
+                        row.cells[5].innerHTML =
+                            '<button class="btn btn-sm btn-outline-danger" onclick="unregisterEvent(\'' +
+                            eventName + '\')">Unregister</button>';
+                    }
+                });
+
+                const eventsCount = document.querySelector('.summary-card.events h3');
+                eventsCount.textContent = parseInt(eventsCount.textContent) + 1;
+
+                alert(
+                    'Successfully Registered!\n\n' +
+                    'Event: ' + eventName +
+                    '\n\nThe event status has been updated on your dashboard.'
+                );
+            }
+        }
+
+        // Event Unregister
+        function unregisterEvent(eventName) {
+            const confirmUnreg = window.confirm(
+                'Unregister from: ' + eventName +
+                '?\n\nAre you sure you want to cancel your registration?'
+            );
+            if (confirmUnreg) {
+                const rows = document.querySelectorAll('.dashboard-section:nth-child(8) .custom-table tbody tr');
+                rows.forEach(row => {
+                    if (row.cells[0].textContent === eventName) {
+                        row.cells[4].innerHTML = '<span class="badge-info">Upcoming</span>';
+                        row.cells[5].innerHTML =
+                            '<button class="btn btn-sm btn-primary-custom" onclick="registerEvent(\'' +
+                            eventName + '\')">Register</button>';
+                    }
+                });
+
+                const eventsCount = document.querySelector('.summary-card.events h3');
+                if (parseInt(eventsCount.textContent) > 0) {
+                    eventsCount.textContent = parseInt(eventsCount.textContent) - 1;
+                }
+
+                alert(
+                    'Successfully Unregistered!\n\n' +
+                    'Event: ' + eventName +
+                    '\n\nThe event status has been updated on your dashboard.'
+                );
+            }
+        }
+
+        // Leave Application
+       function submitLeaveApplication() {
+    const leaveType = document.querySelector('#leaveModal select').value;
+    const fromDate  = document.querySelector('#leaveModal input[type="date"]').value;
+    const toDate    = document.querySelectorAll('#leaveModal input[type="date"]')[1].value;
+    const reason    = document.querySelector('#leaveModal textarea').value;
+    const fileInput = document.querySelector('#leaveModal input[type="file"]');
+
+    if (!fromDate || !toDate || !reason.trim()) {
+        alert('Please fill all required fields.');
+        return;
+    }
+
+    const tbody = document.getElementById('leaveTableBody');
+
+    const newRow = document.createElement('tr');
+    newRow.innerHTML = `
+        <td>${leaveType}</td>
+        <td>${fromDate}</td>
+        <td>${toDate}</td>
+        <td>${reason}</td>
+        <td><span class="badge-warning">Pending</span></td>
+    `;
+
+    tbody.prepend(newRow);
+
+    bootstrap.Modal.getInstance(
+        document.getElementById('leaveModal')
+    ).hide();
+
+    // Reset form
+    document.querySelector('#leaveModal textarea').value = '';
+    document.querySelector('#leaveModal input[type="date"]').value = '';
+    document.querySelectorAll('#leaveModal input[type="date"]')[1].value = '';
+    fileInput.value = '';
+
+    alert('Leave applied successfully!');
+}
+
+        // View Notice PDF
+        function viewNoticePDF(noticeTitle) {
+            alert(
+                'Opening Notice: ' + noticeTitle +
+                '\n\nIn production, this would open or download the PDF document.'
+            );
+        }
+
+        // My Registrations
+        function viewMyRegistrations() {
+            alert('My Event Registrations:\n\n✓ Sports Day - 2025-09-25\n\nTotal: 1 active registration');
+        }
+    </script>
+    <script>
+let selectedMethod = '';
+
+function openOrderSummary() {
+  new bootstrap.Modal(document.getElementById('orderSummaryModal')).show();
+}
+
+function openPaymentMethod() {
+  bootstrap.Modal.getInstance(orderSummaryModal).hide();
+  new bootstrap.Modal(paymentMethodModal).show();
+}
+
+function selectPayment(method) {
+  selectedMethod = method;
+  bootstrap.Modal.getInstance(paymentMethodModal).hide();
+
+  const area = document.getElementById('paymentFormArea');
+  document.getElementById('paymentTitle').textContent = method + ' Payment';
+
+  if (method === 'UPI') {
+    area.innerHTML = `<input class="form-control" placeholder="example@upi">`;
+  } else if (method === 'CARD') {
+    area.innerHTML = `
+      <input class="form-control mb-2" placeholder="Card Number">
+      <div class="row">
+        <div class="col"><input class="form-control" placeholder="MM/YY"></div>
+        <div class="col"><input class="form-control" placeholder="CVV"></div>
+      </div>`;
+  } else {
+    area.innerHTML = `<select class="form-control"><option>SBI</option><option>HDFC</option></select>`;
+  }
+
+  new bootstrap.Modal(paymentDetailsModal).show();
+}
+
+function processPayment() {
+  bootstrap.Modal.getInstance(paymentDetailsModal).hide();
+  new bootstrap.Modal(processingModal).show();
+
+  setTimeout(() => {
+    bootstrap.Modal.getInstance(processingModal).hide();
+
+    const txn = 'TXN' + Math.floor(Math.random() * 1e9);
+    document.getElementById('txnInfo').innerHTML =
+      `Transaction ID: <b>${txn}</b><br>Mode: ${selectedMethod}`;
+
+    // Update balance
+    document.querySelector('.value.text-danger').textContent = '₹0';
+
+    // Add to payment history
+    const tbody = document.querySelector('.custom-table tbody');
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${txn}</td>
+      <td>₹12,500</td>
+      <td>${new Date().toLocaleDateString('en-GB')}</td>
+      <td>${selectedMethod}</td>
+      <td><span class="badge-success">Paid</span></td>
+      <td><button class="btn btn-sm btn-outline-success">Download Receipt</button></td>
+    `;
+    tbody.prepend(row);
+
+    new bootstrap.Modal(successModal).show();
+  }, 2000);
+}
+</script>
+    
+    <!-- ===== REAL PAYMENT FLOW MODALS ===== -->
+
+<!-- Order Summary -->
+<div class="modal fade" id="orderSummaryModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header bg-success text-white">
+        <h5 class="modal-title">Order Summary</h5>
+        <button class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="d-flex justify-content-between">
+          <span>Hostel Fees (Oct 2025)</span>
+          <strong>₹12,500</strong>
+        </div>
+        <hr>
+        <div class="d-flex justify-content-between fs-5">
+          <strong>Total Payable</strong>
+          <strong>₹12,500</strong>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button class="btn btn-success" onclick="openPaymentMethod()">Proceed</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Payment Method -->
+<div class="modal fade" id="paymentMethodModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-success text-white">
+        <h5 class="modal-title">Choose Payment Method</h5>
+      </div>
+      <div class="modal-body">
+        <button class="list-group-item list-group-item-action" onclick="selectPayment('UPI')">📱 UPI</button>
+        <button class="list-group-item list-group-item-action" onclick="selectPayment('CARD')">💳 Card</button>
+        <button class="list-group-item list-group-item-action" onclick="selectPayment('NETBANKING')">🏦 Net Banking</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Payment Details -->
+<div class="modal fade" id="paymentDetailsModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-success text-white">
+        <h5 class="modal-title" id="paymentTitle">Payment</h5>
+      </div>
+      <div class="modal-body" id="paymentFormArea"></div>
+      <div class="modal-footer">
+        <button class="btn btn-success" onclick="processPayment()">Pay ₹12,500</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Processing -->
+<div class="modal fade" id="processingModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center p-4">
+      <div class="spinner-border text-success"></div>
+      <p class="mt-3">Processing Payment…</p>
+    </div>
+  </div>
+</div>
+
+<!-- Success -->
+<div class="modal fade" id="successModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center p-4">
+      <h3 class="text-success">✔ Payment Successful</h3>
+      <p id="txnInfo"></p>
+      <button class="btn btn-success" data-bs-dismiss="modal">Done</button>
+    </div>
+  </div>
+</div>
+
+<script>
+    
+document.addEventListener("DOMContentLoaded", function () {
+    const data = JSON.parse(localStorage.getItem("studentHostelData"));
+
+    if (!data) return;
+
+    // Hostel details
+    document.getElementById("dashHostelId").innerText   = data.hostelId || "-";
+    document.getElementById("dashHostelName").innerText = data.hostelName || "-";
+    document.getElementById("dashRoomNo").innerText    = data.roomNo || "-";
+    document.getElementById("dashRoomType").innerText  = data.roomType || "-";
+    document.getElementById("dashFloorBlock").innerText= data.floorBlock || "-";
+    document.getElementById("dashWarden").innerText    = data.warden || "-";
+    document.getElementById("dashContact").innerText   = data.contact || "-";
+    
+    // Roommate details
+    document.getElementById("dashRoommateName").innerText =
+        data.roommateName || "Not Assigned";
+
+    document.getElementById("dashRoommateContact").innerText =
+        data.roommateContact || "";
+});
+
+
+</script>
+</body>
+</html>
