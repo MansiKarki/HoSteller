@@ -46,7 +46,7 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
       try {
         await createUserWithEmailAndPassword(auth, email, password);
         alert("Account created & logged in");
-        window.location.href = "dashboard.html";
+        window.location.href = "Sdashboard.html";
       } catch (signupError) {
         alert(signupError.message);
       }

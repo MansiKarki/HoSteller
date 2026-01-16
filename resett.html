@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Hosteller - Reset Admin Password</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" href="assets/img/apple-icon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/logo-removebg-preview.png">
+
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/templatemo.css">
+    <link rel="stylesheet" href="assets/css/custom.css">
+
+    <!-- Load fonts style after rendering the layout styles -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+    <link rel="stylesheet" href="assets/css/fontawesome.min.css">
+
+    <style>
+        .login-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 50px 0;
+            background-color: #f8fafc;
+            min-height: 100vh;
+        }
+
+        .login-card {
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+            overflow: hidden;
+            max-width: 450px;
+            width: 100%;
+            margin: 20px;
+        }
+
+        .login-header {
+            background-color: #ffffff;
+            padding: 32px 40px 24px;
+            text-align: center;
+            color: #222222;
+            border-bottom: 1px solid #eeeeee;
+        }
+
+        .login-header h2 {
+            margin: 0;
+            font-weight: 600;
+            font-size: 28px;
+            color: rgb(76, 175, 80);
+        }
+
+        .login-header p {
+            margin: 10px 0 0 0;
+            opacity: 0.8;
+            font-size: 15px;
+        }
+
+        .login-body {
+            padding: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-label {
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .form-control {
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 12px 15px;
+            font-size: 15px;
+            transition: all 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: rgb(76, 175, 80);
+            box-shadow: 0 0 0 0.15rem rgb(76, 175, 80);
+        }
+
+        .input-group-text {
+            background: transparent;
+            border: 2px solid #e0e0e0;
+            border-left: none;
+            border-radius: 0 10px 10px 0;
+            color: rgb(76, 175, 80);
+        }
+
+        .input-group .form-control {
+            border-right: none;
+            border-radius: 10px 0 0 10px;
+        }
+
+        .btn-reset {
+            background-color: #ffffff;
+            border: 1px solid rgb(76, 175, 80);
+            border-radius: 10px;
+            padding: 12px;
+            font-weight: 600;
+            font-size: 16px;
+            width: 100%;
+            color: rgb(76, 175, 80);
+            transition: all 0.3s;
+            margin-bottom: 15px;
+        }
+
+        .btn-reset:hover {
+            background-color:rgb(76, 175, 80);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgb(76, 175, 80);
+            color: #ffffff;
+        }
+
+        .back-to-login {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .back-to-login a {
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .back-to-login a:hover {
+            color: rgb(76, 175, 80);
+            text-decoration: underline;
+        }
+
+        .status-message {
+            display: none;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .status-success {
+            background-color: #dcfce7;
+            color: rgb(76, 175, 80);
+            border: 1px solid #bbf7d0;
+        }
+
+        #userEmailDisplay {
+            font-weight: bold;
+            text-decoration: underline;
+        }
+
+        .navbar {
+            background: white !important;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light shadow">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a class="navbar-brand text-success logo h1 align-self-center" href="index.html">
+                HoSteller
+            </a>
+
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="align-self-center collapse navbar-collapse flex-fill d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
+                <div class="flex-fill">
+                    <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
+                        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link" href="loginpageS.html">Student Login</a></li>
+                        <li class="nav-item">
+                           <a class="nav-link btn btn-success text-white rounded-pill px-4 mx-1" href="loginpageA.html">
+                                Admin Login
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Forgot Password Container -->
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <h2>Reset Password</h2>
+                <p>Enter your admin email to receive a password reset link.</p>
+            </div>
+
+            <div class="login-body">
+                <div id="statusMsg" class="status-message status-success">
+                    A recovery link has been sent to <span id="userEmailDisplay"></span>.
+                </div>
+
+                <form id="forgotPasswordForm">
+                    <!-- Admin Email -->
+                    <div class="form-group">
+                        <label class="form-label" for="adminEmail">Admin Email</label>
+                        <div class="input-group">
+                            <input type="email" class="form-control" id="adminEmail" placeholder="admin@hosteller.com" required>
+                            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-reset">Send Reset Link</button>
+                    
+                    <div class="back-to-login">
+                        <a href="loginpageA.html"><i class="fas fa-arrow-left me-2"></i>Back to Login</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery-1.11.0.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script>
+document.getElementById("forgotPasswordForm").addEventListener("submit", async function (e) {
+  e.preventDefault();
+
+  const email = document.getElementById("adminEmail").value;
+  const btn = e.target.querySelector("button");
+  const emailDisplay = document.getElementById("userEmailDisplay");
+  const statusMsg = document.getElementById("statusMsg");
+
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Sending...';
+  btn.disabled = true;
+
+  try {
+    const res = await fetch("http://localhost:3000/api/auth/reset-password", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email })
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+      emailDisplay.textContent = email;
+      statusMsg.style.display = "block";
+      btn.innerHTML = "Link Sent!";
+      btn.classList.add("btn-success", "text-white");
+    } else {
+      alert(data.message || "Failed to send email");
+      btn.innerHTML = "Send Reset Link";
+      btn.disabled = false;
+    }
+  } catch (error) {
+    alert("Server error. Please try again.");
+    btn.innerHTML = "Send Reset Link";
+    btn.disabled = false;
+  }
+});
+</script>
+
+</body>
+
+</html>

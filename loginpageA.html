@@ -1,11 +1,461 @@
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Hosteller</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="apple-touch-icon" href="assets/img/apple-icon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/logo-removebg-preview.png">
+
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/templatemo.css">
+    <link rel="stylesheet" href="assets/css/custom.css">
+
+    <!-- Load fonts style after rendering the layout styles -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+    <link rel="stylesheet" href="assets/css/fontawesome.min.css">
+
+
+<style>
+    .rounded-image {
+    border-radius: 30px;   /* controls curve size — adjust as needed */
+    overflow: hidden;      /* ensures edges are clean */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* optional soft shadow */
+}
+
+/* ensure gray background stretches full width */
+.carousel-item {
+    background-color: #f5f5f5;
+    width: 100%;
+}
+
+        .login-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 50px 0;
+        }
+
+        .login-card {
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+            overflow: hidden;
+            max-width: 450px;
+            width: 100%;
+            margin: 20px;
+        }
+
+        .login-header {
+            background-color: #ffffff;
+            padding: 32px 40px 24px;
+            text-align: center;
+            color: #222222;
+            border-bottom: 1px solid #eeeeee;
+        }
+
+        .login-header h2 {
+            margin: 0;
+            font-weight: 600;
+            font-size: 28px;
+        }
+        
+        .login-header p {
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+        }
+
+        .login-body {
+            padding: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-label {
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .form-control {
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 12px 15px;
+            font-size: 15px;
+            transition: all 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 0.15rem rgba(59, 130, 246, 0.25);
+        }
+
+        .input-group-text {
+            background: transparent;
+            border: 2px solid #e0e0e0;
+            border-left: none;
+            border-radius: 0 10px 10px 0;
+            color: rgb(76, 175, 80);
+        }
+
+        .input-group .form-control {
+            border-right: none;
+            border-radius: 10px 0 0 10px;
+        }
+
+        .btn-login {
+            background-color: #ffffff;
+            border: 1px solid rgb(76, 175, 80);
+            border-radius: 10px;
+            padding: 12px;
+            font-weight: 600;
+            font-size: 16px;
+            width: 100%;
+            color: rgb(76, 175, 80);
+            transition: all 0.3s;
+        }
+
+        .btn-login:hover {
+            background-color: rgb(76, 175, 80);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgb(76, 175, 80);
+            color: #ffffff;
+        }
+
+        .divider {
+            text-align: center;
+            margin: 25px 0;
+            position: relative;
+        }
+
+        .divider::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 100%;
+            height: 1px;
+            background: #e0e0e0;
+        }
+
+        .divider span {
+            background: white;
+            padding: 0 15px;
+            position: relative;
+            color: #999;
+            font-size: 14px;
+        }
+
+        .forgot-password {
+            text-align: right;
+            margin-top: -15px;
+            margin-bottom: 20px;
+        }
+
+        .forgot-password a {
+            color: rgb(76, 175, 80);
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+
+        .signup-link {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+        }
+
+        .signup-link a {
+            color: rgb(76, 175, 80);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .remember-me input {
+            margin-right: 8px;
+        }
+
+        .navbar {
+            background: white !important;
+        }
+
+    .faq-section {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .faq-title {
+      text-align: center;
+      font-size: 40px;
+     
+      margin-bottom: 30px;
+      padding-top: 50px;
+      
+    }
+
+    .faq-item {
+      border-top: 1px solid rgb(76, 175, 80);
+    }
+
+    .faq-question {
+      background: none;
+      border: none;
+      width: 100%;
+      text-align: left;
+      padding: 25px 0;
+      font-size: 18px;
+      color: #000000;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .faq-question::after {
+      content: '▾';
+      position: absolute;
+      right: 0;
+      transition: transform 0.3s ease;
+    }
+
+    .faq-question.active::after {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      display: none;
+      padding: 0 0 15px 0;
+      color: #000000;
+    }
+
+    .faq-item:last-child {
+      border-bottom: 7px solid #ddd;
+    }
+    .faq-question:focus {
+  outline: none; /* Removes the outline */
+}
+
+  #bp-web-widget {
+    bottom: 30px !important;
+    right: 30px !important;
+  }
+  /* Styled dropdown to match login inputs */
+select.form-control {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: #fff;
+  cursor: pointer;
+   font-size: 18px;          /* was default ~14px */
+  font-weight: 300;         /* matches your labels */
+  height: 48px;  
+}
+
+/* Arrow icon spacing fix */
+select.form-control {
+  padding-right: 45px;
+}
+
+/* Input group alignment */
+.input-group select.form-control {
+  border-right: none;
+}
+
+/* Focus effect */
+select.form-control:focus {
+  border-color: rgb(76, 175, 80);
+  box-shadow: 0 0 0 0.15rem rgba(76, 175, 80, 0.25);
+}
+
+/* Dropdown options */
+select.form-control option {
+  padding: 10px;
+}
+
+
+
+  </style>
+
+
 </head>
+
 <body>
-    <h1>Note Yet Worked</h1>
+  
+    <!-- Close Top Nav -->
+     <!-- Custom Chat Icon -->
+<!-- Botpress Chatbot -->
+<!-- <script src="https://cdn.botpress.cloud/webchat/v3.3/inject.js" defer></script>
+<script src="https://files.bpcontent.cloud/2025/10/17/11/20251017113207-BL466NO3.js" defer></script> -->
+<!-- 
+Header -->
+<script src="https://app.dante-ai.com/bubble-embed.js?kb_id=0a03a001-00bd-497a-bed0-ff35cdbf0a92&token=d64c27af-e98f-421c-983c-4dad42748c8e&modeltype=gpt-4-omnimodel-mini&tabs=false"></script> 
+   
+    <nav class="navbar navbar-expand-lg navbar-light shadow">
+        <div class="container d-flex justify-content-between align-items-center">
+
+            <a class="navbar-brand text-success logo h1 align-self-center" href="index.html">
+            HoSteller
+            </a>
+
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
+                <div class="flex-fill">
+                    <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="about.html">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                           <a class="nav-link btn btn-success rounded-pill px-4 mx-1" href="loginpageS.html">Student Login</a>
+                        </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="loginpageA.html">Admin Login</a>
+                        </li>
+                    </ul>
+                </div>
+                
+            </div>
+
+        </div>
+    </nav>
+    <script>
+  function generateStudentId() {
+    const year = new Date().getFullYear();
+    const random = Math.floor(10000 + Math.random() * 90000);
+    return `Admin-${year}-${random}`;
+  }
+
+  // Auto-generate when page loads
+  document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("studentId").value = generateStudentId();
+  });
+</script>
+
+    <!-- Login Container -->
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <h2>Admin Login</h2>
+                <p>Welcome back! Please login to your account</p>
+            </div>
+           
+            
+
+
+
+            <div class="login-body">
+               <form id="loginForm">
+
+                    <!-- ✅ First Name -->
+  
+
+    <!-- ✅ Last Name -->
+    
+                 <div class="form-group">
+  <label class="form-label" for="studentId">Admin ID</label>
+  <div class="input-group">
+    <input 
+      type="text" 
+      class="form-control" 
+      id="studentId" 
+      placeholder="Auto-generated Student ID"
+      readonly
+    >
+    <span class="input-group-text">
+      <i class="fas fa-user"></i>
+    </span>
+  </div>
+</div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="studentId">Admin Email</label>
+                        <div class="input-group">
+                            <input type="email" class="form-control" id="email" placeholder="Enter student email" required>
+                            <span class="input-group-text"><i class="fas fa-id-card"></i></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="password">Password</label>
+                        <div class="input-group">
+                            <input type="password" class="form-control" id="password" placeholder="Enter your password" required>
+                            <span class="input-group-text" style="cursor: pointer;" onclick="togglePassword()">
+                                <i class="fas fa-eye" id="toggleIcon"></i>
+                            </span>
+                        </div>
+                    </div>
+
+ <div class="form-group">
+  <label class="form-label" for="role">User Type</label>
+
+  <div class="input-group">
+    <select class="form-control" id="role" required>
+      <option value="">Select user type</option>
+      <option value="student">Student</option>
+      <option value="admin">Admin</option>
+    </select>
+
+    <span class="input-group-text">
+      <i class="fas fa-user-tag"></i>
+    </span>
+  </div>
+</div>
+
+
+
+                    <div class="forgot-password">
+                        <a href="resett.html">Forgot Password?</a>
+                    </div>
+
+                    <div class="remember-me">
+                        <input type="checkbox" id="rememberMe">
+                        <label for="rememberMe" style="margin: 0; cursor: pointer;">Remember me</label>
+                    </div>
+<button type="submit" class="btn btn-login">Login</button>
+
+                    <div class="signup-link">
+                        Don't have an account? <a href="#">Sign up here</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Start Script -->
+    <script src="assets/js/jquery-1.11.0.min.js"></script>
+    <script src="assets/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/templatemo.js"></script>
+    <script src="assets/js/custom.js"></script>
+   <script type="module" src="firebase-auth.js"></script>
+
+
+
+    <!-- End Script -->
 </body>
+
 </html>
