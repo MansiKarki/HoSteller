@@ -6,7 +6,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
 const firebaseConfig = {
-  apiKey: "Put api key here",
+  apiKey: "Put api key heree",
   authDomain: "Put auth domain here",
   projectId: "Put project id here",
   appId: "put app id here"
