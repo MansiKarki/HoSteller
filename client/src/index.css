@@ -1,0 +1,34 @@
+@import "tailwindcss";
+
+/* Optional global styling */
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+
+/* Word Flow Animation */
+.word-flow {
+  opacity: 0;
+  transform: translateY(8px);
+  animation: wordFlow 0.5s ease-out forwards;
+}
+
+.word-flow-delay-1 { animation-delay: 0.1s; }
+.word-flow-delay-2 { animation-delay: 0.2s; }
+.word-flow-delay-3 { animation-delay: 0.3s; }
+
+@keyframes wordFlow {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .word-flow {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
