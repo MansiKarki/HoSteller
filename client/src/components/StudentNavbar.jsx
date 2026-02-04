@@ -1,18 +1,16 @@
 import { useState } from 'react';
 
-export default function Navbar({ onShowLogin }) {
+export default function StudentNavbar({ setPage, onLogout }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    onLogout();
   };
 
   return (
     <div>
-      <nav className="bg-white shadow-md border-b-2 border-green-600 sticky top-0 z-50">
+      <nav className="bg-white shadow-md border-b-2 border-green-600">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
@@ -27,44 +25,34 @@ export default function Navbar({ onShowLogin }) {
             {/* Desktop Navigation Links */}
             <div className="hidden md:flex items-center space-x-8">
               <button
-                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                onClick={() => setPage('dashboard')}
                 className="text-gray-700 hover:text-green-600 px-3 py-2 text-sm font-medium transition-colors duration-200"
               >
-                Home
+                Dashboard
               </button>
               <button
-                onClick={() => scrollToSection('features')}
+                onClick={() => setPage('nightout')}
                 className="text-gray-700 hover:text-green-600 px-3 py-2 text-sm font-medium transition-colors duration-200"
               >
-                Features
+                Night Out
               </button>
               <button
-                onClick={() => scrollToSection('about')}
+                onClick={() => setPage('maintenance')}
                 className="text-gray-700 hover:text-green-600 px-3 py-2 text-sm font-medium transition-colors duration-200"
               >
-                About
+                Maintenance
               </button>
               <button
-                onClick={() => scrollToSection('contact')}
+                onClick={() => setPage('id')}
                 className="text-gray-700 hover:text-green-600 px-3 py-2 text-sm font-medium transition-colors duration-200"
               >
-                Contact
-              </button>
-            </div>
-
-            {/* Login/Signup Buttons */}
-            <div className="hidden md:flex items-center space-x-4">
-              <button
-                onClick={onShowLogin}
-                className="text-green-600 hover:text-green-700 px-4 py-2 text-sm font-medium transition-colors duration-200"
-              >
-                Login
+                ID Card
               </button>
               <button
-                onClick={onShowLogin}
-                className="bg-green-600 text-white px-5 py-2 rounded-lg text-sm font-medium hover:bg-green-700 transition-colors duration-200 shadow-sm"
+                onClick={handleLogout}
+                className="bg-red-600 text-white px-6 py-2 rounded-lg text-sm font-medium hover:bg-red-700 transition-colors duration-200 shadow-sm"
               >
-                Signup
+                Logout
               </button>
             </div>
 
@@ -96,41 +84,34 @@ export default function Navbar({ onShowLogin }) {
             <div className="md:hidden pb-4">
               <div className="flex flex-col space-y-2">
                 <button
-                  onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); setMobileMenuOpen(false); }}
+                  onClick={() => { setPage('dashboard'); setMobileMenuOpen(false); }}
                   className="text-gray-700 hover:text-green-600 hover:bg-green-50 px-3 py-2 text-sm font-medium transition-colors duration-200 rounded-md text-left"
                 >
-                  Home
+                  Dashboard
                 </button>
                 <button
-                  onClick={() => { scrollToSection('features'); setMobileMenuOpen(false); }}
+                  onClick={() => { setPage('nightout'); setMobileMenuOpen(false); }}
                   className="text-gray-700 hover:text-green-600 hover:bg-green-50 px-3 py-2 text-sm font-medium transition-colors duration-200 rounded-md text-left"
                 >
-                  Features
+                  Night Out
                 </button>
                 <button
-                  onClick={() => { scrollToSection('about'); setMobileMenuOpen(false); }}
+                  onClick={() => { setPage('maintenance'); setMobileMenuOpen(false); }}
                   className="text-gray-700 hover:text-green-600 hover:bg-green-50 px-3 py-2 text-sm font-medium transition-colors duration-200 rounded-md text-left"
                 >
-                  About
+                  Maintenance
                 </button>
                 <button
-                  onClick={() => { scrollToSection('contact'); setMobileMenuOpen(false); }}
+                  onClick={() => { setPage('id'); setMobileMenuOpen(false); }}
                   className="text-gray-700 hover:text-green-600 hover:bg-green-50 px-3 py-2 text-sm font-medium transition-colors duration-200 rounded-md text-left"
                 >
-                  Contact
-                </button>
-                <hr className="my-2 border-gray-200" />
-                <button
-                  onClick={() => { onShowLogin(); setMobileMenuOpen(false); }}
-                  className="text-green-600 hover:text-green-700 px-3 py-2 text-sm font-medium transition-colors duration-200 rounded-md text-left"
-                >
-                  Login
+                  ID Card
                 </button>
                 <button
-                  onClick={() => { onShowLogin(); setMobileMenuOpen(false); }}
-                  className="bg-green-600 text-white px-5 py-2 rounded-lg text-sm font-medium hover:bg-green-700 transition-colors duration-200 shadow-sm text-center"
+                  onClick={handleLogout}
+                  className="bg-red-600 text-white px-6 py-2 rounded-lg text-sm font-medium hover:bg-red-700 transition-colors duration-200 shadow-sm text-center"
                 >
-                  Signup
+                  Logout
                 </button>
               </div>
             </div>
