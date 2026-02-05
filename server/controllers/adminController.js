@@ -113,7 +113,7 @@ export const updateMaintenanceStatus = async (req, res) => {
 
 
 /* ================================
-   STUDENT CONTROLLERS (NEW)
+   STUDENT CONTROLLERS
 ================================ */
 
 // Get all students (hide password)
@@ -146,6 +146,54 @@ export const verifyStudent = async (req, res) => {
     });
   } catch (error) {
     res.status(500).json({ message: "Verification failed" });
+  }
+};
+
+
+/* ================================
+   NEW: Assign Hostel & Mess
+================================ */
+
+export const assignHostelAndMess = async (req, res) => {
+  const { hostel, mess } = req.body;
+  console.log("assignHostelAndMess called with ID:", req.params.id);
+
+  try {
+    const student = await Student.findById(req.params.id);
+
+    if (!student) {
+      console.log("Student not found for ID:", req.params.id);
+      return res.status(404).json({ message: "Student not found" });
+    }
+
+    console.log("Student found:", student.name);
+    
+    // Handle hostel assignment
+    if (hostel) {
+      student.hostel = {
+        name: hostel.name || "",
+        block: hostel.block || "",
+        room: hostel.room || "",
+      };
+    }
+
+    // Handle mess assignment
+    if (mess) {
+      student.mess = {
+        type: mess.type || "",
+        timings: mess.timings || "",
+      };
+    }
+
+    await student.save();
+
+    res.json({
+      message: "Hostel & Mess assigned successfully",
+      student,
+    });
+  } catch (error) {
+    console.error("Assignment error:", error);
+    res.status(500).json({ message: "Assignment failed: " + error.message });
   }
 };
 

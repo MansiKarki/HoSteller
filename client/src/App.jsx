@@ -15,6 +15,7 @@ import MyStatus from "./pages/student/MyStatus";
 import HostelDetails from "./pages/student/HostelDetails";
 import MessDetails from "./pages/student/MessDetails";
 import Emergency from "./pages/student/Emergency";
+import AssignHostel from "./pages/admin/AssignHostel";
 
 
 export default function App() {
@@ -90,6 +91,9 @@ export default function App() {
         </>
       );
     }
+    if (page === "assign") {
+  return <AssignHostel goBack={() => setPage("dashboard")} />;
+}
 
     if (page === "maintenance") {
       return (

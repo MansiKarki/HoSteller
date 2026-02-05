@@ -29,8 +29,8 @@ const studentSchema = new mongoose.Schema(
     },
     
     mess: {
-      type: String, // Veg / Non-Veg
-      timings: String,
+      type: { type: String },
+      timings: { type: String },
     },
     room: {
       type: String,

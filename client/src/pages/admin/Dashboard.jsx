@@ -26,6 +26,12 @@ export default function AdminDashboard({ setPage }) {
           description="Verify student profiles"
           onClick={() => setPage("verify")}
         />
+        <Card
+  title="Assign Hostel & Mess"
+  description="Allocate rooms & mess"
+  onClick={() => setPage("assign")}
+/>
+
       </div>
     </div>
   );
