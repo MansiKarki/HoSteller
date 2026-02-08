@@ -34,7 +34,19 @@ export default function MyStatus({ goBack }) {
             <Card key={req._id}>
               <p><b>Date:</b> {req.date}</p>
               <p><b>Reason:</b> {req.reason}</p>
+              <span
+      className={`inline-block mt-2 px-3 py-1 rounded-full text-sm font-medium ${
+        req.status === "Approved"
+          ? "bg-green-100 text-green-600"
+          : req.status === "Rejected"
+          ? "bg-red-100 text-red-500"
+          : "bg-yellow-100 text-yellow-600"
+      }`}
+    >
+      {req.status}
+    </span>
               <StatusBadge status={req.status} />
+
             </Card>
           ))
         )}

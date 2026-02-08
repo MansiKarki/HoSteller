@@ -70,6 +70,11 @@ export const updateNightOutStatus = async (req, res) => {
 };
 
 
+
+
+
+
+
 /* ================================
    MAINTENANCE CONTROLLERS
 ================================ */
@@ -110,6 +115,8 @@ export const updateMaintenanceStatus = async (req, res) => {
     res.status(500).json({ message: "Failed to update maintenance status" });
   }
 };
+
+//Admin would assign hostel and mess to students. This would be a new controller function that takes in the student ID, hostel details, and mess details from the request body, updates the student's record, and returns the updated student information.
 
 
 /* ================================

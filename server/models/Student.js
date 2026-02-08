@@ -24,17 +24,29 @@ const studentSchema = new mongoose.Schema(
     },
 
     hostel: {
-      type: String,
-      trim: true,
+      name: {
+        type: String,
+        trim: true,
+      },
+      block: {
+        type: String,
+        trim: true,
+      },
+      room: {
+        type: String,
+        trim: true,
+      },
     },
-    
+
     mess: {
-      type: { type: String },
-      timings: { type: String },
-    },
-    room: {
-      type: String,
-      trim: true,
+      type: {
+        type: String,
+        trim: true,
+      },
+      timings: {
+        type: String,
+        trim: true,
+      },
     },
 
     password: {

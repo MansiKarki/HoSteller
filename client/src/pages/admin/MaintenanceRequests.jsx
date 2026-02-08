@@ -40,7 +40,7 @@ export default function MaintenanceRequests({ goBack }) {
             </h3>
 
             <p className="text-gray-600 text-sm">
-              Hostel: {issue.studentId?.hostel} · Room {issue.studentId?.room}
+              Hostel: {issue.studentId?.hostel?.name} · Room {issue.studentId?.hostel?.room}
             </p>
 
             <p className="text-gray-600 text-sm">

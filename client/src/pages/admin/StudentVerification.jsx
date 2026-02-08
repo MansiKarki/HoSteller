@@ -40,7 +40,7 @@ export default function StudentVerification({ goBack }) {
             </h3>
 
             <p className="text-gray-600 text-sm">
-              Hostel: {student.hostel} · Room {student.room}
+              Hostel: {student.hostel?.name} · Room {student.hostel?.room}
             </p>
 
             <p className="mt-2 font-medium">

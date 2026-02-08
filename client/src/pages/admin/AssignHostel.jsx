@@ -19,12 +19,16 @@ export default function AssignHostel({ goBack }) {
   }, []);
 
   async function assign() {
-    await API.put(`/admin/students/${selected}/assign`, {
-      hostel,
-      mess,
-    });
-    alert("Hostel & Mess Assigned");
-  }
+  if (!selected) return alert("Select a student");
+
+  await API.put(`/admin/students/${selected}/assign`, {
+    hostel,
+    mess,
+  });
+
+  alert("Hostel & Mess Assigned Successfully");
+}
+
 
   return (
     <div className="min-h-screen bg-[#F3FAED] p-6">
