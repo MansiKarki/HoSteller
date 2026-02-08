@@ -50,24 +50,22 @@ export const getPendingNightOuts = async (req, res) => {
 // Approve / Reject night out
 export const updateNightOutStatus = async (req, res) => {
   try {
-    const { id } = req.params;
     const { status } = req.body;
 
-    const nightOut = await NightOut.findByIdAndUpdate(
-      id,
-      { status },
-      { new: true }
-    );
-
+    const nightOut = await NightOut.findById(req.params.id);
     if (!nightOut) {
       return res.status(404).json({ message: "Request not found" });
     }
 
+    nightOut.status = status;
+    await nightOut.save();
+
     res.json(nightOut);
-  } catch (error) {
-    res.status(500).json({ message: "Failed to update status" });
+  } catch (err) {
+    res.status(500).json({ message: "Update failed" });
   }
 };
+
 
 
 

@@ -6,17 +6,18 @@ import Maintenance from "../models/Maintenance.js";
 // Submit night out request
 export const createNightOut = async (req, res) => {
   try {
-    const nightOut = await NightOut.create({
+    const { date, reason } = req.body;
+
+    const request = await NightOut.create({
       studentId: req.user.id,
-      date: req.body.date,
-      leaveTime: req.body.leaveTime,
-      returnTime: req.body.returnTime,
-      reason: req.body.reason,
+      date,
+      reason,
+      status: "Pending",
     });
 
-    res.status(201).json(nightOut);
+    res.status(201).json(request);
   } catch (error) {
-    res.status(500).json({ message: "Night Out request failed" });
+    res.status(500).json({ message: "Night out failed" });
   }
 };
 
