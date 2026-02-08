@@ -41,18 +41,25 @@ const [description, setDescription] = useState("");
         {!submitted ? (
           <form onSubmit={handleSubmit} className="mt-6 space-y-4">
 
-            <Select label="Issue Category">
-              <option>Electrical</option>
-              <option>Plumbing</option>
-              <option>Furniture</option>
-              <option>Cleaning</option>
-              <option>Internet / WiFi</option>
-              <option>Other</option>
+            <Select
+              label="Issue Category"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+            >
+              <option value="">Select a category</option>
+              <option value="Electrical">Electrical</option>
+              <option value="Plumbing">Plumbing</option>
+              <option value="Furniture">Furniture</option>
+              <option value="Cleaning">Cleaning</option>
+              <option value="Internet / WiFi">Internet / WiFi</option>
+              <option value="Other">Other</option>
             </Select>
 
             <Textarea
               label="Issue Description"
               placeholder="Describe the issue in detail..."
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
               required
             />
 
@@ -79,7 +86,7 @@ const [description, setDescription] = useState("");
   );
 }
 
-function Select({ label, children }) {
+function Select({ label, children, ...props }) {
   return (
     <div>
       <label className="block text-sm font-medium text-gray-600 mb-1">
@@ -88,6 +95,7 @@ function Select({ label, children }) {
       <select
         className="w-full px-4 py-2 border border-gray-300 rounded-xl
           focus:outline-none focus:ring-2 focus:ring-green-400"
+        {...props}
         required
       >
         {children}
