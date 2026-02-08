@@ -46,6 +46,7 @@ export const createMaintenance = async (req, res) => {
 
     res.status(201).json(maintenance);
   } catch (error) {
+    console.error("Create Maintenance Error:", error);
     res.status(500).json({ message: "Maintenance request failed" });
   }
 };

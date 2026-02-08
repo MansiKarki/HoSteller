@@ -3,20 +3,20 @@ import API from "../../api";
 
 export default function Maintenance({ goBack }) {
   const [submitted, setSubmitted] = useState(false);
-  const [category, setCategory] = useState("");
-const [description, setDescription] = useState("");
+  const [category, setCategory] = useState("Electrical");
+  const [description, setDescription] = useState("");
 
 
   async function handleSubmit(e) {
-  e.preventDefault();
+    e.preventDefault();
 
-  await API.post("/student/maintenance", {
-    category,
-    description,
-  });
+    await API.post("/student/maintenance", {
+      category,
+      description,
+    });
 
-  setSubmitted(true);
-}
+    setSubmitted(true);
+  }
 
   return (
     <div className="min-h-screen bg-[#F3FAED] flex items-center justify-center px-6">
@@ -41,7 +41,11 @@ const [description, setDescription] = useState("");
         {!submitted ? (
           <form onSubmit={handleSubmit} className="mt-6 space-y-4">
 
-            <Select label="Issue Category">
+            <Select
+              label="Issue Category"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+            >
               <option>Electrical</option>
               <option>Plumbing</option>
               <option>Furniture</option>
@@ -53,6 +57,8 @@ const [description, setDescription] = useState("");
             <Textarea
               label="Issue Description"
               placeholder="Describe the issue in detail..."
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
               required
             />
 
@@ -79,7 +85,7 @@ const [description, setDescription] = useState("");
   );
 }
 
-function Select({ label, children }) {
+function Select({ label, children, ...props }) {
   return (
     <div>
       <label className="block text-sm font-medium text-gray-600 mb-1">
@@ -89,6 +95,7 @@ function Select({ label, children }) {
         className="w-full px-4 py-2 border border-gray-300 rounded-xl
           focus:outline-none focus:ring-2 focus:ring-green-400"
         required
+        {...props}
       >
         {children}
       </select>

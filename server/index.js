@@ -8,6 +8,12 @@ import adminRoutes from "./routes/adminRoutes.js";
 
 dotenv.config();
 
+if (!process.env.JWT_SECRET) {
+  console.error("FATAL ERROR: JWT_SECRET is not defined.");
+  process.exit(1);
+}
+
+
 const app = express();
 app.use(cors());
 app.use(express.json());
