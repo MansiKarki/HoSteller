@@ -37,7 +37,8 @@ const protect = (req, res, next) => {
 // Get all pending night out requests
 export const getPendingNightOuts = async (req, res) => {
   try {
-    const requests = await NightOut.find({ status: "pending" })
+    const requests = await NightOut.find({ status: "Pending" })
+      .populate("studentId", "name room hostel")
       .sort({ createdAt: -1 });
 
     res.json(requests);
@@ -81,7 +82,7 @@ export const updateNightOutStatus = async (req, res) => {
 export const getAllMaintenance = async (req, res) => {
   try {
     const issues = await Maintenance.find()
-      .populate("studentId", "name rollNo hostel room")
+      .populate("studentId", "name rollNo hostel")
       .sort({ createdAt: -1 });
 
     res.json(issues);

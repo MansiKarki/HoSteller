@@ -6,11 +6,13 @@ import Maintenance from "../models/Maintenance.js";
 // Submit night out request
 export const createNightOut = async (req, res) => {
   try {
-    const { date, reason } = req.body;
+    const { date, leaveTime, returnTime, reason } = req.body;
 
     const request = await NightOut.create({
       studentId: req.user.id,
       date,
+      leaveTime,
+      returnTime,
       reason,
       status: "Pending",
     });
