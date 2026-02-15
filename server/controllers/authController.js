@@ -17,6 +17,13 @@ export const login = async (req, res) => {
       if (!student)
         return res.status(404).json({ message: "Student not found" });
 
+      // 🔥 Debug: Check if password is unhashed
+      if (!student.password.startsWith("$2")) {
+        return res
+          .status(500)
+          .json({ message: "Stored password is not hashed. Please contact admin." });
+      }
+
       const isMatch = await bcrypt.compare(password, student.password);
       if (!isMatch)
         return res.status(401).json({ message: "Invalid credentials" });

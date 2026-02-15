@@ -34,6 +34,8 @@ export default function MyStatus({ goBack }) {
             <Card key={req._id}>
               <p><b>Date:</b> {req.date}</p>
               <p><b>Reason:</b> {req.reason}</p>
+
+              {/* ✅ Only ONE status badge */}
               <StatusBadge status={req.status} />
             </Card>
           ))
@@ -49,6 +51,8 @@ export default function MyStatus({ goBack }) {
             <Card key={issue._id}>
               <p><b>Category:</b> {issue.category}</p>
               <p><b>Issue:</b> {issue.description}</p>
+
+              {/* ✅ Only ONE status badge */}
               <StatusBadge status={issue.status} />
             </Card>
           ))
@@ -99,8 +103,9 @@ function StatusBadge({ status }) {
 
   return (
     <span
-      className={`inline-block mt-2 px-3 py-1 rounded-full text-sm font-medium
-        ${styles[status] || "bg-gray-100 text-gray-600"}`}
+      className={`inline-block mt-2 px-3 py-1 rounded-full text-sm font-medium ${
+        styles[status] || "bg-gray-100 text-gray-600"
+      }`}
     >
       {status}
     </span>

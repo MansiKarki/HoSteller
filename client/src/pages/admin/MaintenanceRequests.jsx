@@ -5,9 +5,14 @@ export default function MaintenanceRequests({ goBack }) {
   const [issues, setIssues] = useState([]);
 
   useEffect(() => {
-    API.get("/admin/maintenance").then(res => {
-      setIssues(res.data);
-    });
+    API.get("/admin/maintenance")
+      .then(res => {
+        setIssues(res.data);
+      })
+      .catch(err => {
+        console.error("Failed to fetch maintenance requests:", err);
+        alert("Failed to load requests. " + (err.response?.data?.message || err.message));
+      });
   }, []);
 
   async function updateStatus(id, status) {
@@ -40,7 +45,7 @@ export default function MaintenanceRequests({ goBack }) {
             </h3>
 
             <p className="text-gray-600 text-sm">
-              Hostel: {issue.studentId?.hostel} · Room {issue.studentId?.room}
+              Hostel: {issue.studentId?.hostel?.name} · Room {issue.studentId?.hostel?.room}
             </p>
 
             <p className="text-gray-600 text-sm">

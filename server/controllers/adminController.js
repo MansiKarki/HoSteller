@@ -37,7 +37,8 @@ const protect = (req, res, next) => {
 // Get all pending night out requests
 export const getPendingNightOuts = async (req, res) => {
   try {
-    const requests = await NightOut.find({ status: "pending" })
+    const requests = await NightOut.find({ status: "Pending" })
+      .populate("studentId", "name room hostel")
       .sort({ createdAt: -1 });
 
     res.json(requests);
@@ -50,24 +51,27 @@ export const getPendingNightOuts = async (req, res) => {
 // Approve / Reject night out
 export const updateNightOutStatus = async (req, res) => {
   try {
-    const { id } = req.params;
     const { status } = req.body;
 
-    const nightOut = await NightOut.findByIdAndUpdate(
-      id,
-      { status },
-      { new: true }
-    );
-
+    const nightOut = await NightOut.findById(req.params.id);
     if (!nightOut) {
       return res.status(404).json({ message: "Request not found" });
     }
 
+    nightOut.status = status;
+    await nightOut.save();
+
     res.json(nightOut);
-  } catch (error) {
-    res.status(500).json({ message: "Failed to update status" });
+  } catch (err) {
+    res.status(500).json({ message: "Update failed" });
   }
 };
+
+
+
+
+
+
 
 
 /* ================================
@@ -78,7 +82,7 @@ export const updateNightOutStatus = async (req, res) => {
 export const getAllMaintenance = async (req, res) => {
   try {
     const issues = await Maintenance.find()
-      .populate("studentId", "name rollNo hostel room")
+      .populate("studentId", "name rollNo hostel")
       .sort({ createdAt: -1 });
 
     res.json(issues);
@@ -110,6 +114,8 @@ export const updateMaintenanceStatus = async (req, res) => {
     res.status(500).json({ message: "Failed to update maintenance status" });
   }
 };
+
+//Admin would assign hostel and mess to students. This would be a new controller function that takes in the student ID, hostel details, and mess details from the request body, updates the student's record, and returns the updated student information.
 
 
 /* ================================
