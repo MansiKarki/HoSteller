@@ -3,20 +3,20 @@ import API from "../../api";
 
 export default function Maintenance({ goBack }) {
   const [submitted, setSubmitted] = useState(false);
-  const [category, setCategory] = useState("");
-const [description, setDescription] = useState("");
+  const [category, setCategory] = useState("Electrical");
+  const [description, setDescription] = useState("");
 
 
   async function handleSubmit(e) {
-  e.preventDefault();
+    e.preventDefault();
 
-  await API.post("/student/maintenance", {
-    category,
-    description,
-  });
+    await API.post("/student/maintenance", {
+      category,
+      description,
+    });
 
-  setSubmitted(true);
-}
+    setSubmitted(true);
+  }
 
   return (
     <div className="min-h-screen bg-[#F3FAED] flex items-center justify-center px-6">
@@ -60,6 +60,8 @@ const [description, setDescription] = useState("");
               placeholder="Describe the issue in detail..."
               value={description}
               onChange={(e) => setDescription(e.target.value)}
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
               required
             />
 
@@ -87,6 +89,7 @@ const [description, setDescription] = useState("");
 }
 
 function Select({ label, children, ...props }) {
+function Select({ label, children, ...props }) {
   return (
     <div>
       <label className="block text-sm font-medium text-gray-600 mb-1">
@@ -97,6 +100,7 @@ function Select({ label, children, ...props }) {
           focus:outline-none focus:ring-2 focus:ring-green-400"
         {...props}
         required
+        {...props}
       >
         {children}
       </select>

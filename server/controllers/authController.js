@@ -60,6 +60,7 @@ export const login = async (req, res) => {
       res.status(400).json({ message: "Invalid role specified" });
     }
   } catch (error) {
+    console.error("Login Error:", error);
     res.status(500).json({ message: "Login failed" });
   }
 };
