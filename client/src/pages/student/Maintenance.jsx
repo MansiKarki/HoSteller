@@ -60,8 +60,6 @@ export default function Maintenance({ goBack }) {
               placeholder="Describe the issue in detail..."
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
               required
             />
 
@@ -89,7 +87,6 @@ export default function Maintenance({ goBack }) {
 }
 
 function Select({ label, children, ...props }) {
-function Select({ label, children, ...props }) {
   return (
     <div>
       <label className="block text-sm font-medium text-gray-600 mb-1">
@@ -98,7 +95,6 @@ function Select({ label, children, ...props }) {
       <select
         className="w-full px-4 py-2 border border-gray-300 rounded-xl
           focus:outline-none focus:ring-2 focus:ring-green-400"
-        {...props}
         required
         {...props}
       >
@@ -115,10 +111,10 @@ function Textarea({ label, ...props }) {
         {label}
       </label>
       <textarea
-        {...props}
         rows="4"
         className="w-full px-4 py-2 border border-gray-300 rounded-xl
           focus:outline-none focus:ring-2 focus:ring-green-400"
+        {...props}
       />
     </div>
   );
