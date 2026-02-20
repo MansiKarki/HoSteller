@@ -50,7 +50,7 @@ export default function AdminNavbar({ setPage, onLogout }) {
               </button>
               <button
                 onClick={handleLogout}
-                className="bg-red-600 text-white px-6 py-2 rounded-lg text-sm font-medium hover:bg-red-700 transition-colors duration-200 shadow-sm"
+                className="bg-green-600 text-white px-6 py-2 rounded-lg text-sm font-medium hover:bg-green-700 transition-colors duration-200 shadow-sm"
               >
                 Logout
               </button>
@@ -109,7 +109,7 @@ export default function AdminNavbar({ setPage, onLogout }) {
                 </button>
                 <button
                   onClick={handleLogout}
-                  className="bg-red-600 text-white px-6 py-2 rounded-lg text-sm font-medium hover:bg-red-700 transition-colors duration-200 shadow-sm text-center"
+                  className="bg-green-600 text-white px-6 py-2 rounded-lg text-sm font-medium hover:bg-green-700 transition-colors duration-200 shadow-sm text-center"
                 >
                   Logout
                 </button>
