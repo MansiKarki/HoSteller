@@ -11,7 +11,9 @@ import MaintenanceRequests from "./pages/admin/MaintenanceRequests";
 import StudentVerification from "./pages/admin/StudentVerification";
 import StudentNavbar from "./components/StudentNavbar";
 import AdminNavbar from "./components/AdminNavbar";
+import StudentLayout from "./components/StudentLayout";
 import MyStatus from "./pages/student/MyStatus";
+import MyRequests from "./pages/student/MyRequests";
 import HostelDetails from "./pages/student/HostelDetails";
 import MessDetails from "./pages/student/MessDetails";
 import Emergency from "./pages/student/Emergency";
@@ -34,50 +36,33 @@ export default function App() {
   }
 
   if (role === "student") {
-    if (page === "nightout") {
-      return (
-        <>
-          <StudentNavbar setPage={setPage} onLogout={handleLogout} />
-          <NightOut goBack={() => setPage("dashboard")} />
-        </>
-      );
-    }
-    if (page === "hostel") {
-    return <HostelDetails goBack={() => setPage("dashboard")} />;
-  }
-   if (page === "mess") {
-    return <MessDetails goBack={() => setPage("dashboard")} />;
-  }
-
-    if (page === "maintenance") {
-      return (
-        <>
-          <StudentNavbar setPage={setPage} onLogout={handleLogout} />
-          <Maintenance goBack={() => setPage("dashboard")} />
-        </>
-      );
-    }
-    if (page === "emergency") {
-  return <Emergency goBack={() => setPage("dashboard")} />;
-}
-
-    if (page === "id") {
-      return (
-        <>
-          <StudentNavbar setPage={setPage} onLogout={handleLogout} />
-          <IDCard goBack={() => setPage("dashboard")} />
-        </>
-      );
-    }
-    if (page === "status") {
-    return <MyStatus goBack={() => setPage("dashboard")} />;
-  }
+    const renderStudentContent = () => {
+      const commonProps = { setPage };
+      
+      switch (page) {
+        case "nightout":
+          return <NightOut {...commonProps} />;
+        case "hostel":
+          return <HostelDetails />;
+        case "mess":
+          return <MessDetails />;
+        case "maintenance":
+          return <Maintenance />;
+        case "emergency":
+          return <Emergency />;
+        case "id":
+          return <IDCard />;
+        case "status":
+          return <MyStatus />;
+        default:
+          return <StudentDashboard {...commonProps} />;
+      }
+    };
 
     return (
-      <>
-        <StudentNavbar setPage={setPage} onLogout={handleLogout} />
-        <StudentDashboard setPage={setPage} />
-      </>
+      <StudentLayout page={page} setPage={setPage} onLogout={handleLogout}>
+        {renderStudentContent()}
+      </StudentLayout>
     );
   }
 
