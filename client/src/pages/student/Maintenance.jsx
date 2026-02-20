@@ -26,6 +26,7 @@ const statusStyles = {
 
 function Input({ label, ...props }) {
   return (
+<<<<<<< main
     <div>
       <label className="block text-sm font-semibold text-gray-700 mb-1.5">
         {label}
@@ -37,6 +38,69 @@ function Input({ label, ...props }) {
     </div>
   );
 }
+=======
+    <div className="min-h-screen bg-[#F3FAED] flex items-center justify-center px-6">
+      <div className="bg-white rounded-2xl shadow-xl p-8 max-w-lg w-full">
+
+        {/* Back Button */}
+        <button
+          onClick={goBack}
+          className="text-green-600 text-sm mb-4 hover:underline"
+        >
+          ← Back to Dashboard
+        </button>
+
+        <h2 className="text-2xl font-bold text-green-600 text-center">
+          Maintenance Request
+        </h2>
+
+        <p className="text-center text-gray-500 mt-1">
+          Report hostel room or facility issues
+        </p>
+
+        {!submitted ? (
+          <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+
+            <Select
+              label="Issue Category"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+            >
+              <option value="">Select a category</option>
+              <option value="Electrical">Electrical</option>
+              <option value="Plumbing">Plumbing</option>
+              <option value="Furniture">Furniture</option>
+              <option value="Cleaning">Cleaning</option>
+              <option value="Internet / WiFi">Internet / WiFi</option>
+              <option value="Other">Other</option>
+            </Select>
+
+            <Textarea
+              label="Issue Description"
+              placeholder="Describe the issue in detail..."
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              required
+            />
+
+            <button
+              type="submit"
+              className="w-full mt-4 py-3 rounded-xl bg-green-600 text-white font-medium hover:bg-green-700 transition"
+            >
+              Submit Request
+            </button>
+          </form>
+        ) : (
+          <div className="mt-8 text-center">
+            <p className="text-green-600 font-semibold text-lg">
+              Maintenance Request Submitted ✅
+            </p>
+            <p className="text-gray-500 mt-2">
+              Our team will look into it shortly
+            </p>
+          </div>
+        )}
+>>>>>>> main
 
 function Textarea({ label, ...props }) {
   return (
@@ -60,6 +124,12 @@ function Select({ label, children, ...props }) {
         {label}
       </label>
       <select
+<<<<<<< main
+=======
+        className="w-full px-4 py-2 border border-gray-300 rounded-xl
+          focus:outline-none focus:ring-2 focus:ring-green-400"
+        required
+>>>>>>> main
         {...props}
         className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent transition"
       >
@@ -93,6 +163,7 @@ export default function Maintenance() {
   }
 
   return (
+<<<<<<< main
     <div className="space-y-6">
 
       {/* Header */}
@@ -250,6 +321,18 @@ export default function Maintenance() {
 
       </div>
 
+=======
+    <div>
+      <label className="block text-sm font-medium text-gray-600 mb-1">
+        {label}
+      </label>
+      <textarea
+        rows="4"
+        className="w-full px-4 py-2 border border-gray-300 rounded-xl
+          focus:outline-none focus:ring-2 focus:ring-green-400"
+        {...props}
+      />
+>>>>>>> main
     </div>
   );
 }
