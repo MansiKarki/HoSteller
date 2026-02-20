@@ -1,9 +1,6 @@
-import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { motion } from "framer-motion";
 
 export default function StudentLayout({ page, setPage, children, onLogout }) {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-
   const menuItems = [
     { id: "dashboard", title: "Dashboard", description: "Home" },
     { id: "nightout", title: "Night Out", description: "Apply for permission" },
@@ -14,23 +11,14 @@ export default function StudentLayout({ page, setPage, children, onLogout }) {
     { id: "id", title: "Digital ID Card", description: "View & download" },
   ];
 
-  const handleNavigation = (pageId) => {
-    setPage(pageId);
-  };
-
   return (
     <div className="flex h-screen bg-gray-50 overflow-hidden">
       {/* ── SIDEBAR (fixed position) ── */}
-      <AnimatePresence initial={false}>
-        {isSidebarOpen && (
-          <motion.aside
-            key="sidebar"
-            initial={{ width: 0 }}
-            animate={{ width: 280 }}
-            exit={{ width: 0 }}
-            transition={{ type: "spring", stiffness: 300, damping: 35 }}
-            className="fixed top-0 left-0 h-full bg-white border-r-2 border-green-600 text-gray-800 flex flex-col z-20 overflow-hidden shadow-md"
-          >
+      <motion.aside
+        initial={{ width: 280 }}
+        animate={{ width: 280 }}
+        className="fixed top-0 left-0 h-full bg-white border-r-2 border-green-600 text-gray-800 flex flex-col z-20 overflow-hidden shadow-md"
+      >
             {/* Sidebar inner — fixed width so content doesn't wrap during animation */}
             <div className="w-70 flex flex-col h-full">
               <div className="p-6 shrink-0 border-b border-gray-200">
@@ -38,11 +26,11 @@ export default function StudentLayout({ page, setPage, children, onLogout }) {
                 <p className="text-sm text-gray-500">Campus Hub</p>
               </div>
 
-              <nav className="flex-1 px-4 space-y-2 overflow-y-auto">
+              <nav className="flex-1 px-4 space-y-2">
                 {menuItems.map((item) => (
                   <button
                     key={item.id}
-                    onClick={() => handleNavigation(item.id)}
+                    onClick={() => setPage(item.id)}
                     className={`w-full text-left px-4 py-3 rounded-lg transition-colors ${
                       page === item.id
                         ? "bg-green-50 text-green-700 border-l-4 border-green-600"
@@ -62,28 +50,16 @@ export default function StudentLayout({ page, setPage, children, onLogout }) {
               </div>
             </div>
           </motion.aside>
-        )}
-      </AnimatePresence>
 
       {/* ── MAIN CONTENT (offset by sidebar width via margin) ── */}
       <motion.div
-        animate={{ marginLeft: isSidebarOpen ? 280 : 0 }}
+        animate={{ marginLeft: 280 }}
         transition={{ type: "spring", stiffness: 300, damping: 35 }}
-        className="flex-1 overflow-y-auto min-w-0"
+        className="flex-1 min-w-0"
       >
         <div>
-          {/* Top Bar */}
-          <div className="flex items-center gap-4 p-8 pb-4">
-            <button
-              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-              className="p-3 rounded-xl bg-white shadow shrink-0"
-            >
-              ☰
-            </button>
-          </div>
-
           {/* Page Content */}
-          <div className="px-8 pb-8">
+          <div className="px-8 py-8 pb-8">
             {children}
           </div>
         </div>
