@@ -58,7 +58,7 @@ export default function AdminNavbar({ setPage, onLogout }) {
 
             {/* Mobile menu button */}
             <div className="md:hidden">
-              <button 
+              <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 className="text-gray-300 hover:text-green-400 focus:outline-none focus:ring-2 focus:ring-green-500 p-2 rounded-md"
               >
