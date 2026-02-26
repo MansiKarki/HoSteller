@@ -1,6 +1,5 @@
 import { useState } from "react";
 import LandingPage from "./pages/LandingPage";
-import Login from "./pages/Login";
 import StudentDashboard from "./pages/student/Dashboard";
 import AdminDashboard from "./pages/admin/Dashboard";
 import NightOut from "./pages/student/NightOut";
@@ -9,16 +8,13 @@ import IDCard from "./pages/student/IDCard";
 import NightOutApprovals from "./pages/admin/NightOutApprovals";
 import MaintenanceRequests from "./pages/admin/MaintenanceRequests";
 import StudentVerification from "./pages/admin/StudentVerification";
-import StudentNavbar from "./components/StudentNavbar";
-import AdminNavbar from "./components/AdminNavbar";
 import StudentLayout from "./components/StudentLayout";
+import AdminLayout from "./components/AdminLayout";
 import MyStatus from "./pages/student/MyStatus";
-import MyRequests from "./pages/student/MyRequests";
 import HostelDetails from "./pages/student/HostelDetails";
 import MessDetails from "./pages/student/MessDetails";
 import Emergency from "./pages/student/Emergency";
 import AssignHostel from "./pages/admin/AssignHostel";
-
 
 export default function App() {
   const [role, setRole] = useState(null);
@@ -35,27 +31,18 @@ export default function App() {
     return <LandingPage onLogin={setRole} />;
   }
 
+  // ── STUDENT ──
   if (role === "student") {
     const renderStudentContent = () => {
-      const commonProps = { setPage };
-      
       switch (page) {
-        case "nightout":
-          return <NightOut {...commonProps} />;
-        case "hostel":
-          return <HostelDetails />;
-        case "mess":
-          return <MessDetails />;
-        case "maintenance":
-          return <Maintenance />;
-        case "emergency":
-          return <Emergency />;
-        case "id":
-          return <IDCard />;
-        case "status":
-          return <MyStatus />;
-        default:
-          return <StudentDashboard {...commonProps} />;
+        case "nightout": return <NightOut setPage={setPage} />;
+        case "hostel": return <HostelDetails />;
+        case "mess": return <MessDetails />;
+        case "maintenance": return <Maintenance />;
+        case "emergency": return <Emergency />;
+        case "id": return <IDCard />;
+        case "status": return <MyStatus />;
+        default: return <StudentDashboard setPage={setPage} />;
       }
     };
 
@@ -66,44 +53,22 @@ export default function App() {
     );
   }
 
-
+  // ── ADMIN ──
   if (role === "admin") {
-    if (page === "nightout") {
-      return (
-        <>
-          <AdminNavbar setPage={setPage} onLogout={handleLogout} />
-          <NightOutApprovals goBack={() => setPage("dashboard")} />
-        </>
-      );
-    }
-    if (page === "assign") {
-  return <AssignHostel goBack={() => setPage("dashboard")} />;
-}
-
-    if (page === "maintenance") {
-      return (
-        <>
-          <AdminNavbar setPage={setPage} onLogout={handleLogout} />
-          <MaintenanceRequests goBack={() => setPage("dashboard")} />
-        </>
-      );
-    }
-
-    if (page === "verify") {
-      return (
-        <>
-          <AdminNavbar setPage={setPage} onLogout={handleLogout} />
-          <StudentVerification goBack={() => setPage("dashboard")} />
-        </>
-      );
-    }
+    const renderAdminContent = () => {
+      switch (page) {
+        case "nightout": return <NightOutApprovals />;
+        case "maintenance": return <MaintenanceRequests />;
+        case "verify": return <StudentVerification />;
+        case "assign": return <AssignHostel />;
+        default: return <AdminDashboard setPage={setPage} />;
+      }
+    };
 
     return (
-      <>
-        <AdminNavbar setPage={setPage} onLogout={handleLogout} />
-        <AdminDashboard setPage={setPage} />
-      </>
+      <AdminLayout page={page} setPage={setPage} onLogout={handleLogout}>
+        {renderAdminContent()}
+      </AdminLayout>
     );
   }
-   
 }
