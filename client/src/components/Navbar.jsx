@@ -45,10 +45,10 @@ export default function Navbar({ onShowLogin }) {
                 About
               </button>
               <button
-                onClick={() => scrollToSection('contact')}
+                onClick={() => scrollToSection('faq')}
                 className="text-gray-700 hover:text-green-600 px-3 py-2 text-sm font-medium transition-colors duration-200"
               >
-                Contact
+                FAQ
               </button>
             </div>
 
@@ -70,7 +70,7 @@ export default function Navbar({ onShowLogin }) {
 
             {/* Mobile menu button */}
             <div className="md:hidden">
-              <button 
+              <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 className="text-gray-700 hover:text-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 p-2 rounded-md"
               >
@@ -114,10 +114,10 @@ export default function Navbar({ onShowLogin }) {
                   About
                 </button>
                 <button
-                  onClick={() => { scrollToSection('contact'); setMobileMenuOpen(false); }}
+                  onClick={() => { scrollToSection('faq'); setMobileMenuOpen(false); }}
                   className="text-gray-700 hover:text-green-600 hover:bg-green-50 px-3 py-2 text-sm font-medium transition-colors duration-200 rounded-md text-left"
                 >
-                  Contact
+                  FAQ
                 </button>
                 <hr className="my-2 border-gray-200" />
                 <button
