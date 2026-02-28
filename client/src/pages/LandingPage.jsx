@@ -64,6 +64,7 @@ function Reveal({ children, variant = 'reveal-up', delay = '', className = '' })
 
 export default function LandingPage({ onLogin }) {
   const [showLogin, setShowLogin] = useState(false);
+  const [loginMode, setLoginMode] = useState('login');
   const [statsVisible, setStatsVisible] = useState(false);
   const statsRef = useRef(null);
 
@@ -81,19 +82,38 @@ export default function LandingPage({ onLogin }) {
     return () => observer.disconnect();
   }, []);
 
+  const handleShowLogin = (mode = 'login') => {
+    setLoginMode(mode);
+    setShowLogin(true);
+  };
+
+  const handleNavigate = (sectionId) => {
+    setShowLogin(false);
+    // Use a small timeout to let the landing page sections mount before scrolling
+    setTimeout(() => {
+      if (sectionId === 'home') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    }, 100);
+  };
+
   if (showLogin) {
     return (
       <div className="min-h-screen bg-[#F3FAED]">
-        <Navbar onShowLogin={() => setShowLogin(true)} />
-        <Login onLogin={onLogin} />
-        <Footer />
+        <Navbar onShowLogin={handleShowLogin} onNavigate={handleNavigate} />
+        <Login onLogin={onLogin} mode={loginMode} initialMode={loginMode} />
       </div>
     );
   }
 
   return (
     <div id="home" className="min-h-screen bg-[#F3FAED]">
-      <Navbar onShowLogin={() => setShowLogin(true)} />
+      <Navbar onShowLogin={handleShowLogin} onNavigate={handleNavigate} />
       <HeroCarousel />
 
       {/* Hero Section */}
@@ -207,7 +227,7 @@ export default function LandingPage({ onLogin }) {
               Join thousands of students and administrators using Hosteller for seamless hostel management.
             </p>
             <button
-              onClick={() => setShowLogin(true)}
+              onClick={() => handleShowLogin('login')}
               className="bg-white text-green-600 px-8 py-3 rounded-xl font-medium hover:bg-green-50 transition shadow-lg"
             >
               Login / Signup Now

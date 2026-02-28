@@ -1,12 +1,17 @@
 import { useState } from 'react';
+import logo from '../assets/logo.png';
 
-export default function Navbar({ onShowLogin }) {
+export default function Navbar({ onShowLogin, onNavigate }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+    if (onNavigate) {
+      onNavigate(sectionId);
+    } else {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
 
@@ -15,10 +20,10 @@ export default function Navbar({ onShowLogin }) {
       <nav className="bg-white shadow-md border-b-2 border-green-600 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            {/* Logo */}
-            <div className="flex items-center">
-              <div className="flex-shrink-0">
-                <span className="text-2xl font-bold text-green-700">
+            <div className="flex items-center gap-2">
+              <div className="flex-shrink-0 flex items-center">
+                <img src={logo} alt="Hosteller Logo" className="h-10 w-auto" />
+                <span className="text-2xl font-bold text-green-700 ml-1">
                   Hosteller
                 </span>
               </div>
@@ -27,7 +32,7 @@ export default function Navbar({ onShowLogin }) {
             {/* Desktop Navigation Links */}
             <div className="hidden md:flex items-center space-x-8">
               <button
-                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                onClick={() => onNavigate ? onNavigate('home') : window.scrollTo({ top: 0, behavior: 'smooth' })}
                 className="text-gray-700 hover:text-green-600 px-3 py-2 text-sm font-medium transition-colors duration-200"
               >
                 Home
@@ -55,13 +60,13 @@ export default function Navbar({ onShowLogin }) {
             {/* Login/Signup Buttons */}
             <div className="hidden md:flex items-center space-x-4">
               <button
-                onClick={onShowLogin}
+                onClick={() => onShowLogin('login')}
                 className="text-green-600 hover:text-green-700 px-4 py-2 text-sm font-medium transition-colors duration-200"
               >
                 Login
               </button>
               <button
-                onClick={onShowLogin}
+                onClick={() => onShowLogin('signup')}
                 className="bg-green-600 text-white px-5 py-2 rounded-lg text-sm font-medium hover:bg-green-700 transition-colors duration-200 shadow-sm"
               >
                 Signup
@@ -96,7 +101,7 @@ export default function Navbar({ onShowLogin }) {
             <div className="md:hidden pb-4">
               <div className="flex flex-col space-y-2">
                 <button
-                  onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); setMobileMenuOpen(false); }}
+                  onClick={() => { onNavigate ? onNavigate('home') : window.scrollTo({ top: 0, behavior: 'smooth' }); setMobileMenuOpen(false); }}
                   className="text-gray-700 hover:text-green-600 hover:bg-green-50 px-3 py-2 text-sm font-medium transition-colors duration-200 rounded-md text-left"
                 >
                   Home
@@ -121,13 +126,13 @@ export default function Navbar({ onShowLogin }) {
                 </button>
                 <hr className="my-2 border-gray-200" />
                 <button
-                  onClick={() => { onShowLogin(); setMobileMenuOpen(false); }}
+                  onClick={() => { onShowLogin('login'); setMobileMenuOpen(false); }}
                   className="text-green-600 hover:text-green-700 px-3 py-2 text-sm font-medium transition-colors duration-200 rounded-md text-left"
                 >
                   Login
                 </button>
                 <button
-                  onClick={() => { onShowLogin(); setMobileMenuOpen(false); }}
+                  onClick={() => { onShowLogin('signup'); setMobileMenuOpen(false); }}
                   className="bg-green-600 text-white px-5 py-2 rounded-lg text-sm font-medium hover:bg-green-700 transition-colors duration-200 shadow-sm text-center"
                 >
                   Signup
