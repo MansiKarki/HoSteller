@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import logo from '../assets/logo.png';
 
 export default function StudentNavbar({ setPage, onLogout }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -13,10 +14,10 @@ export default function StudentNavbar({ setPage, onLogout }) {
       <nav className="bg-white shadow-md border-b-2 border-green-600">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            {/* Logo */}
-            <div className="flex items-center">
-              <div className="flex-shrink-0">
-                <span className="text-2xl font-bold text-green-700">
+            <div className="flex items-center gap-2">
+              <div className="flex-shrink-0 flex items-center">
+                <img src={logo} alt="Hosteller Logo" className="h-10 w-auto" />
+                <span className="text-2xl font-bold text-green-700 ml-1">
                   Hosteller
                 </span>
               </div>
