@@ -3,7 +3,6 @@ import { AlertCircle, Phone, MapPin, Clock } from "lucide-react";
 const emergencyContacts = [
   {
     category: "Medical",
-    icon: "🚑",
     contacts: [
       { title: "Ambulance", number: "+91 108", desc: "Government Emergency" },
       { title: "Hospital", number: "+91 9876543200", desc: "Nearby Medical Center" },
@@ -11,7 +10,6 @@ const emergencyContacts = [
   },
   {
     category: "Hostel Security",
-    icon: "🛡️",
     contacts: [
       { title: "Security Desk", number: "+91 9876543210", desc: "Campus Security 24/7" },
       { title: "Gate Security", number: "+91 9876543211", desc: "Main Gate - Always Available" },
@@ -19,7 +17,6 @@ const emergencyContacts = [
   },
   {
     category: "Hostel Management",
-    icon: "🏢",
     contacts: [
       { title: "Chief Warden", number: "+91 9876543212", desc: "Hostel Chief Warden" },
       { title: "Assistant Warden", number: "+91 9876543213", desc: "Assistant Warden On Duty" },
@@ -27,7 +24,6 @@ const emergencyContacts = [
   },
   {
     category: "External Services",
-    icon: "⚠️",
     contacts: [
       { title: "Police", number: "100", desc: "National Police Helpline" },
       { title: "Fire", number: "101", desc: "National Fire Service" },
@@ -53,7 +49,7 @@ export default function Emergency() {
       <div>
         <h1 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
           <AlertCircle className="w-6 h-6 text-red-500" />
-          Emergency Support 🚨
+          Emergency Support
         </h1>
         <p className="text-gray-500 text-sm mt-0.5">24×7 Emergency contacts available</p>
       </div>
@@ -73,8 +69,7 @@ export default function Emergency() {
       <div className="space-y-6">
         {emergencyContacts.map((section, idx) => (
           <div key={idx}>
-            <h2 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
-              <span className="text-2xl">{section.icon}</span>
+            <h2 className="text-lg font-bold text-gray-800 mb-4">
               {section.category}
             </h2>
 

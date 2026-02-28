@@ -48,7 +48,7 @@ export default function MyStatus() {
 
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-gray-800">My Request Status 📊</h1>
+        <h1 className="text-2xl font-bold text-gray-800">My Request Status</h1>
         <p className="text-gray-500 text-sm mt-0.5">Track the status of all your hostel requests</p>
       </div>
 
@@ -66,7 +66,7 @@ export default function MyStatus() {
         </div>
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4">
           <p className="text-xs text-gray-400 font-semibold mb-1">PENDING</p>
-            <p className="text-2xl font-bold text-green-600">
+          <p className="text-2xl font-bold text-green-600">
             {[...nightOuts, ...maintenance].filter(r => r.status === "Pending").length}
           </p>
           <p className="text-xs text-gray-500 mt-1">Awaiting approval</p>
@@ -87,7 +87,7 @@ export default function MyStatus() {
         <div style={{ flex: "0 0 68%" }}>
 
           {/* Night Out Section */}
-          <Section title="🌙 Night Out Requests">
+          <Section title="Night Out Requests">
             {nightOuts.length === 0 ? (
               <Empty text="No night out requests yet. Submit one to get started!" />
             ) : (
@@ -114,7 +114,7 @@ export default function MyStatus() {
           </Section>
 
           {/* Maintenance Section */}
-          <Section title="🔧 Maintenance Requests">
+          <Section title="Maintenance Requests">
             {maintenance.length === 0 ? (
               <Empty text="No maintenance requests yet. Report an issue to get started!" />
             ) : (
@@ -152,9 +152,7 @@ export default function MyStatus() {
 
           {/* Legend */}
           <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
-            <h3 className="font-bold text-gray-800 text-sm mb-3 flex items-center gap-2">
-              <span>📜</span> Status Legend
-            </h3>
+            <h3 className="font-bold text-gray-800 text-sm mb-3">Status Legend</h3>
             <div className="space-y-2">
               {Object.entries(statusStyles).map(([status, style]) => (
                 <div key={status} className="flex items-center gap-2">
@@ -177,20 +175,18 @@ export default function MyStatus() {
 
           {/* Timeline Tips */}
           <div className="bg-emerald-50 rounded-2xl border border-emerald-200 p-5">
-            <h3 className="font-bold text-emerald-800 text-sm mb-3 flex items-center gap-2">
-              <span>⏱️</span> Expected Timeline
-            </h3>
+            <h3 className="font-bold text-emerald-800 text-sm mb-3">Expected Timeline</h3>
             <ul className="space-y-2 text-xs text-emerald-700">
               <li className="flex gap-2">
-                <span>📌</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-1.5 shrink-0 inline-block"></span>
                 <span><b>Night Out:</b> 24-48 hours</span>
               </li>
               <li className="flex gap-2">
-                <span>🔧</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-1.5 shrink-0 inline-block"></span>
                 <span><b>Maintenance:</b> 3-5 days</span>
               </li>
               <li className="flex gap-2">
-                <span>🚨</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-1.5 shrink-0 inline-block"></span>
                 <span><b>Urgent:</b> 24 hours</span>
               </li>
             </ul>
@@ -198,9 +194,7 @@ export default function MyStatus() {
 
           {/* Contact Support */}
           <div className="bg-blue-50 rounded-2xl border border-blue-200 p-5">
-            <h3 className="font-bold text-blue-800 text-sm mb-3 flex items-center gap-2">
-              <span>📞</span> Need Help?
-            </h3>
+            <h3 className="font-bold text-blue-800 text-sm mb-3">Need Help?</h3>
             <div className="space-y-2">
               <div className="flex justify-between text-xs">
                 <span className="text-gray-600">Warden</span>

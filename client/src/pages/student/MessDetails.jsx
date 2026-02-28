@@ -35,7 +35,7 @@ export default function MessDetails() {
 
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-gray-800">Mess Details 🍽️</h1>
+        <h1 className="text-2xl font-bold text-gray-800">Mess Details</h1>
         <p className="text-gray-500 text-sm mt-0.5">Weekly menu and meal timings</p>
       </div>
 
@@ -47,7 +47,9 @@ export default function MessDetails() {
 
           {!mess ? (
             <div className="py-12 flex flex-col items-center text-center">
-              <div className="w-16 h-16 rounded-full bg-yellow-100 flex items-center justify-center text-3xl mb-4">⏳</div>
+              <div className="w-16 h-16 rounded-full bg-yellow-100 flex items-center justify-center mb-4">
+                <svg className="w-8 h-8 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+              </div>
               <h2 className="text-lg font-bold text-gray-700">Not Assigned Yet</h2>
               <p className="text-gray-500 text-sm mt-2">Your mess plan will be assigned soon. Contact the admin for updates.</p>
             </div>
@@ -72,7 +74,7 @@ export default function MessDetails() {
                   </div>
                   <div className="bg-white rounded-xl p-4">
                     <p className="text-xs text-gray-400 font-medium mb-1">PAID STATUS</p>
-                    <p className="text-lg font-bold text-emerald-600">Paid ✓</p>
+                    <p className="text-lg font-bold text-emerald-600">Paid</p>
                   </div>
                 </div>
               </div>
@@ -88,21 +90,21 @@ export default function MessDetails() {
                       <p className="text-xs text-blue-600 font-bold uppercase">Breakfast</p>
                       <p className="font-semibold text-gray-800">{timing.breakfast}</p>
                     </div>
-                    <span className="text-3xl">🥐</span>
+
                   </div>
                   <div className="flex justify-between bg-green-50 p-4 rounded-lg">
                     <div>
                       <p className="text-xs text-green-600 font-bold uppercase">Lunch</p>
                       <p className="font-semibold text-gray-800">{timing.lunch}</p>
                     </div>
-                    <span className="text-3xl">🍛</span>
+
                   </div>
                   <div className="flex justify-between bg-orange-50 p-4 rounded-lg">
                     <div>
                       <p className="text-xs text-orange-600 font-bold uppercase">Dinner</p>
                       <p className="font-semibold text-gray-800">{timing.dinner}</p>
                     </div>
-                    <span className="text-3xl">🍜</span>
+
                   </div>
                 </div>
               </div>
@@ -145,9 +147,7 @@ export default function MessDetails() {
 
           {/* Payment Info */}
           <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
-            <h3 className="font-bold text-gray-800 text-sm mb-3 flex items-center gap-2">
-              <span>💳</span> Payment Info
-            </h3>
+            <h3 className="font-bold text-gray-800 text-sm mb-3">Payment Info</h3>
             <div className="space-y-3 text-xs">
               <div className="flex justify-between pb-2 border-b border-gray-100">
                 <span className="text-gray-400 font-medium">Monthly Fee</span>
@@ -166,9 +166,7 @@ export default function MessDetails() {
 
           {/* Guidelines */}
           <div className="bg-emerald-50 rounded-2xl border border-emerald-200 p-5">
-            <h3 className="font-bold text-emerald-800 text-sm mb-3 flex items-center gap-2">
-              <span>📍</span> Guidelines
-            </h3>
+            <h3 className="font-bold text-emerald-800 text-sm mb-3">Guidelines</h3>
             <ul className="space-y-2 text-xs text-emerald-700">
               <li className="flex gap-2">
                 <span>•</span>
@@ -191,16 +189,14 @@ export default function MessDetails() {
 
           {/* Special Notes */}
           <div className="bg-purple-50 rounded-2xl border border-purple-200 p-5">
-            <h3 className="font-bold text-purple-800 text-sm mb-3 flex items-center gap-2">
-              <span>📌</span> Special Days
-            </h3>
+            <h3 className="font-bold text-purple-800 text-sm mb-3">Special Days</h3>
             <ul className="space-y-2 text-xs text-purple-700">
               <li className="flex gap-2">
-                <span>📅</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-purple-400 mt-1.5 shrink-0 inline-block"></span>
                 <span><b>Sunday:</b> Special Festival Menu</span>
               </li>
               <li className="flex gap-2">
-                <span>🎂</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-purple-400 mt-1.5 shrink-0 inline-block"></span>
                 <span><b>Birthday:</b> Special request allowed</span>
               </li>
             </ul>
