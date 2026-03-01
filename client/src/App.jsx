@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import StudentDashboard from "./pages/student/Dashboard";
 import AdminDashboard from "./pages/admin/Dashboard";
@@ -15,6 +16,7 @@ import HostelDetails from "./pages/student/HostelDetails";
 import MessDetails from "./pages/student/MessDetails";
 import Emergency from "./pages/student/Emergency";
 import AssignHostel from "./pages/admin/AssignHostel";
+import ResetPassword from "./pages/ResetPassword";
 
 export default function App() {
   const [role, setRole] = useState(null);
@@ -26,49 +28,64 @@ export default function App() {
     setPage("dashboard");
   };
 
-  // Show landing page when not logged in
-  if (!role) {
-    return <LandingPage onLogin={setRole} />;
-  }
+  const DashboardContent = () => {
+    // ── STUDENT ──
+    if (role === "student") {
+      const renderStudentContent = () => {
+        switch (page) {
+          case "nightout": return <NightOut setPage={setPage} />;
+          case "hostel": return <HostelDetails />;
+          case "mess": return <MessDetails />;
+          case "maintenance": return <Maintenance />;
+          case "emergency": return <Emergency />;
+          case "id": return <IDCard />;
+          case "status": return <MyStatus />;
+          default: return <StudentDashboard setPage={setPage} />;
+        }
+      };
 
-  // ── STUDENT ──
-  if (role === "student") {
-    const renderStudentContent = () => {
-      switch (page) {
-        case "nightout": return <NightOut setPage={setPage} />;
-        case "hostel": return <HostelDetails />;
-        case "mess": return <MessDetails />;
-        case "maintenance": return <Maintenance />;
-        case "emergency": return <Emergency />;
-        case "id": return <IDCard />;
-        case "status": return <MyStatus />;
-        default: return <StudentDashboard setPage={setPage} />;
-      }
-    };
+      return (
+        <StudentLayout page={page} setPage={setPage} onLogout={handleLogout}>
+          {renderStudentContent()}
+        </StudentLayout>
+      );
+    }
 
-    return (
-      <StudentLayout page={page} setPage={setPage} onLogout={handleLogout}>
-        {renderStudentContent()}
-      </StudentLayout>
-    );
-  }
+    // ── ADMIN ──
+    if (role === "admin") {
+      const renderAdminContent = () => {
+        switch (page) {
+          case "nightout": return <NightOutApprovals />;
+          case "maintenance": return <MaintenanceRequests />;
+          case "verify": return <StudentVerification />;
+          case "assign": return <AssignHostel />;
+          default: return <AdminDashboard setPage={setPage} />;
+        }
+      };
 
-  // ── ADMIN ──
-  if (role === "admin") {
-    const renderAdminContent = () => {
-      switch (page) {
-        case "nightout": return <NightOutApprovals />;
-        case "maintenance": return <MaintenanceRequests />;
-        case "verify": return <StudentVerification />;
-        case "assign": return <AssignHostel />;
-        default: return <AdminDashboard setPage={setPage} />;
-      }
-    };
+      return (
+        <AdminLayout page={page} setPage={setPage} onLogout={handleLogout}>
+          {renderAdminContent()}
+        </AdminLayout>
+      );
+    }
 
-    return (
-      <AdminLayout page={page} setPage={setPage} onLogout={handleLogout}>
-        {renderAdminContent()}
-      </AdminLayout>
-    );
-  }
+    return <Navigate to="/" />;
+  };
+
+  return (
+    <Routes>
+      <Route path="/reset-password/:resetToken/:role" element={<ResetPassword />} />
+      <Route
+        path="/*"
+        element={
+          !role ? (
+            <LandingPage onLogin={setRole} />
+          ) : (
+            <DashboardContent />
+          )
+        }
+      />
+    </Routes>
+  );
 }

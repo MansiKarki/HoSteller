@@ -26,7 +26,6 @@ const statusStyles = {
 
 function Input({ label, ...props }) {
   return (
-<<<<<<< main
     <div>
       <label className="block text-sm font-semibold text-gray-700 mb-1.5">
         {label}
@@ -38,69 +37,6 @@ function Input({ label, ...props }) {
     </div>
   );
 }
-=======
-    <div className="min-h-screen bg-[#F3FAED] flex items-center justify-center px-6">
-      <div className="bg-white rounded-2xl shadow-xl p-8 max-w-lg w-full">
-
-        {/* Back Button */}
-        <button
-          onClick={goBack}
-          className="text-green-600 text-sm mb-4 hover:underline"
-        >
-          ← Back to Dashboard
-        </button>
-
-        <h2 className="text-2xl font-bold text-green-600 text-center">
-          Maintenance Request
-        </h2>
-
-        <p className="text-center text-gray-500 mt-1">
-          Report hostel room or facility issues
-        </p>
-
-        {!submitted ? (
-          <form onSubmit={handleSubmit} className="mt-6 space-y-4">
-
-            <Select
-              label="Issue Category"
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-            >
-              <option value="">Select a category</option>
-              <option value="Electrical">Electrical</option>
-              <option value="Plumbing">Plumbing</option>
-              <option value="Furniture">Furniture</option>
-              <option value="Cleaning">Cleaning</option>
-              <option value="Internet / WiFi">Internet / WiFi</option>
-              <option value="Other">Other</option>
-            </Select>
-
-            <Textarea
-              label="Issue Description"
-              placeholder="Describe the issue in detail..."
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              required
-            />
-
-            <button
-              type="submit"
-              className="w-full mt-4 py-3 rounded-xl bg-green-600 text-white font-medium hover:bg-green-700 transition"
-            >
-              Submit Request
-            </button>
-          </form>
-        ) : (
-          <div className="mt-8 text-center">
-            <p className="text-green-600 font-semibold text-lg">
-              Maintenance Request Submitted ✅
-            </p>
-            <p className="text-gray-500 mt-2">
-              Our team will look into it shortly
-            </p>
-          </div>
-        )}
->>>>>>> main
 
 function Textarea({ label, ...props }) {
   return (
@@ -124,12 +60,6 @@ function Select({ label, children, ...props }) {
         {label}
       </label>
       <select
-<<<<<<< main
-=======
-        className="w-full px-4 py-2 border border-gray-300 rounded-xl
-          focus:outline-none focus:ring-2 focus:ring-green-400"
-        required
->>>>>>> main
         {...props}
         className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent transition"
       >
@@ -163,12 +93,11 @@ export default function Maintenance() {
   }
 
   return (
-<<<<<<< main
     <div className="space-y-6">
 
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-gray-800">Maintenance Request 🔧</h1>
+        <h1 className="text-2xl font-bold text-gray-800">Maintenance Request</h1>
         <p className="text-gray-500 text-sm mt-0.5">Report hostel issues and request maintenance</p>
       </div>
 
@@ -215,9 +144,9 @@ export default function Maintenance() {
                 value={priority}
                 onChange={(e) => setPriority(e.target.value)}
               >
-                <option value="Low">🟢 Low - Not urgent</option>
-                <option value="Medium">🟡 Medium - Should be fixed soon</option>
-                <option value="High">🔴 High - Urgent</option>
+                <option value="Low">Low - Not urgent</option>
+                <option value="Medium">Medium - Should be fixed soon</option>
+                <option value="High">High - Urgent</option>
               </Select>
 
               <button
@@ -229,7 +158,9 @@ export default function Maintenance() {
             </form>
           ) : (
             <div className="py-10 flex flex-col items-center text-center">
-              <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center text-3xl mb-4">✅</div>
+              <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mb-4">
+                <svg className="w-8 h-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+              </div>
               <p className="text-green-600 font-bold text-xl">Request Submitted Successfully!</p>
               <p className="text-gray-400 text-sm mt-2">Our maintenance team will schedule a visit shortly</p>
               <button
@@ -253,9 +184,7 @@ export default function Maintenance() {
 
           {/* Tips */}
           <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
-            <h3 className="font-bold text-gray-800 text-sm mb-3 flex items-center gap-2">
-              <span>💡</span> Helpful Tips
-            </h3>
+            <h3 className="font-bold text-gray-800 text-sm mb-3">Helpful Tips</h3>
             <ul className="space-y-2.5 text-xs text-gray-600">
               <li className="flex gap-2">
                 <span>✓</span>
@@ -278,9 +207,7 @@ export default function Maintenance() {
 
           {/* Current Issues */}
           <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
-            <h3 className="font-bold text-gray-800 text-sm mb-3 flex items-center gap-2">
-              <span>🔍</span> Your Active Issues
-            </h3>
+            <h3 className="font-bold text-gray-800 text-sm mb-3">Your Active Issues</h3>
             <div className="space-y-2">
               {currentIssues.length === 0 ? (
                 <p className="text-xs text-gray-400 italic">No active maintenance requests</p>
@@ -302,9 +229,7 @@ export default function Maintenance() {
 
           {/* Support Info */}
           <div className="bg-green-50 rounded-2xl border border-green-200 p-5">
-            <h3 className="font-bold text-green-800 text-sm mb-3 flex items-center gap-2">
-              <span>📞</span> Need Help?
-            </h3>
+            <h3 className="font-bold text-green-800 text-sm mb-3">Need Help?</h3>
             <div className="space-y-2 text-xs">
               <div className="flex justify-between bg-white p-2 rounded">
                 <span className="text-gray-600">Urgent Issues</span>
@@ -321,18 +246,6 @@ export default function Maintenance() {
 
       </div>
 
-=======
-    <div>
-      <label className="block text-sm font-medium text-gray-600 mb-1">
-        {label}
-      </label>
-      <textarea
-        rows="4"
-        className="w-full px-4 py-2 border border-gray-300 rounded-xl
-          focus:outline-none focus:ring-2 focus:ring-green-400"
-        {...props}
-      />
->>>>>>> main
     </div>
   );
 }
