@@ -23,6 +23,8 @@ const adminSchema = new mongoose.Schema({
     type: String,
     default: "admin",
   },
+  resetPasswordToken: String,
+  resetPasswordExpire: Date,
 });
 
 export default mongoose.model("Admin", adminSchema);

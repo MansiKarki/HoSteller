@@ -54,14 +54,21 @@ const studentSchema = new mongoose.Schema(
       required: true,
     },
 
-    // ✅ New field added
+    role: {
+      type: String,
+      default: "student",
+    },
+
     isVerified: {
       type: Boolean,
       default: false,
     },
+
+    resetPasswordToken: String,
+    resetPasswordExpire: Date,
   },
   {
-    timestamps: true, // ✅ adds createdAt & updatedAt automatically
+    timestamps: true,
   }
 );
 
