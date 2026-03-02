@@ -49,3 +49,9 @@ connectDB()
       console.log(`Server running on port ${PORT} (without DB)`)
     );
   });
+
+const cors = require("cors");
+
+app.use(cors({
+  origin: "*"
+}));
