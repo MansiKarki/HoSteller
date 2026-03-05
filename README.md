@@ -1,99 +1,95 @@
-# 🏠 HoSteller - Frontend
+# 🏠 HoSteller - Full Stack Hostel Management System
 
-HoSteller is a modern, full-stack Hostel Management System designed to streamline the experience for both students and administrators. This repository contains the frontend application built with **React**, **Vite**, and **Tailwind CSS**.
-
----
-
-## ✨ Features
-
-### 👨‍🎓 For Students
-- **Dashboard**: Quick overview of status, mess menu, and announcements.
-- **ID Card**: Generate and download your digital hostel ID card.
-- **Maintenance**: Raise and track maintenance requests with real-time updates.
-- **Night-Out Requests**: Submit digital night-out permissions for approval.
-- **Mess Details**: View daily mess schedules and menu updates.
-- **Emergency**: Quick access to emergency contacts and panic alerts.
-- **Status Tracking**: Monitor hostel stay duration, attendance, and dues.
-
-### 🔑 For Admins
-- **Admin Dashboard**: Comprehensive analytics and student statistics.
-- **Student Verification**: Approve or reject new student registrations.
-- **Hostel Allocation**: Dynamic room and hostel assignment management.
-- **Maintenance Management**: Review and resolve student complaints.
-- **Night-Out Approvals**: Seamlessly manage and approve outing requests.
+**HoSteller** is a robust and modern solution for managing university or private hostels. It provides a seamless interface for students to manage their stay and for administrators to oversee operations effectively.
 
 ---
 
-## 🚀 Tech Stack
+## 🏗️ Project Architecture
 
-- **Framework**: [React 19](https://react.dev/)
-- **Build Tool**: [Vite](https://vitejs.dev/)
-- **Styling**: [Tailwind CSS 4.0](https://tailwindcss.com/)
-- **Animations**: [Framer Motion](https://www.framer.com/motion/)
-- **Icons**: [Lucide React](https://lucide.dev/)
-- **Routing**: [React Router 7](https://reactrouter.com/)
-- **API Client**: [Axios](https://axios-http.com/)
-- **Exports**: [jsPDF](https://github.com/parallax/jsPDF) & [html2canvas](https://html2canvas.hertzen.com/) (For ID Cards)
+This is a monorepo containing both the frontend and backend of the application:
+
+- **`/client`**: React + Vite frontend application.
+- **`/server`**: Node.js + Express backend with MongoDB.
 
 ---
 
-## 🛠️ Getting Started
+## 🌟 Key Features
 
-### Prerequisites
-- Node.js (v18 or higher)
-- npm or yarn
+### 👨‍🎓 Student Portal
+- **ID Card Generation**: Digital ID cards with download functionality.
+- **Maintenance Tracking**: Submit and monitor repair requests.
+- **Night-Out Management**: Request outing permissions digitally.
+- **Mess & Menu**: Stay updated with daily food schedules.
+- **Emergency Alerts**: One-tap panic button and contact access.
 
-### Installation
+### 🔑 Admin Portal
+- **Dashboard Analytics**: Overview of student data and requests.
+- **Registration Approval**: Verify and onboard new students.
+- **Hostel Assignment**: Manage room allocations dynamically.
+- **Request Oversight**: Approve night-outs and track maintenance progress.
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/your-username/HoSteller.git
-   cd HoSteller/client
+---
+
+## �️ Technology Stack
+
+| Layer | Technologies |
+| :--- | :--- |
+| **Frontend** | React 19, Vite, Tailwind CSS 4, Framer Motion |
+| **Backend** | Node.js, Express 5, JWT |
+| **Database** | MongoDB, Mongoose |
+| **Other** | Axios, Lucide Icons, Nodemailer |
+
+---
+
+## � Quick Start
+
+### 1. Clone the Project
+```bash
+git clone https://github.com/your-username/HoSteller.git
+cd HoSteller
+```
+
+### 2. Setup Server
+1. Navigate to server: `cd server`
+2. Install dependencies: `npm install`
+3. Configure `.env`:
+   ```env
+   PORT=5000
+   MONGO_URI=your_mongodb_connection_string
+   JWT_SECRET=your_jwt_secret
+   EMAIL_USER=your_email@gmail.com
+   EMAIL_PASS=your_email_app_password
    ```
+4. Start server: `npm run dev`
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Set up Environment Variables**
-   Create a `.env` file in the root of the `client` directory:
+### 3. Setup Client
+1. Open a new terminal and navigate to client: `cd client`
+2. Install dependencies: `npm install`
+3. Configure `.env`:
    ```env
    VITE_API_BASE_URL=http://localhost:5000/api
    ```
-
-4. **Run the development server**
-   ```bash
-   npm run dev
-   ```
+4. Start client: `npm run dev`
 
 ---
 
-## 📂 Project Structure
+## 🎨 Design Philosophy
+HoSteller is designed with a **"Student First"** approach, focusing on:
+- **Premium Aesthetics**: Clean UI with blue accents and smooth transitions.
+- **Accessibility**: Easy navigation for both students and staff.
+- **Performance**: Lightweight frontend powered by Vite for instant loading.
 
+---
+
+## 📂 Repository Structure
 ```text
-client/
-├── src/
-│   ├── components/     # Reusable UI components
-│   ├── pages/          # Main application pages (Admin/Student modules)
-│   ├── assets/         # Images and static files
-│   ├── api.js          # API configuration
-│   ├── App.jsx         # Root component & Routing
-│   └── index.css       # Global styles & Tailwind config
-├── public/             # Static assets
-└── vite.config.js      # Vite configuration
+HoSteller/
+├── client/           # React Frontend
+├── server/           # Express Backend
+└── package.json      # (Optional) Root scripts
 ```
 
 ---
 
-## 🎨 UI & UX
-HoSteller features a premium, responsive design with:
-- **Glassmorphism** effects for a modern feel.
-- **Dynamic Animations** using Framer Motion.
-- **Responsive Layouts** optimized for mobile and desktop.
-- **Blue-focused Theme** for a professional and trustworthy aesthetic.
-
----
-
 ## 📄 License
-Distributed under the MIT License. See `LICENSE` for more information.
+This project is licensed under the MIT License.
