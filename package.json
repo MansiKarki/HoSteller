@@ -1,0 +1,17 @@
+{
+    "name": "hosteller-monorepo",
+    "version": "1.0.0",
+    "description": "Full-stack Hostel Management System",
+    "private": true,
+    "scripts": {
+        "client-install": "npm install --prefix client",
+        "server-install": "npm install --prefix server",
+        "client-build": "npm run build --prefix client",
+        "server-start": "npm start --prefix server",
+        "dev": "concurrently \"npm run dev --prefix client\" \"npm run dev --prefix server\"",
+        "install-all": "npm install --prefix client && npm install --prefix server"
+    },
+    "devDependencies": {
+        "concurrently": "^8.2.2"
+    }
+}

@@ -30,7 +30,7 @@ This is a monorepo containing both the frontend and backend of the application:
 
 ---
 
-## �️ Technology Stack
+## 🛠️ Technology Stack
 
 | Layer | Technologies |
 | :--- | :--- |
@@ -41,35 +41,31 @@ This is a monorepo containing both the frontend and backend of the application:
 
 ---
 
-## � Quick Start
+## 🚀 Deployment
 
-### 1. Clone the Project
-```bash
-git clone https://github.com/your-username/HoSteller.git
-cd HoSteller
-```
+### 🌐 Backend (Render)
+1. **Create a new Web Service** on Render.
+2. **Connect your GitHub repository**.
+3. **Settings**:
+   - **Environment**: `Node`
+   - **Root Directory**: `server`
+   - **Build Command**: `npm install`
+   - **Start Command**: `npm start`
+4. **Environment Variables**:
+   - `MONGO_URI`: Your MongoDB connection string.
+   - `JWT_SECRET`: A secure random string for tokens.
+   - `CLIENT_URL`: Your Vercel frontend URL (e.g., `https://hosteller.vercel.app`).
+   - `EMAIL_USER` & `EMAIL_PASS`: Gmail credentials for notifications.
 
-### 2. Setup Server
-1. Navigate to server: `cd server`
-2. Install dependencies: `npm install`
-3. Configure `.env`:
-   ```env
-   PORT=5000
-   MONGO_URI=your_mongodb_connection_string
-   JWT_SECRET=your_jwt_secret
-   EMAIL_USER=your_email@gmail.com
-   EMAIL_PASS=your_email_app_password
-   ```
-4. Start server: `npm run dev`
-
-### 3. Setup Client
-1. Open a new terminal and navigate to client: `cd client`
-2. Install dependencies: `npm install`
-3. Configure `.env`:
-   ```env
-   VITE_API_BASE_URL=http://localhost:5000/api
-   ```
-4. Start client: `npm run dev`
+### 💻 Frontend (Vercel)
+1. **Create a new Project** on Vercel.
+2. **Connect your GitHub repository**.
+3. **Settings**:
+   - **Root Directory**: `client`
+   - **Framework Preset**: `Vite`
+4. **Environment Variables**:
+   - `VITE_API_URL`: Your Render backend URL + `/api` (e.g., `https://hosteller-api.onrender.com/api`).
+5. **Deploy!**
 
 ---
 
@@ -84,9 +80,10 @@ HoSteller is designed with a **"Student First"** approach, focusing on:
 ## 📂 Repository Structure
 ```text
 HoSteller/
-├── client/           # React Frontend
-├── server/           # Express Backend
-└── package.json      # (Optional) Root scripts
+├── client/           # React Frontend (Vercel)
+├── server/           # Express Backend (Render)
+├── package.json      # Monorepo management
+└── README.md         # Documentation
 ```
 
 ---
